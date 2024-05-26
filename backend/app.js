@@ -22,24 +22,3 @@ app.use("/api/users", UserRouter);
 
 
 app.listen(4000, () => {console.log("Server started on port 4000")})
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//run()
-async function run(){
-    const user = new User({ username: "Goon", password: "password1234"})
-    await user.save()
-    user.save().then(() => console.log("saved!"))
-}
