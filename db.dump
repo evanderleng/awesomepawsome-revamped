@@ -1,0 +1,20 @@
+//usage: first, execute commented command in mongosh, then ctrl-a, copy paste execute in mongosh
+//use awesomepawsome
+
+db.products.insertMany([
+	{brand: 'Cesar', name: 'Top Sirloin Flavor', weight: '100g', price: 5, animal: 'dog', rating: 0, ratingCount: 0},
+	{brand: 'Cesar', name: 'Chicken Flavor', weight: '100g', price: 5, animal: 'dog', rating: 0, ratingCount: 0},
+	{brand: 'Cesar', name: 'Beef Stroganoff Flavor', weight: '100g', price: 5, animal: 'dog', rating: 0, ratingCount: 0},
+	{brand: 'Cesar', name: 'Meat Lasagna Flavor', weight: '100g', price: 5, animal: 'dog', rating: 0, ratingCount: 0},
+	{brand: 'Friskies', name: 'Farm Favourites Dry Cat Food', weight: '7.26kg', price: 55, animal: 'cat', rating: 0, ratingCount: 0},
+	{brand: 'Friskies', name: 'Farm Favourites Dry Cat Food', weight: '1.42kg', price: 19, animal: 'cat', rating: 0, ratingCount: 0},
+	{brand: 'Friskies', name: 'Indoor Delights Dry Cat Food', weight: '7.26kg', price: 55, animal: 'cat', rating: 0, ratingCount: 0},
+	{brand: 'Friskies', name: 'Indoor Delights Dry Cat Food', weight: '1.42kg', price: 19, animal: 'cat', rating: 0, ratingCount: 0},
+	{brand: 'Friskies', name: 'Seafood Sensations Dry Cat Food', weight: '7.26kg', price: 55, animal: 'cat', rating: 0, ratingCount: 0},
+	{brand: 'Friskies', name: 'Seafood Sensations Dry Cat Food', weight: '1.42kg', price: 19, animal: 'cat', rating: 0, ratingCount: 0},
+])
+db.users.insertMany([
+	{name: 'holly',	password: 'password123'},
+	{name: 'joe', password: 'qwerty123'},
+	{name: 'user', password: 'pass'}
+])
