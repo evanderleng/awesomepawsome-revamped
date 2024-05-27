@@ -14,7 +14,7 @@ db.products.insertMany([
 	{brand: 'Friskies', name: 'Seafood Sensations Dry Cat Food', weight: '1.42kg', price: 19, animal: 'cat', rating: 0, ratingCount: 0},
 ])
 db.users.insertMany([
-	{username: 'holly', password: 'password123'},
-	{username: 'joe', password: 'qwerty123'},
-	{username: 'user', password: 'pass'}
-]
+	{username: 'pass_is_pass', password: '$2a$10$BllA6lHlcn.W1VRBSygCRODlG5sX9wB06uefjwjyFrhLCqypOCivS'},
+	{username: 'user', password: '$2a$10$/JkoLcHSNNYYrErPwajNG.LGJJK.gIjBLDTcHlacqKo6aIRPIlChC'},
+	{username: 'john', password: '$2a$10$5l.tOepBBCkuGhs9u25ZVOWYOwoT895dCw3Z6Xw7ybJ4bFIEvqpeO'}
+])
