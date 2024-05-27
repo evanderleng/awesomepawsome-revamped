@@ -16,3 +16,8 @@ edit .env located in ./backend and change the mongodb URI to your mongodb instan
 `npm start`
 
 if setup is done correctly, "connection to backend successful" should be displayed
+
+## Database Population
+
+Read instructions in db.dump to populate your mongodb database
+
