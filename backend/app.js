@@ -1,5 +1,6 @@
 const express = require('express')
 const dotenv = require('dotenv')
+const mongoSanitize = require('express-mongo-sanitize')
 const connDB = require('./db')
 
 const User = require("./models/User")
@@ -13,6 +14,7 @@ dotenv.config()
 connDB()
 const app = express()
 app.use(express.json())
+app.use(mongoSanitize())
 
 //testing frontend backend connection works, delete before submission
 app.get("/api/test", (req,res) => {

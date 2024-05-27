@@ -1,4 +1,4 @@
-//usage: first, execute commented command in mongosh, then ctrl-a, copy paste execute in mongosh
+//usage: first, execute line 2 in mongosh, then ctrl-a, copy paste execute in mongosh
 //use awesomepawsome
 
 db.products.insertMany([
@@ -14,7 +14,7 @@ db.products.insertMany([
 	{brand: 'Friskies', name: 'Seafood Sensations Dry Cat Food', weight: '1.42kg', price: 19, animal: 'cat', rating: 0, ratingCount: 0},
 ])
 db.users.insertMany([
-	{name: 'holly',	password: 'password123'},
-	{name: 'joe', password: 'qwerty123'},
-	{name: 'user', password: 'pass'}
-])
+	{username: 'holly', password: 'password123'},
+	{username: 'joe', password: 'qwerty123'},
+	{username: 'user', password: 'pass'}
+]

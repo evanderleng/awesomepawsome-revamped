@@ -4,8 +4,8 @@ const Product = require("../models/Product")
 
 const getProduct = async (req, res)=>{
     try{
-        const {username, password} = req.body;
-        let product = await Product.find();
+        //const {x, x} = req.body;
+        let product = await Product.find(req.body);
 
         if (product) {
             return res.json(product)
