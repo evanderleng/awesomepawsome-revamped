@@ -14,7 +14,12 @@ db.products.insertMany([
 	{brand: 'Friskies', name: 'Seafood Sensations Dry Cat Food', weight: '1.42kg', price: 19, animal: 'cat', rating: 0, ratingCount: 0},
 ])
 db.users.insertMany([
-	{username: 'pass_is_pass', password: '$2a$10$BllA6lHlcn.W1VRBSygCRODlG5sX9wB06uefjwjyFrhLCqypOCivS'},
+	{username: 'pass', password: '$2a$10$BllA6lHlcn.W1VRBSygCRODlG5sX9wB06uefjwjyFrhLCqypOCivS'},
 	{username: 'user', password: '$2a$10$/JkoLcHSNNYYrErPwajNG.LGJJK.gIjBLDTcHlacqKo6aIRPIlChC'},
-	{username: 'john', password: '$2a$10$5l.tOepBBCkuGhs9u25ZVOWYOwoT895dCw3Z6Xw7ybJ4bFIEvqpeO'}
+	{"username": "john", "password": "$2a$10$QH5EbE2TO6m6EA58ZU7PxOWedUE1QuMST2Sq.t5QqiMSnL6s2IOMq"},
+	{"username": "jack", "password": "$2a$10$SQN0nUs7U7qfivLrsV5Jr.O06jg5cK8RNioW2a7XP8hNzesl1x2ku"},
+	{"username": "jim", "password": "$2a$10$alJWfuWLvD3xOXtACJ5e2OI8cVtpDjrwAmM75nolIIMgof1tiSR.a"},
+	{"username": "tom", "password": "$2a$10$xoNuCwcSsao9ll9o2Q/i0.rNGAgv9kZqRzOY7dvLrwLpdQoIaUh5e"},
+	{"username": "adam", "password": "$2a$10$WLMIJmWJkAR6OK/Hnvr5zOV8Qg3fbq4tQsJofPvpso.snmKITWfA2"},
+	{"username": "bill", "password": "$2a$10$ZGswo8kzTfXNjTHZfzh5quMuj4oW3ZAz4m.ia1kOyXN9p6uOPXnuW"}
 ])

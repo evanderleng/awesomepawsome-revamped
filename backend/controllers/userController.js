@@ -1,6 +1,7 @@
 
 const User = require("../models/User")
 const bcrypt = require('bcryptjs')
+const jwt = require('jsonwebtoken')
 
 const addUser = async (req, res)=>{
     try{
@@ -31,7 +32,8 @@ const login = async (req, res)=>{ //wip to send jwt token?
 
         if (user) {
             if (bcrypt.compareSync(password, user.password)){
-                return res.status(200).json({message: "Login successful. You have logged in as " +user})
+                const token = jwt.sign({_id: user._id}, process.env.TOKEN_SECRET, {algorithm: 'HS512', expiresIn: '3600s'}) //maybe move to auth util
+                return res.status(200).json({token, message: "Login successful. You have logged in as " +user})
             }
         } 
         return res.status(401).json({message: "Wrong username or password"})
