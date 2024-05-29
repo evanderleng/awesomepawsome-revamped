@@ -4,6 +4,9 @@ const Product = require("../models/Product")
 
 const getProduct = async (req, res)=>{
     try{
+
+        console.log("user: "+req.user)
+
         //const {x, x} = req.body;
         let product = await Product.find(req.body);
 
