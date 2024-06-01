@@ -1,0 +1,88 @@
+[{
+  "_id": {
+    "$oid": "665b60e31271676dae7eb11b"
+  },
+  "username": "pass",
+  "password": "$2a$10$BllA6lHlcn.W1VRBSygCRODlG5sX9wB06uefjwjyFrhLCqypOCivS",
+  "createdAt": {
+    "$date": "2024-05-25T08:13:50.997Z"
+  },
+  "updatedAt": null
+},
+{
+  "_id": {
+    "$oid": "665b60e31271676dae7eb11c"
+  },
+  "username": "user",
+  "password": "$2a$10$/JkoLcHSNNYYrErPwajNG.LGJJK.gIjBLDTcHlacqKo6aIRPIlChC",
+  "createdAt": {
+    "$date": "2024-05-25T08:13:50.997Z"
+  },
+  "updatedAt": null
+},
+{
+  "_id": {
+    "$oid": "665b60e31271676dae7eb11d"
+  },
+  "username": "john",
+  "password": "$2a$10$QH5EbE2TO6m6EA58ZU7PxOWedUE1QuMST2Sq.t5QqiMSnL6s2IOMq",
+  "createdAt": {
+    "$date": "2024-05-25T08:13:50.997Z"
+  },
+  "updatedAt": null
+},
+{
+  "_id": {
+    "$oid": "665b60e31271676dae7eb11e"
+  },
+  "username": "jack",
+  "password": "$2a$10$SQN0nUs7U7qfivLrsV5Jr.O06jg5cK8RNioW2a7XP8hNzesl1x2ku",
+  "createdAt": {
+    "$date": "2024-05-25T08:13:50.997Z"
+  },
+  "updatedAt": null
+},
+{
+  "_id": {
+    "$oid": "665b60e31271676dae7eb11f"
+  },
+  "username": "jim",
+  "password": "$2a$10$alJWfuWLvD3xOXtACJ5e2OI8cVtpDjrwAmM75nolIIMgof1tiSR.a",
+  "createdAt": {
+    "$date": "2024-05-25T08:13:50.997Z"
+  },
+  "updatedAt": null
+},
+{
+  "_id": {
+    "$oid": "665b60e31271676dae7eb120"
+  },
+  "username": "tom",
+  "password": "$2a$10$xoNuCwcSsao9ll9o2Q/i0.rNGAgv9kZqRzOY7dvLrwLpdQoIaUh5e",
+  "createdAt": {
+    "$date": "2024-05-25T08:13:50.997Z"
+  },
+  "updatedAt": null
+},
+{
+  "_id": {
+    "$oid": "665b60e31271676dae7eb121"
+  },
+  "username": "adam",
+  "password": "$2a$10$WLMIJmWJkAR6OK/Hnvr5zOV8Qg3fbq4tQsJofPvpso.snmKITWfA2",
+  "createdAt": {
+    "$date": "2024-05-25T08:13:50.997Z"
+  },
+  "updatedAt": null
+},
+{
+  "_id": {
+    "$oid": "665b60e31271676dae7eb122"
+  },
+  "username": "bill",
+  "password": "$2a$10$ZGswo8kzTfXNjTHZfzh5quMuj4oW3ZAz4m.ia1kOyXN9p6uOPXnuW",
+  "createdAt": {
+    "$date": "2024-05-25T08:13:50.997Z"
+  },
+  "updatedAt": null
+}]

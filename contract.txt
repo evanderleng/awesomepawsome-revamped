@@ -1,0 +1,32 @@
+
+
+/api/user/login
+POST body required: username, password
+returns: message, jwt token httpOnly cookie 
+returns 200 OR 401
+
+/api/user/addUser
+POST body required: username, password
+returns: message
+returns 400, 201, 500
+
+/api/product
+POST body optional: brand, animal etc (filter) (no fields to view all)
+returns: product array json 
+returns 200, 500
+
+
+
+-------------ALL below requires auth ( jwt token in header "Authorization: Bearer <token>"   )  (token is given via httponly cookie after login)------------------
+
+
+/api/user/editProfile //todo
+header: "Authorization: Bearer {token}" 
+PATCH body optional: password, 
+returns: message
+
+
+/api/order/confirm
+header: "Authorization: Bearer {token}" 
+POST body required: "order_list": [{"product_id": "665b60e31271676dae7eb112", "quantity": "50"}]       ie an array of {product type and qty}
+returns: message
