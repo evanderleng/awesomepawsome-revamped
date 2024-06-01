@@ -19,7 +19,9 @@ if setup is done correctly, "connection to backend successful" should be display
 
 ## Database Population
 
-Read instructions in db.dump to populate your mongodb database
+1. Create database 'awesomepawsome' in MongoDBCompass/mongosh
+2. create collections 'users', 'products', 'orders'
+3. in each collection, click "add data"->"import JSON", then import the respective JSON files from ./db
 
 
 ## Frontend: How to add navigation paths
