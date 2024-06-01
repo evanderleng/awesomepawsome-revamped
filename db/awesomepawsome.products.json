@@ -1,0 +1,120 @@
+[{
+  "_id": {
+    "$oid": "665b60e31271676dae7eb111"
+  },
+  "brand": "Cesar",
+  "name": "Top Sirloin Flavor",
+  "weight": "100g",
+  "price": 5,
+  "animal": "dog",
+  "rating": 0,
+  "ratingCount": 0
+},
+{
+  "_id": {
+    "$oid": "665b60e31271676dae7eb112"
+  },
+  "brand": "Cesar",
+  "name": "Chicken Flavor",
+  "weight": "100g",
+  "price": 5,
+  "animal": "dog",
+  "rating": 0,
+  "ratingCount": 0
+},
+{
+  "_id": {
+    "$oid": "665b60e31271676dae7eb113"
+  },
+  "brand": "Cesar",
+  "name": "Beef Stroganoff Flavor",
+  "weight": "100g",
+  "price": 5,
+  "animal": "dog",
+  "rating": 0,
+  "ratingCount": 0
+},
+{
+  "_id": {
+    "$oid": "665b60e31271676dae7eb114"
+  },
+  "brand": "Cesar",
+  "name": "Meat Lasagna Flavor",
+  "weight": "100g",
+  "price": 5,
+  "animal": "dog",
+  "rating": 0,
+  "ratingCount": 0
+},
+{
+  "_id": {
+    "$oid": "665b60e31271676dae7eb115"
+  },
+  "brand": "Friskies",
+  "name": "Farm Favourites Dry Cat Food",
+  "weight": "7.26kg",
+  "price": 55,
+  "animal": "cat",
+  "rating": 0,
+  "ratingCount": 0
+},
+{
+  "_id": {
+    "$oid": "665b60e31271676dae7eb116"
+  },
+  "brand": "Friskies",
+  "name": "Farm Favourites Dry Cat Food",
+  "weight": "1.42kg",
+  "price": 19,
+  "animal": "cat",
+  "rating": 0,
+  "ratingCount": 0
+},
+{
+  "_id": {
+    "$oid": "665b60e31271676dae7eb117"
+  },
+  "brand": "Friskies",
+  "name": "Indoor Delights Dry Cat Food",
+  "weight": "7.26kg",
+  "price": 55,
+  "animal": "cat",
+  "rating": 0,
+  "ratingCount": 0
+},
+{
+  "_id": {
+    "$oid": "665b60e31271676dae7eb118"
+  },
+  "brand": "Friskies",
+  "name": "Indoor Delights Dry Cat Food",
+  "weight": "1.42kg",
+  "price": 19,
+  "animal": "cat",
+  "rating": 0,
+  "ratingCount": 0
+},
+{
+  "_id": {
+    "$oid": "665b60e31271676dae7eb119"
+  },
+  "brand": "Friskies",
+  "name": "Seafood Sensations Dry Cat Food",
+  "weight": "7.26kg",
+  "price": 55,
+  "animal": "cat",
+  "rating": 0,
+  "ratingCount": 0
+},
+{
+  "_id": {
+    "$oid": "665b60e31271676dae7eb11a"
+  },
+  "brand": "Friskies",
+  "name": "Seafood Sensations Dry Cat Food",
+  "weight": "1.42kg",
+  "price": 19,
+  "animal": "cat",
+  "rating": 0,
+  "ratingCount": 0
+}]

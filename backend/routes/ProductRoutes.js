@@ -3,13 +3,13 @@ const router = express.Router();
 
 const productController = require("../controllers/productController.js");
 
-const auth = require('../middleware/authMiddleware.js')
+const authMiddleware = require('../middleware/authMiddleware.js')
 
 
 
 
-//router.route("/").post(auth.authenticate, auth.authenticate, auth.authenticate, productController.getProduct);
-router.post("/getProduct",auth.authenticate, productController.getProduct);
+//router.route("/").post(authMiddleware.auth, auth.authenticate, auth.authenticate, productController.getProduct);
+//router.post("/getProduct",authMiddleware.auth, productController.getProduct);
 
 
 module.exports = router;
