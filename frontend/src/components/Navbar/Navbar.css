@@ -1,0 +1,66 @@
+.navbar{
+    padding: 20px 0px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+}
+
+.navbar .logo{
+    width: 150px;
+}
+
+.navbar .navbar-menu{
+    display:flex;
+    list-style: none;
+    gap: 20px;
+    color: rgb(115, 83, 83);
+    font-size: 18px;
+}
+
+.navbar .navbar-right{
+    display:flex;
+    align-items: center;
+    gap: 40px;
+}
+
+.navbar button{
+    background: transparent;
+    font-size: 16px;
+    border: 1px solid tomato;
+    padding: 10px 30px;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: 0.4s; /*how long the color will popout*/
+}
+
+/* to make it have hover effect with the respective color */
+.navbar button:hover{
+    background-color: red;
+}
+
+/*this will be, if the class .active is being activated by the menu state, this will appear */
+.navbar .active{
+    border-bottom: 2px solid black;
+    padding-bottom: 2px;
+    font-weight: bold;
+}
+
+/*for the navbar lists to have hovering effect and pointers*/
+.navbar li{
+    cursor: pointer;
+}
+.navbar li:hover{
+    background-color: aliceblue;
+}
+
+
+.navbar-search-icon .dot{
+    position: absolute;
+    min-width: 10px;
+    min-height: 10px;
+    background-color: tomato;
+    border-radius: 5px;
+    top: 21px;
+}
+
