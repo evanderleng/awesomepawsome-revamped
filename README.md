@@ -21,3 +21,8 @@ if setup is done correctly, "connection to backend successful" should be display
 
 Read instructions in db.dump to populate your mongodb database
 
+
+## Frontend: How to add navigation paths
+1. Go to App.jsx and add the path first, importantly ensure that you import the page
+2. then go to Navbar.jsx or any other component that requires routing and add the <Link/> (remember to import also)
+
