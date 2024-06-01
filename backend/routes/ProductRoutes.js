@@ -8,7 +8,7 @@ const authMiddleware = require('../middleware/authMiddleware.js')
 
 
 
-//router.route("/").post(authMiddleware.auth, auth.authenticate, auth.authenticate, productController.getProduct);
+router.route("/").get(productController.getProduct);
 //router.post("/getProduct",authMiddleware.auth, productController.getProduct);
 
 
