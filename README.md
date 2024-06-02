@@ -7,12 +7,14 @@ edit .env located in ./backend and change the mongodb URI to your mongodb instan
 
 `cd backend`
 
+`npm install`
 `npm run dev`
 
 ## Frontend Setup (Port 3000)
 
 `cd frontend`
 
+`npm install`
 `npm start`
 
 if setup is done correctly, "connection to backend successful" should be displayed
