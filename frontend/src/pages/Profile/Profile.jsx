@@ -1,10 +1,9 @@
 import React, { useState } from 'react'
-import './Profile.css'
 import Header from '../../components/Header/Header'
-import Sidebar from '../../components/Sidebar/Sidebar'
-import Subscriptions from './Subscriptions'
-import PetDetails from './PetDetails'
-import PersonalDetails from './PersonalDetails';
+import Sidebar from '../../components/SideBar/Sidebar'
+import Subscriptions from '../../components/Subscriptions/Subscriptions'
+import PetDetails from '../../components/PetDetails/PetDetails'
+import PersonalDetails from '../../components/PersonalDetails/Personaldetails'
 
 
 const Profile = () => {
