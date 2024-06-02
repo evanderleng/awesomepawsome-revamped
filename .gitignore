@@ -1,4 +1,4 @@
 #ignore all .log files
 *.log
 
-./frontend/node_modules/.cache/*
+node_modules/
