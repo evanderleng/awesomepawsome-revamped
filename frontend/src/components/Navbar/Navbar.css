@@ -3,11 +3,11 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-
 }
 
 .navbar .logo{
-    width: 150px;
+    width: 250px;
+    border-radius: 20px;
 }
 
 .navbar .navbar-menu{
