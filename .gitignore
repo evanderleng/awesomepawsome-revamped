@@ -2,3 +2,5 @@
 *.log
 
 ./frontend/node_modules/.cache/*
+frontend/node_modules/.vite/deps/_metadata.json
+frontend/node_modules/.vite/deps/package.json

@@ -1,0 +1,46 @@
+.homepage-steps-row{
+    display: grid;
+
+}
+
+.homepage-steps{
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    border-radius: 3px;
+    border: 1px solid rgb(229, 194, 194);
+    box-shadow: 0px 0px 2px rgb(203, 192, 192);
+    padding: 10px;
+    margin-top: 10px;
+    color: #373737;
+    text-align: center;
+}
+
+.homepage-steps .step-number{
+    width: 100%;
+    display: inline-block;
+    font-size: 35px;
+    line-height: 44px;
+    color: #bc4b51;
+    font-family: Caveat Brush, cursive;
+}
+
+
+.homepage-steps .step-title{
+    width: 100%;
+    display: inline-block;
+    color: #373737;
+    font-family: Caveat Brush,cursive;
+    font-size: 25px;
+    margin-top: 10px;
+    line-height: 36px;
+}
+
+.homepage-steps .step-description{
+    font-size: 17px;
+    color: #1d212d;
+    width: 100%;
+    display: inline-block;
+    margin-top: 10px;
+}
+
