@@ -2,9 +2,9 @@ import React, { useState } from 'react'
 import Header from '../../components/Header/Header'
 import Sidebar from '../../components/SideBar/Sidebar'
 import Subscriptions from '../../components/Subscriptions/Subscriptions'
-import PetDetails from '../../components/PetDetails/PetDetails'
 import PersonalDetails from '../../components/PersonalDetails/Personaldetails'
-
+import PetDetails from '../../components/PetDetails/PetDetails'
+import './Profile.css'
 
 const Profile = () => {
 
@@ -25,16 +25,18 @@ const Profile = () => {
     };
 
     return (
-      <div className="profile">
-        <Header/>
-        <Sidebar onSelectTab={setSelectedTab} />
-        <div className="content">
-          {renderContent()}
+      <div>
+        <Header />
+        <div className="profile">
+          <Sidebar onSelectTab={setSelectedTab} />
+          <div className="content">
+            {renderContent()}
+          </div>
         </div>
       </div>
     );
-    };
-
+  };
+  
  
 
 export default Profile
