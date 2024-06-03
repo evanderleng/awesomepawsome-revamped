@@ -7,6 +7,7 @@ import Footer from './components/Footer/Footer'
 import LoginPopup from './components/LoginPopup/LoginPopup'
 import ProductPage from './pages/ProductPage/ProductPage'
 import Profile from './pages/Profile/Profile'
+import Payment from './pages/Payment/Payment'
 
 
 const App = () => {
@@ -32,6 +33,8 @@ const App = () => {
         <Route path='/cart' element={<Cart/>} />
         <Route path='/productPage' element={<ProductPage/>} />
         <Route path='/profile' element={<Profile/>} />
+        <Route path='/payment' element={<Payment/>} />
+
 
       </Routes>
     </div>
