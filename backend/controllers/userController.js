@@ -17,7 +17,7 @@ const addUser = async (req, res)=>{
         var hash = bcrypt.hashSync(password, salt)
 
         user = await User.create({
-            username, password: hash
+            username, password: hash, admin: false
         })
         return res.status(201).json({message: "Successfully added!"})
     } catch (err) {

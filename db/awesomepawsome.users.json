@@ -1,9 +1,41 @@
-[{
+[
+{
+  "_id": {
+    "$oid": "6662797bec5a08928e655af5"
+  },
+  "username": "admin",
+  "password": "$2a$10$vwMscxI6najaR0SXh6kpVOwk1wB2hg5zod4LwavBYs8t5.djNVkAe",
+  "admin": true,
+  "createdAt": {
+    "$date": "2024-06-07T03:07:39.202Z"
+  },
+  "updatedAt": {
+    "$date": "2024-06-07T03:07:39.202Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "66627a4fec5a08928e655af8"
+  },
+  "username": "admin2",
+  "password": "$2a$10$9x/.PuMPg8T2sC6SQJdCtu8RK3pQR5BzuUkY9hm3KbEbngzIl2btO",
+  "admin": true,
+  "createdAt": {
+    "$date": "2024-06-07T03:11:11.553Z"
+  },
+  "updatedAt": {
+    "$date": "2024-06-07T03:11:11.553Z"
+  },
+  "__v": 0
+},
+{
   "_id": {
     "$oid": "665b60e31271676dae7eb11b"
   },
   "username": "pass",
   "password": "$2a$10$BllA6lHlcn.W1VRBSygCRODlG5sX9wB06uefjwjyFrhLCqypOCivS",
+  "admin": false,
   "createdAt": {
     "$date": "2024-05-25T08:13:50.997Z"
   },
@@ -15,6 +47,7 @@
   },
   "username": "user",
   "password": "$2a$10$/JkoLcHSNNYYrErPwajNG.LGJJK.gIjBLDTcHlacqKo6aIRPIlChC",
+  "admin": false,
   "createdAt": {
     "$date": "2024-05-25T08:13:50.997Z"
   },
@@ -26,6 +59,7 @@
   },
   "username": "john",
   "password": "$2a$10$QH5EbE2TO6m6EA58ZU7PxOWedUE1QuMST2Sq.t5QqiMSnL6s2IOMq",
+  "admin": false,
   "createdAt": {
     "$date": "2024-05-25T08:13:50.997Z"
   },
@@ -37,6 +71,7 @@
   },
   "username": "jack",
   "password": "$2a$10$SQN0nUs7U7qfivLrsV5Jr.O06jg5cK8RNioW2a7XP8hNzesl1x2ku",
+  "admin": false,
   "createdAt": {
     "$date": "2024-05-25T08:13:50.997Z"
   },
@@ -48,6 +83,7 @@
   },
   "username": "jim",
   "password": "$2a$10$alJWfuWLvD3xOXtACJ5e2OI8cVtpDjrwAmM75nolIIMgof1tiSR.a",
+  "admin": false,
   "createdAt": {
     "$date": "2024-05-25T08:13:50.997Z"
   },
@@ -59,6 +95,7 @@
   },
   "username": "tom",
   "password": "$2a$10$xoNuCwcSsao9ll9o2Q/i0.rNGAgv9kZqRzOY7dvLrwLpdQoIaUh5e",
+  "admin": false,
   "createdAt": {
     "$date": "2024-05-25T08:13:50.997Z"
   },
@@ -70,6 +107,7 @@
   },
   "username": "adam",
   "password": "$2a$10$WLMIJmWJkAR6OK/Hnvr5zOV8Qg3fbq4tQsJofPvpso.snmKITWfA2",
+  "admin": false,
   "createdAt": {
     "$date": "2024-05-25T08:13:50.997Z"
   },
@@ -81,6 +119,7 @@
   },
   "username": "bill",
   "password": "$2a$10$ZGswo8kzTfXNjTHZfzh5quMuj4oW3ZAz4m.ia1kOyXN9p6uOPXnuW",
+  "admin": false,
   "createdAt": {
     "$date": "2024-05-25T08:13:50.997Z"
   },
