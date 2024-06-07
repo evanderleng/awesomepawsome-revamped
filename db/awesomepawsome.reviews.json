@@ -1,0 +1,26 @@
+[{
+  "_id": {
+    "$oid": "66627bea963f2b846c03bc52"
+  },
+  "product_id": {
+    "$oid": "665b60e31271676dae7eb111"
+  },
+  "user_id": {
+    "$oid": "665b60e31271676dae7eb11c"
+  },
+  "rating": 4,
+  "comment": "Cesars top sirloin 100g dog food saved my life!"
+},
+{
+  "_id": {
+    "$oid": "66627d03963f2b846c03bc64"
+  },
+  "product_id": {
+    "$oid": "665b60e31271676dae7eb111"
+  },
+  "user_id": {
+    "$oid": "665b60e31271676dae7eb11d"
+  },
+  "rating": 1,
+  "comment": "i HATE Cesers top sirloin 100 dog food"
+}]
