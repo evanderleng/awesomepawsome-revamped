@@ -1,0 +1,14 @@
+[{
+  "_id": {
+    "$oid": "66632462a3a8bcbfdd039c00"
+  },
+  "user_id": {
+    "$oid": "665b60e31271676dae7eb11c"
+  },
+  "cart_list": {
+    "product_id": {
+      "$oid": "665b60e31271676dae7eb117"
+    },
+    "quantity": 2
+  }
+}]
