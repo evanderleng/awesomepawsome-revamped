@@ -1,15 +1,39 @@
 
 const Review = require("../models/Review")
-
+const mongoose = require('mongoose');
 
 
 const getReview = async (req, res)=>{
     try{
         const {product_id} = req.body;
 
-        let review = await Review.find({ product_id });
+        const review = await Review.aggregate([
+            { $match : 
+                {
+                    product_id: new mongoose.Types.ObjectId(product_id)
+                }
+            },
+            { $lookup: 
+                {
+                    from: "users",
+                    localField: "user_id",
+                    foreignField: "_id",
+                    as: "user"
+                }
+            },
+            { $project:
+                {
+                    "product_id": 1,
+                    "username": {"$first": "$user.username"},
+                    "rating": 1,
+                    "comment": 1,
+                    "createdAt": 1,
+                    "updatedAt": 1
+                }
+            }
+        ])
 
-        if (review) {
+        if (review.length) {
             return res.status(200).json(review)
         } else {
             return res.status(200).json({message: "No reviews yet..."})
