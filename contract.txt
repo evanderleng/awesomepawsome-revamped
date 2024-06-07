@@ -11,8 +11,13 @@ returns: message
 returns 400, 201, 500
 
 /api/product
-POST body optional: brand, animal etc (filter) (no fields to view all)
+GET body optional: brand, animal etc (filter) (no fields to view all)
 returns: product array json 
+returns 200, 500
+
+/api/review/getReview     (get all reviews for a specific product)
+GET body req: product_id
+returns: json(product_id, username, rating, comment(optional), createdAt, updatedAt)
 returns 200, 500
 
 

@@ -25,7 +25,7 @@ const addUser = async (req, res)=>{
     }
 }
 
-const login = async (req, res)=>{ //wip to send jwt token?
+const login = async (req, res)=>{
     try{
         const {username, password} = req.body;
 
@@ -55,13 +55,23 @@ const editProfile = async (req, res) => {
     try{
         console.log(req.user)
 
-        //let changes = await User.updateOne({ _id: req.user }, {$set: {req.body}})
+        let changes = await User.updateOne({ _id: req.user }, {$set: [req.body]})
 
-        let hh = await User.updateOne({ _id: req.user }, {$set: {username: req.body.newUsername}})
+        //let hh = await User.updateOne({ _id: req.user }, {$set: {username: req.body.newUsername}})
         return res.status(200).json({message: "Username change successful."})
     } catch (err) {
         return res.status(500).json({message: err.message});
     }
 }
 
-module.exports = {addUser, login, editProfile}
+const getProfile = async (req, res) => {
+    try{
+        let user = await User.findOne({ _id: req.user })
+        return res.status(200).json(user)
+    } catch (err) {
+        return res.status(500).json({message: err.message});
+    }
+}
+
+
+module.exports = {addUser, login, editProfile, getProfile}

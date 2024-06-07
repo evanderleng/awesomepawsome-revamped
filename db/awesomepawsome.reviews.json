@@ -9,18 +9,52 @@
     "$oid": "665b60e31271676dae7eb11c"
   },
   "rating": 4,
-  "comment": "Cesars top sirloin 100g dog food saved my life!"
+  "comment": "Cesars top sirloin 100g dog food saved my life!",
+  "createdAt": {
+    "$date": "2024-06-07T03:59:09.991Z"
+  },
+  "updatedAt": {
+    "$date": "2024-06-07T03:59:09.991Z"
+  },
+  "__v": 0
 },
 {
   "_id": {
     "$oid": "66627d03963f2b846c03bc64"
   },
-  "product_id": {
-    "$oid": "665b60e31271676dae7eb111"
-  },
   "user_id": {
     "$oid": "665b60e31271676dae7eb11d"
   },
+  "product_id": {
+    "$oid": "665b60e31271676dae7eb111"
+  },
   "rating": 1,
-  "comment": "i HATE Cesers top sirloin 100 dog food"
+  "comment": "i HATE Cesers top sirloin 100 dog food",
+  "createdAt": {
+    "$date": "2024-06-07T03:59:09.991Z"
+  },
+  "updatedAt": {
+    "$date": "2024-06-07T03:59:09.991Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6662858d53549fde75e3af36"
+  },
+  "user_id": {
+    "$oid": "665b60e31271676dae7eb11c"
+  },
+  "product_id": {
+    "$oid": "665b60e31271676dae7eb115"
+  },
+  "rating": 3,
+  "comment": "omg Sooooo tasty",
+  "createdAt": {
+    "$date": "2024-06-07T03:59:09.991Z"
+  },
+  "updatedAt": {
+    "$date": "2024-06-07T03:59:09.991Z"
+  },
+  "__v": 0
 }]
