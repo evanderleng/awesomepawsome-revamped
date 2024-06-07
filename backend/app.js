@@ -9,6 +9,7 @@ const Product = require("./models/Product")
 const UserRouter = require("./routes/UserRoutes.js")
 const ProductRouter = require("./routes/ProductRoutes.js")
 const OrderRouter = require("./routes/OrderRoutes.js")
+const ReviewRouter = require("./routes/ReviewRoutes.js")
 
 
 dotenv.config()
@@ -26,5 +27,6 @@ app.get("/api/test", (req,res) => {
 app.use("/api/user", UserRouter);
 app.use("/api/product", ProductRouter);
 app.use("/api/order", OrderRouter);
+app.use("/api/review", ReviewRouter);
 
 app.listen(4000, () => {console.log("Server started on port 4000")})
