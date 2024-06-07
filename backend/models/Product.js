@@ -7,7 +7,10 @@ const productSchema = new mongoose.Schema({
     weight: {type: String},
     price: {type: Number, required: true},
     animal: {type: String, required: true},
-    rating: {type: Number, default: 0},
+    //avg_rating: {type: BigInt, default: 0}, //to do on review controller aggregate command
+    /*avg_rating: [
+        {type: BigInt, rating: 0}
+    ],*/
     ratingCount: {type: Number, default: 0}
 },
 {timestamps: true}

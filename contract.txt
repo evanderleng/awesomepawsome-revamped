@@ -10,9 +10,9 @@ POST body required: username, password
 returns: message
 returns 400, 201, 500
 
-/api/product
-GET body optional: brand, animal etc (filter) (no fields to view all)
-returns: product array json 
+/api/product/getProduct
+GET body optional: brand, animal etc (filter) (to view all, have no input fields)
+returns: product array json (lmk if u need pagination)
 returns 200, 500
 
 /api/review/getReview     (get all reviews for a specific product)
@@ -35,3 +35,9 @@ returns: message
 header: "Authorization: Bearer {token}" 
 POST body required: "order_list": [{"product_id": "665b60e31271676dae7eb112", "quantity": "50"}]       ie an array of {product type and qty}
 returns: message
+
+/api/cart/hasCart    //boolean for cart icon (active vs empty cart icon)
+header: "Authorization: Bearer {token}" 
+GET
+returns: {cart: true} OR {cart: false}
+returns 200, 500
