@@ -6,18 +6,26 @@ const cookie = require('cookie');
 
 const addUser = async (req, res)=>{
     try{
-        const {username, password} = req.body;
-        let user = await User.findOne({ username });
-
-        if (user) {
-            return res.status(400).json({message: "Username is already taken."})
-        } 
+        const {username, password, email} = req.body;
+        let user = await User.findOne(
+            { $or: [
+                {username},
+                {email}
+            ]}
+        );
+        if (user){ //if already exists existing username or email
+            if (user.username == username) {
+                return res.status(400).json({message: "Username is already taken."})
+            } else if (user.email == email){
+                return res.status(400).json({message: "Email has already registered."})
+            }
+        }
         
         var salt = bcrypt.genSaltSync()
         var hash = bcrypt.hashSync(password, salt)
 
         user = await User.create({
-            username, password: hash, admin: false
+            username, password: hash, email, admin: false
         })
         return res.status(201).json({message: "Successfully added!"})
     } catch (err) {
@@ -25,7 +33,7 @@ const addUser = async (req, res)=>{
     }
 }
 
-const login = async (req, res)=>{
+const login = async (req, res)=>{ //to add check if already logged in
     try{
         const {username, password} = req.body;
 
