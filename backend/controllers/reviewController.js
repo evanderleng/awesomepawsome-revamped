@@ -5,12 +5,10 @@ const mongoose = require('mongoose');
 
 const getReview = async (req, res)=>{
     try{
-        const {product_id} = req.body;
-
         const review = await Review.aggregate([
             { $match : 
                 {
-                    product_id: new mongoose.Types.ObjectId(product_id)
+                    product_id: new mongoose.Types.ObjectId(req.body.product_id)
                 }
             },
             { $lookup: 

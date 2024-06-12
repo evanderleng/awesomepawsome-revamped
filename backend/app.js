@@ -3,9 +3,6 @@ const dotenv = require('dotenv')
 const mongoSanitize = require('express-mongo-sanitize')
 const connDB = require('./db')
 
-const User = require("./models/User")
-const Product = require("./models/Product")
-
 const UserRouter = require("./routes/UserRoutes.js")
 const ProductRouter = require("./routes/ProductRoutes.js")
 const OrderRouter = require("./routes/OrderRoutes.js")

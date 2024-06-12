@@ -6,18 +6,26 @@ const cookie = require('cookie');
 
 const addUser = async (req, res)=>{
     try{
-        const {username, password} = req.body;
-        let user = await User.findOne({ username });
-
-        if (user) {
-            return res.status(400).json({message: "Username is already taken."})
-        } 
+        const {username, password, email} = req.body;
+        let user = await User.findOne(
+            { $or: [
+                {username},
+                {email}
+            ]}
+        );
+        if (user){ //if already exists existing username or email
+            if (user.username == username) {
+                return res.status(400).json({message: "Username is already taken."})
+            } else if (user.email == email){
+                return res.status(400).json({message: "Email has already registered."})
+            }
+        }
         
         var salt = bcrypt.genSaltSync()
         var hash = bcrypt.hashSync(password, salt)
 
         user = await User.create({
-            username, password: hash, admin: false
+            username, password: hash, email, admin: false
         })
         return res.status(201).json({message: "Successfully added!"})
     } catch (err) {
@@ -25,7 +33,7 @@ const addUser = async (req, res)=>{
     }
 }
 
-const login = async (req, res)=>{
+const login = async (req, res)=>{ //to add check if already logged in
     try{
         const {username, password} = req.body;
 
@@ -33,7 +41,7 @@ const login = async (req, res)=>{
 
         if (user) {
             if (bcrypt.compareSync(password, user.password)){
-                const token = jwt.sign({_id: user._id}, process.env.TOKEN_SECRET, {algorithm: 'HS512', expiresIn: '3600s'}) //maybe move to auth util
+                const token = jwt.sign({_id: user._id}, process.env.TOKEN_SECRET, {algorithm: 'HS512', expiresIn: '36000s'}) //maybe move to auth util
 
                 res.setHeader('Set-Cookie', cookie.serialize('token', token, {
                     httpOnly: true,
@@ -51,14 +59,14 @@ const login = async (req, res)=>{
     }
 }
 
-const editProfile = async (req, res) => {
+const editProfile = async (req, res) => { //MUST FIX TO ADD SECURITY
     try{
         console.log(req.user)
 
         let changes = await User.updateOne({ _id: req.user }, {$set: [req.body]})
 
         //let hh = await User.updateOne({ _id: req.user }, {$set: {username: req.body.newUsername}})
-        return res.status(200).json({message: "Username change successful."})
+        return res.status(200).json({message: "Profile change successful."})
     } catch (err) {
         return res.status(500).json({message: err.message});
     }
