@@ -41,7 +41,7 @@ const login = async (req, res)=>{ //to add check if already logged in
 
         if (user) {
             if (bcrypt.compareSync(password, user.password)){
-                const token = jwt.sign({_id: user._id}, process.env.TOKEN_SECRET, {algorithm: 'HS512', expiresIn: '3600s'}) //maybe move to auth util
+                const token = jwt.sign({_id: user._id}, process.env.TOKEN_SECRET, {algorithm: 'HS512', expiresIn: '36000s'}) //maybe move to auth util
 
                 res.setHeader('Set-Cookie', cookie.serialize('token', token, {
                     httpOnly: true,
@@ -59,14 +59,14 @@ const login = async (req, res)=>{ //to add check if already logged in
     }
 }
 
-const editProfile = async (req, res) => {
+const editProfile = async (req, res) => { //MUST FIX TO ADD SECURITY
     try{
         console.log(req.user)
 
         let changes = await User.updateOne({ _id: req.user }, {$set: [req.body]})
 
         //let hh = await User.updateOne({ _id: req.user }, {$set: {username: req.body.newUsername}})
-        return res.status(200).json({message: "Username change successful."})
+        return res.status(200).json({message: "Profile change successful."})
     } catch (err) {
         return res.status(500).json({message: err.message});
     }

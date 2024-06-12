@@ -6,7 +6,7 @@ returns: message, jwt token httpOnly cookie
 returns 200 OR 401
 
 /api/user/addUser
-POST body required: username, password
+POST body required: username, password, email
 returns: message
 returns 400, 201, 500
 
@@ -17,7 +17,7 @@ returns 200, 500
 
 /api/review/getReview     (get all reviews for a specific product)
 GET body req: product_id
-returns: json(product_id, username, rating, comment(optional), createdAt, updatedAt)
+returns: [ json(product_id, username, rating, comment(optional), createdAt, updatedAt) ]
 returns 200, 500
 
 
@@ -41,3 +41,26 @@ header: "Authorization: Bearer {token}"
 GET
 returns: {cart: true} OR {cart: false}
 returns 200, 500
+
+
+/api/cart/getCart   
+header: "Authorization: Bearer {token}" 
+GET
+returns: [ json(product_id, product_name, qty) ]
+returns 200, 500
+
+
+/api/cart/updateCart             //one product type per api call, NOT an array
+header: "Authorization: Bearer {token}" 
+POST: {product_id: xxx, quantity: 4}
+returns: message
+returns 400, 201, 500
+
+
+
+
+todo:
+mongo access control
+centralised validation regex
+change db bigint to number
+_tests

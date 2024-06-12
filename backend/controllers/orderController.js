@@ -1,10 +1,4 @@
-
 const Order = require('../models/Order.js');
-const bcrypt = require('bcryptjs');
-const jwt = require('jsonwebtoken');
-const cookie = require('cookie');
-
-
 
 const confirmOrder = async (req, res) => {
     try{
