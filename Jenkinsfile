@@ -1,9 +1,9 @@
 pipeline {
     agent any
     stages {
-        stage('Test') { 
+        stage('Test Echo') { 
             steps {
-                sh 'cd frontend' 
+                echo 'Hello, Jenkins!'
             }
         }
     }
