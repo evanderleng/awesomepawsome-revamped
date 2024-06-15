@@ -1,6 +1,7 @@
 
 const Review = require("../models/Review")
 const mongoose = require('mongoose');
+const escape = require('escape-html');
 
 
 const getReview = async (req, res)=>{
@@ -31,6 +32,11 @@ const getReview = async (req, res)=>{
             }
         ])
 
+        await review.forEach((item) => { //escaping, maybe put in middleware?
+            item.comment = escape(item.comment)
+            item.username = escape(item.username)
+        })
+
         if (review.length) {
             return res.status(200).json(review)
         } else {
@@ -45,11 +51,21 @@ const addReview = async (req, res)=>{
     try{
         const {product_id, rating, comment} = req.body;
 
+
+        //let order = await Order.findOne({ user_id: req.user, order_list: { $eleMatch: {product_id} } });
+        //console.log(order)
+
         let review = await Review.findOne({ product_id, user_id: req.user });
 
+
+
         if (review) {
-            return res.status(400).json({message: "Review already exists"})
+            return res.status(400).json({message: "Review already exists."})
         } else {
+
+
+
+
             user = await Review.create({
                 product_id, user_id: req.user, rating, comment
             })
