@@ -6,7 +6,7 @@ const authMiddleware = require('../middleware/authMiddleware.js')
 const reviewController = require("../controllers/reviewController.js");
 
 
-router.route("/getReview").post(reviewController.getReview);
+router.route("/getReview").get(reviewController.getReview);
 router.route("/addReview").post(authMiddleware.auth, reviewController.addReview);
 
 
