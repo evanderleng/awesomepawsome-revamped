@@ -21,6 +21,10 @@ const IndividualProduct = () => {
             <h3>Ingredients</h3>
             <p>Ground whole corn, meat and bone meal, corn gluten meal, animal fat (preserved with BHA/BHT), chicken by-product meal</p>
           </div>
+          <div className="price">
+            <h3>Subscription Price</h3>
+            <p>$16 / Month</p>
+          </div>
           <div className="add-to-cart">
             <button>Add To Cart</button>
           </div>
