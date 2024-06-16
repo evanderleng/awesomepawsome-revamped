@@ -6,6 +6,7 @@ import Home from './pages/Home/Home'
 import Footer from './components/Footer/Footer'
 import LoginPopup from './components/LoginPopup/LoginPopup'
 import ProductPage from './pages/ProductPage/ProductPage'
+import IndividualProductPage from './pages/IndividualProductPage/IndividualProductPage'
 
 
 const App = () => {
@@ -30,6 +31,7 @@ const App = () => {
         <Route path='/' element={<Home/>} />
         <Route path='/cart' element={<Cart/>} />
         <Route path='/productPage' element={<ProductPage/>} />
+        <Route path='/individualProductPage' element={<IndividualProductPage/>} />
       </Routes>
     </div>
     <Footer/>
