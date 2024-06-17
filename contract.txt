@@ -26,7 +26,7 @@ returns 200, 500
 
 /api/product/getProfile
 GET
-returns: product array json (lmk if u need pagination)
+returns: username, email, createdAt
 returns 200, 500
 
 /api/user/editProfile //todo

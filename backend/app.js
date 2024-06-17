@@ -1,6 +1,7 @@
 const express = require('express')
 const dotenv = require('dotenv')
 const mongoSanitize = require('express-mongo-sanitize')
+const helmet = require('helmet')
 const connDB = require('./db')
 
 const UserRouter = require("./routes/UserRoutes.js")
@@ -13,6 +14,7 @@ const CartRouter = require("./routes/CartRoutes.js")
 dotenv.config()
 connDB()
 const app = express()
+app.use(helmet())
 app.use(express.json())
 app.use(mongoSanitize())
 
