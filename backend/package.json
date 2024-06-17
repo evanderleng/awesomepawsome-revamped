@@ -17,9 +17,9 @@
     "escape-html": "^1.0.3",
     "express": "^4.19.2",
     "express-mongo-sanitize": "^2.2.0",
+    "express-validator": "^7.1.0",
     "jsonwebtoken": "^9.0.2",
-    "mongoose": "^8.4.0",
-    "validatorjs": "^3.22.1"
+    "mongoose": "^8.4.0"
   },
   "devDependencies": {
     "nodemon": "^3.1.1"
