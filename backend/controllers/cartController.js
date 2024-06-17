@@ -1,5 +1,6 @@
 const Cart = require('../models/Cart.js');
 const mongoose = require('mongoose');
+const escape = require('escape-html');
 
 const hasCart = async (req, res) => { //checks if user has any item in cart
     try{
@@ -45,6 +46,14 @@ const getCart = async (req, res) => {
                     }
                 }
             ])
+
+            await cart.forEach((item) => { //escaping, maybe put in middleware?
+                item.cart_object_id = escape(item.cart_object_id)
+                item.product_id = escape(item.product_id)
+                item.product_name = escape(item.product_name)
+                item.quantity = escape(item.quantity)
+            })
+
             return res.status(200).json(cart)
         } else {
             return res.status(200).json({message: "cart is empty"})
