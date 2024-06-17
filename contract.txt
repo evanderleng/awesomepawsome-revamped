@@ -24,6 +24,10 @@ returns 200, 500
 
 -------------ALL below requires auth ( jwt token in header "Authorization: Bearer <token>"   )  (token is given via httponly cookie after login)------------------
 
+/api/product/getProfile
+GET
+returns: product array json (lmk if u need pagination)
+returns 200, 500
 
 /api/user/editProfile //todo
 header: "Authorization: Bearer {token}" 
@@ -50,7 +54,7 @@ returns: [ json(product_id, product_name, qty) ]
 returns 200, 500
 
 
-/api/cart/updateCart             //one product type per api call, NOT an array
+/api/cart/updateCart             //one product type per api call, NOT an array. u can just spam with ajax on cart page for qty < 1 > type Ui
 header: "Authorization: Bearer {token}" 
 POST: {product_id: xxx, quantity: 4}
 returns: message

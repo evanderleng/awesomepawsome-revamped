@@ -21,11 +21,13 @@ const addUser = async (req, res)=>{
             }
         }
         
-        var salt = bcrypt.genSaltSync()
-        var hash = bcrypt.hashSync(password, salt)
+        const hash = bcrypt.hashSync(password, bcrypt.genSaltSync())
 
         user = await User.create({
-            username, password: hash, email, admin: false
+            username,
+            password: hash,
+            email,
+            admin: false
         })
         return res.status(201).json({message: "Successfully added!"})
     } catch (err) {
@@ -74,7 +76,11 @@ const editProfile = async (req, res) => { //MUST FIX TO ADD SECURITY
 
 const getProfile = async (req, res) => {
     try{
-        let user = await User.findOne({ _id: req.user })
+        let user = await User.findOne({ _id: req.user._id }, {_id:0,username:1,email:1,createdAt:1})
+
+
+
+
         return res.status(200).json(user)
     } catch (err) {
         return res.status(500).json({message: err.message});
