@@ -3,6 +3,7 @@ const User = require('../models/User.js');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const cookie = require('cookie');
+const escape = require('escape-html');
 
 const addUser = async (req, res)=>{
     try{
@@ -55,6 +56,7 @@ const login = async (req, res)=>{ //to add check if already logged in
                 return res.status(200).json({message: "Login successful. You have logged in as " +user.username+ "."})
             }
         } 
+        req.ip
         return res.status(401).json({message: "Wrong username or password"})
     } catch (err) {
         return res.status(500).json({message: err.message});
@@ -78,8 +80,9 @@ const getProfile = async (req, res) => {
     try{
         let user = await User.findOne({ _id: req.user._id }, {_id:0,username:1,email:1,createdAt:1})
 
-
-
+        
+        user.username = escape(user.username)
+        user.email = escape(user.email)
 
         return res.status(200).json(user)
     } catch (err) {

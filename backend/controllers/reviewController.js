@@ -32,12 +32,12 @@ const getReview = async (req, res)=>{
             }
         ])
 
-        await review.forEach((item) => { //escaping, maybe put in middleware?
-            item.comment = escape(item.comment)
-            item.username = escape(item.username)
-        })
-
         if (review.length) {
+            review.forEach((item) => { //escaping, maybe put in middleware?
+                item.comment = escape(item.comment)
+                item.username = escape(item.username)
+            })
+
             return res.status(200).json(review)
         } else {
             return res.status(200).json({message: "No reviews yet..."})
