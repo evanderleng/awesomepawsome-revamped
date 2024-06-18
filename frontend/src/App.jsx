@@ -26,14 +26,14 @@ const App = () => {
           - remember to import the page that you are navigating to 
           - this is the first step to do before applying the navigation throughout the entire web application (like navbar)
       
+          some routes have id in their URL parameter if they want to pass certain information over to another page. only the ID, the rest will be passed as states
       */}
 
       <Routes>
         <Route path='/' element={<Home/>} />
         <Route path='/cart' element={<Cart/>} />
         <Route path='/productPage' element={<ProductPage/>} />
-        <Route path='/individualProductPage' element={<IndividualProductPage/>} />
-        <Route path='/recommendMePage' element={<RecommendMePage/>} />
+        <Route path='/individualProductPage' element={<IndividualProductPage/>} /> 
 
       </Routes>
     </div>
