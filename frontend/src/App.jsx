@@ -7,6 +7,7 @@ import Footer from './components/Footer/Footer'
 import LoginPopup from './components/LoginPopup/LoginPopup'
 import ProductPage from './pages/ProductPage/ProductPage'
 import IndividualProductPage from './pages/IndividualProductPage/IndividualProductPage'
+import RecommendMePage from './pages/RecommendMePage/RecommendMePage'
 
 
 const App = () => {
@@ -32,6 +33,8 @@ const App = () => {
         <Route path='/cart' element={<Cart/>} />
         <Route path='/productPage' element={<ProductPage/>} />
         <Route path='/individualProductPage' element={<IndividualProductPage/>} />
+        <Route path='/recommendMePage' element={<RecommendMePage/>} />
+
       </Routes>
     </div>
     <Footer/>

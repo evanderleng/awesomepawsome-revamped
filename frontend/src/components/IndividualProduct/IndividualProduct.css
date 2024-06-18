@@ -27,7 +27,7 @@
     /* Allow image to take up space */
     margin-right: 20px;
     /* Space between image and text */
-    border-radius: 10px;    
+    border-radius: 10px;
 }
 
 .product-img img {
@@ -43,7 +43,8 @@
 
 .product-description {}
 
-.add-to-cart button{
+/* put it in a nested way so that this button's css won't affect the other buttons with the same class name*/
+.individual-product-container .add-to-cart button {
     font-size: 20px;
     border-radius: 10px;
     padding: 10px;

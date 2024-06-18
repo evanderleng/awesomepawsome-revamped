@@ -19,6 +19,7 @@ const Navbar = ({setShowLogin}) => {
                 {/* HOW TO ADD NAV: if you want to add, just place the follow how its done for home, adding the Link as well. Importantly, set the route first in App.jsx */}
                 <li onClick={() => setMenu("home")} className={menu==="home"?"active":""}><Link to="/">home</Link></li>
                 <li onClick={() => setMenu("product")} className={menu==="product"?"active":""}><Link to="/productPage">product</Link></li>
+                <li onClick={() => setMenu("recommend me")} className={menu==="recommend me"?"active":""}><Link to="/recommendMePage">recommend me</Link></li>
                 <li onClick={() => setMenu("contact us")} className={menu==="contact us"?"active":""}>contact us</li>
             </ul>
             <div className='navbar-right'>
