@@ -10,6 +10,8 @@ import Profile from './pages/Profile/Profile'
 import Payment from './pages/Payment/Payment'
 import IndividualProductPage from './pages/IndividualProductPage/IndividualProductPage'
 import RecommendMePage from './pages/RecommendMePage/RecommendMePage'
+import '@fortawesome/fontawesome-svg-core/styles.css';
+
 
 
 const App = () => {
