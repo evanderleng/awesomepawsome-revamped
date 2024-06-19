@@ -1,19 +1,19 @@
 import React from 'react'
 import './ExploreMenu.css'
-import { menu_list } from '../../assets/assets'
+import { dog_breedSize_list } from '../../assets/assets'
 
 
-const ExploreMenu = ({category, setCategory}) => {
+const ExploreMenu = ({breedSize, setBreedSize}) => {
   return(
     <div className='explore-menu' id='explore-menu'>
         <h1>Explore our menu</h1>
         <p className='explore-menu-text'>Choose from a diverse menu featuring a delectablea array of dishes crafted with love</p>
         <div className='explore-menu-list'>
-            {menu_list.map((item, index)=>{
+            {dog_breedSize_list.map((item, index)=>{
                 return(
-                    <div onClick={() => setCategory(prev => prev === item.menu_name ? "All" : item.menu_name)} key={index} className='explore-menu-list-item'>
-                        <img className={category === item.menu_name ? "active" : ""} src={item.menu_image} alt=""/>
-                        <p>{item.menu_name}</p>
+                    <div onClick={() => setBreedSize(prev => prev === item.breedSize ? "All" : item.breedSize)} key={index} className='explore-menu-list-item'>
+                        <img className={breedSize === item.breedSize ? "active" : ""} src={item.image} alt=""/>
+                        <p>{item.breedSize}</p>
                     </div>
                 )
             })}
