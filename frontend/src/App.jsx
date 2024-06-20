@@ -34,6 +34,7 @@ const App = () => {
         <Route path='/cart' element={<Cart/>} />
         <Route path='/productPage' element={<ProductPage/>} />
         <Route path='/individualProductPage' element={<IndividualProductPage/>} /> 
+        <Route path='/recommendMePage' element={<RecommendMePage/>} /> 
 
       </Routes>
     </div>
