@@ -6,6 +6,12 @@ import Home from './pages/Home/Home'
 import Footer from './components/Footer/Footer'
 import LoginPopup from './components/LoginPopup/LoginPopup'
 import ProductPage from './pages/ProductPage/ProductPage'
+import Profile from './pages/Profile/Profile'
+import Payment from './pages/Payment/Payment'
+import IndividualProductPage from './pages/IndividualProductPage/IndividualProductPage'
+import RecommendMePage from './pages/RecommendMePage/RecommendMePage'
+import '@fortawesome/fontawesome-svg-core/styles.css';
+
 
 
 const App = () => {
@@ -24,12 +30,18 @@ const App = () => {
           - remember to import the page that you are navigating to 
           - this is the first step to do before applying the navigation throughout the entire web application (like navbar)
       
+          some routes have id in their URL parameter if they want to pass certain information over to another page. only the ID, the rest will be passed as states
       */}
 
       <Routes>
         <Route path='/' element={<Home/>} />
         <Route path='/cart' element={<Cart/>} />
         <Route path='/productPage' element={<ProductPage/>} />
+        <Route path='/profile' element={<Profile/>} />
+        <Route path='/payment' element={<Payment/>} />
+
+        <Route path='/individualProductPage' element={<IndividualProductPage/>} /> 
+
       </Routes>
     </div>
     <Footer/>

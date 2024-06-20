@@ -6,18 +6,18 @@ import FoodDisplay from '../../components/FoodDisplay/FoodDisplay'
 
 const ProductPage = () => {
 
-      /*category is the state, setCategory is the function that sets the state*/
-  const [category, setCategory] = useState("All");
+      /*breedSize is the state, setbreedSize is the function that sets the state*/
+  const [breedSize, setBreedSize] = useState("All");
 
 
   return (
     <div className='place-order'>
 
       {/* you are passing both the state and the setter to ExploreMenu */}
-      <ExploreMenu category={category} setCategory={setCategory}/>  
+      <ExploreMenu breedSize={breedSize} setBreedSize={setBreedSize}/>  
 
-      {/*you are passing state of category to FoodDisplay component*/}
-      <FoodDisplay category={category}/>
+      {/*you are passing state of breedSize to FoodDisplay component*/}
+      <FoodDisplay breedSize={breedSize}/>
 
     </div>
   )

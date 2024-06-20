@@ -45,3 +45,8 @@
     background-color: grey;
     border: none;
 }
+
+.footer-logo{
+    width: 50%;
+    border-radius: 20px;
+}

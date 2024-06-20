@@ -30,10 +30,14 @@
 
 .explore-menu-list-item img{
     width: 7.5vw;
-    min-width: 80px;
+    min-width: 190px;
     cursor: pointer;
     border-radius: 50%;
     transition: 0.2s;
+    max-height: 100px;
+    object-fit: cover;  /*This will not stretch the image*/
+
+    
 }
 
 .explore-menu-list-item p{

@@ -1,8 +1,8 @@
 .header{
     height: 34vw;
     margin: 30px auto;
-    background: url('/header_img.png') no-repeat;
-    background-size: contain;
+    background: url('/src/assets/header.jpg') no-repeat;
+    background-size: cover;
     position: relative;
 }
 
@@ -39,4 +39,5 @@
     background-color: white;
     font-size: max(1vw, 13px);
     border-radius: 50px;
+    cursor: pointer;
 }
