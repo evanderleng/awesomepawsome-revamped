@@ -34,7 +34,10 @@ const RecommendProduct = ({petIsRegistered}) => {
     return(
       <>
       <div className="pet-not-registered-container">
-       <p>Sorry, your pet is not registered</p> 
+       <h3>Sorry, your pet is not registered yet!</h3>
+       <p>Do sign up your pet so we know what product to recommend based on their age, breed size and weight as well!</p> 
+       <button>Register Your Pet Here!</button>
+ 
       </div>
       </>
     )

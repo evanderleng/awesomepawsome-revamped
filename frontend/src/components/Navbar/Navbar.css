@@ -50,9 +50,12 @@
 .navbar li{
     cursor: pointer;
 }
-.navbar li:hover{
-    background-color: aliceblue;
+/* Navbar List Item Hover Effect */
+.navbar li:hover {
+    transform: translateY(-5px); /* Lift up by 5px */
+    transition: transform 0.3s, background-color 0.3s; /* Smooth transition for both transform and background color */
 }
+
 
 
 .navbar-search-icon .dot{
