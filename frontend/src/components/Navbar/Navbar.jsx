@@ -7,6 +7,8 @@ const Navbar = ({setShowLogin}) => {
     
     // function name is setMenu, menu is the state
     const [menu, setMenu] = useState(""); // state to track the active menu item
+
+
     const location = useLocation(); // hook to get the current location (current url)
   
     // use useEffect to update the menu state based on the current URL path
@@ -44,13 +46,14 @@ const Navbar = ({setShowLogin}) => {
                 <li onClick={() => setMenu("contact us")} className={menu==="contact us"?"active":""}>contact us</li>
             </ul>
             <div className='navbar-right'>
-                <img src={assets.search_icon} alt=''/>
-                <div className='navbar-search-icon'>
+                <div className='navbar-basket-icon'>
                     <img src={assets.basket_icon} alt=''/>
                     <div className='dot'></div>
                 </div>
                 <button onClick={() => setShowLogin(true)}>Sign In</button>
             </div>
+
+
         </div>
     )
     }
