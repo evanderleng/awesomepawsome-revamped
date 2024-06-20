@@ -2,6 +2,8 @@ import React, { useState } from 'react'
 import { Link, useLocation } from 'react-router-dom';
 import './Navbar.css'
 import { assets } from '../../assets/assets'
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 
 const Navbar = ({setShowLogin}) => {
     
@@ -25,11 +27,14 @@ const Navbar = ({setShowLogin}) => {
 
             </ul>
             <div className='navbar-right'>
-                <img src={assets.search_icon} alt=''/>
-                <div className='navbar-search-icon'>
-                    <img src={assets.basket_icon} alt=''/>
-                    <div className='dot'></div>
-                </div>
+                <img src={assets.search_icon} alt='' className='navbar-search-icon' />
+                <ul className='navbar-menu'>
+                    <li className={menu === "cart" ? "active" : ""} onClick={() => setMenu("cart")}>
+                        <Link to="/cart">
+                            {menu === "cart" ? <ShoppingCartIcon /> : <ShoppingCartOutlinedIcon />}
+                        </Link>
+                    </li>
+                </ul>
                 <button onClick={() => setShowLogin(true)}>Sign In</button>
             </div>
         </div>
