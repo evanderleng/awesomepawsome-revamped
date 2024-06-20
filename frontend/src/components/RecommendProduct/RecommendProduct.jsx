@@ -2,8 +2,9 @@ import React from "react";
 import './RecommendProduct.css'
 import dog_food from '../../assets/dog_food_3.png'
 
-const RecommendProduct = () => {
-  return (
+const RecommendProduct = ({petIsRegistered}) => {
+  if (petIsRegistered){
+    return (
     <div className="recommend-product-container">
       <div className="recommend-header-title">
         <h3>Based on your pet, we recommend...</h3>
@@ -27,7 +28,19 @@ const RecommendProduct = () => {
         <button>Add To Cart</button>
       </div>
     </div>
-  );
-};
+    );
+  }
+  else{
+    return(
+      <>
+      <div className="pet-not-registered-container">
+       <p>Sorry, your pet is not registered</p> 
+      </div>
+      </>
+    )
+  }
+
+  }
+
 
 export default RecommendProduct;
