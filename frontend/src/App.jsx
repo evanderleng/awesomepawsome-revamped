@@ -17,8 +17,9 @@ const App = () => {
 
   const location = useLocation(); // Get the current location
 
+
   // Check if the current path matches the error route
-  const isErrorPage = location.pathname === '/error404';
+  const isErrorPage = !['/', '/cart', '/productPage', '/individualProductPage', '/recommendMePage'].includes(location.pathname);
 
   return(
     <>
@@ -43,7 +44,7 @@ const App = () => {
         <Route path='*' element={<Error404 />} />
       </Routes>
     </div>
-    <Footer/>
+    {!isErrorPage && <Footer />}
     </>
   )
 }
