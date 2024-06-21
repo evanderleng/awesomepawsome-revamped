@@ -1,34 +1,60 @@
 import React, { useState } from 'react';
-import CartItem from '../../components/CartItem/CartItem'
-import CartSummary from '../../components/CartSummary/CartSummary'
-import CartEmpty from '../../components/CartEmpty/CartEmpty'
-
+import CartItem from '../../components/CartItem/CartItem';
+import CartSummary from '../../components/CartSummary/CartSummary';
+import './Cart.css'; 
+// import CartEmpty from '../../components/CartEmpty/CartEmpty';
 
 const Cart = () => {
   const [items, setItems] = useState([
-    // Example items, you would likely fetch these from state or props
+    { id: 1, title: 'Item 1', price: 10.00, quantity: 2, selected: true },
+    { id: 2, title: 'Item 2', price: 20.00, quantity: 1, selected: false },
+    { id: 3, title: 'Item 3', price: 20.00, quantity: 1, selected: false },
+    { id: 4, title: 'Item 4', price: 20.00, quantity: 1, selected: false }
   ]);
 
-  const updateQuantity = (id, newQuantity) => {
-    setItems(items.map(item => item.id === id ? { ...item, quantity: newQuantity } : item));
+  const toggleSelection = (id) => {
+    setItems(items.map(item =>
+      item.id === id ? { ...item, selected: !item.selected } : item
+    ));
   };
 
-  const subtotal = items.reduce((acc, item) => acc + item.quantity * item.price, 0);
+  const updateQuantity = (id, newQuantity) => {
+    setItems(items.map(item =>
+      item.id === id ? { ...item, quantity: newQuantity } : item
+    ));
+  };
+
+  const removeItem = (id) => {
+    setItems(items.filter(item => item.id !== id));
+  };
+
+  const subtotal = items.reduce((acc, item) => item.selected ? acc + item.quantity * item.price : acc, 0);
   const deliveryCharge = 15.00;
   const grandTotal = subtotal + deliveryCharge;
 
-  if (items.length === 0) {
-    return <CartEmpty />;  // Render the EmptyCart component when no items are in the cart
-  }
+  // if (items.length === 0) {
+  //   // Return the CartEmpty component if there are no items
+  //   return <CartEmpty/>
+   
+  // }
 
-  return(
+  return (
     <div className='cart'>
-      <h1>SHOPPING CART</h1>
-      {items.map(item => (
-        <CartItem key={item.id} item={item} updateQuantity={updateQuantity} />
-      ))}
-      <CartSummary subtotal={subtotal} deliveryCharge={deliveryCharge} grandTotal={grandTotal} />
-      <button className='proceed-button'>Proceed</button>
+      <h1>Shopping Cart</h1>
+      <div className="cart-content">
+        <div className="cart-items">
+          {items.map(item => (
+            <CartItem
+              key={item.id}
+              item={item}
+              updateQuantity={updateQuantity}
+              toggleSelection={() => toggleSelection(item.id)}
+              removeItem={() => removeItem(item.id)}
+            />
+          ))}
+        </div>
+        <CartSummary subtotal={subtotal} deliveryCharge={deliveryCharge} grandTotal={grandTotal} />
+      </div>
     </div>
   );
 }

@@ -2,8 +2,7 @@ import React from 'react'
 import './CartEmpty.css';
 import { Link } from 'react-router-dom';
 import cartEmptyImg from '../../assets/cart-empty.png';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPaw, faClipboardList, faCreditCard } from '@fortawesome/free-solid-svg-icons';
+
 
 function CartEmpty() {
 

@@ -1,61 +1,96 @@
 .cart-item {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 10px;
-    border-bottom: 1px solid #eee;
-    font-family: Arial, sans-serif;
-  }
-  
-  .item-image {
-    width: 60px;
-    height: 60px;
-    object-fit: cover;
-    margin-right: 20px;
-  }
-  
-  .item-info {
-    display: flex;
-    align-items: center;
-    flex: 1;
-    justify-content: space-between;
-  }
-  
-  .item-title {
-    flex-grow: 1; /* Ensures it takes up the space it needs, pushing other elements to the edges */
-  }
-  
-  .quantity-control {
-    display: flex;
-    align-items: center;
-    gap: 5px;
-  }
-  
-  .quantity-control button, .quantity-control input {
-    border: 1px solid #ccc;
-    background-color: #fff;
-    padding: 5px 10px;
-    font-size: 14px;
-  }
-  
-  .quantity-control input {
-    width: 50px; /* Smaller width for the quantity input */
-    text-align: center;
-  }
-  
-  .item-price {
-    margin-left: 20px; /* Ensure it doesn't stick to the quantity control */
-    font-size: 16px;
-    color: #666;
-  }
-  
-  .remove-item {
-    border: none;
-    background-color: #f44336;
-    color: white;
-    font-size: 16px;
-    padding: 5px 10px;
-    cursor: pointer;
-    margin-left: 20px;
-  }
-  
+  display: flex;
+  align-items: center;
+  padding: 20px;
+  margin: 10px 0;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  font-family: Arial, sans-serif;
+}
+
+.item-checkbox {
+  margin-right: 10px;
+}
+
+.item-content {
+  flex-grow: 1;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.item-image {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  margin-right: 20px;
+  border-radius: 10px;
+}
+
+.item-details {
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.item-title {
+  flex-grow: 1;
+}
+
+.item-controls {
+  display: flex;
+  align-items: center;
+}
+
+.quantity-control {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.quantity-control button, .quantity-control input {
+  border: 1px solid #ccc;
+  background-color: #fff;
+  padding: 5px 10px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.quantity-control input {
+  width: 50px;
+  text-align: center;
+}
+
+.quantity-control button:hover {
+  background-color: #e6e6e6; /* Light gray for hover */
+}
+
+.item-price {
+  width: 80px; /* Standardize width to accommodate different price lengths */
+  text-align: right; /* Align the price text to the right */
+  font-size: 16px;
+  color: #666;
+  margin-right: 20px; /* Ensure consistent spacing to the delete button */
+}
+
+
+.remove-item {
+  border: none;
+  background-color: #f44336;
+  color: white;
+  font-size: 16px;
+  padding: 5px 10px;
+  cursor: pointer;
+  margin-left: 10px;
+  border-radius: 10px;
+}
+
+.remove-item:hover {
+  background-color: #c2302d;  /* Darkened color when hovered */
+}
+.item-checkbox input[type="checkbox"]:hover {
+  border-color: #007bff; /* Darker border on hover */
+  cursor: pointer;
+}
