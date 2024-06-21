@@ -1,111 +1,122 @@
-:root {
-    --primary-color: #ce4e04;
-    --secondary-color: #f4f4f4;
-    --text-color: #333;
-    --hover-color: #e0e0e0;
-    --border-color: #ccc;
-  }
-  
-  body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background-color: var(--secondary-color);
-  }
-  
-  .header {
-    background-color: var(--primary-color);
-    color: white;
-    padding: 20px;
-    text-align: center;
-    font-size: 1.5em;
-    flex-shrink: 0;
-  }
-  
+/* Profile.css */
+
+/* General Reset */
+body, h1, h2, h3, p, div {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Layout */
+.profile {
+  display: flex;
+  min-height: 100vh;
+  font-family: 'Arial', sans-serif;
+}
+
+.header {
+  background-color: #f36100;
+  color: #fff;
+  padding: 20px;
+  text-align: center;
+  font-size: 1.5rem;
+}
+
+.sidebar {
+  width: 250px;
+  background-color: #f7f7f7;
+  padding: 20px;
+  border-right: 1px solid #ddd;
+}
+
+.content {
+  flex: 1;
+  padding: 20px;
+  background-color: #fafafa;
+}
+
+/* Sidebar */
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+}
+
+.sidebar li {
+  margin: 10px 0;
+}
+
+.sidebar button {
+  background: none;
+  border: none;
+  color: #333;
+  padding: 10px;
+  text-align: left;
+  width: 100%;
+  cursor: pointer;
+  font-size: 1rem;
+  border-radius: 4px;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.sidebar button:hover, .sidebar button.active {
+  background-color: #ff5314;
+  color: #fff;
+}
+
+/* Content */
+.content h2 {
+  margin-bottom: 20px;
+  font-size: 1.5rem;
+  color: #da5e07;
+}
+
+.content form {
+  display: flex;
+  flex-direction: column;
+}
+
+.content label {
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+.content input {
+  margin-bottom: 15px;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 1rem;
+}
+
+.content button {
+  align-self: flex-start;
+  padding: 10px 20px;
+  background-color: #e75512;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.content button:hover {
+  background-color: #ffa60d;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
   .profile {
-    display: flex;
-    flex: 1;
-    height: calc(100vh - 70px); /* Adjust this if your header height changes */
-  }
-  
-  .sidebar {
-    width: 250px;
-    background-color: var(--primary-color);
-    color: #fff;
-    display: flex;
     flex-direction: column;
-    align-items: center;
-    padding: 20px 0;
   }
-  
-  .sidebar ul {
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
+
+  .sidebar {
     width: 100%;
+    border-right: none;
+    border-bottom: 1px solid #ddd;
   }
-  
-  .sidebar ul li {
-    width: 100%;
-    padding: 15px;
-    text-align: center;
-    cursor: pointer;
-    transition: background-color 0.3s;
-  }
-  
-  .sidebar ul li:hover {
-    background-color: var(--hover-color);
-    color: var(--text-color);
-  }
-  
+
   .content {
-    flex: 1;
-    padding: 40px;
-    background-color: #fff;
-    overflow-y: auto;
+    padding: 15px;
   }
-  
-  h1, h2 {
-    color: var(--primary-color);
-  }
-  
-  h1 {
-    margin-bottom: 20px;
-    font-size: 2.5em;
-  }
-  
-  h2 {
-    margin-bottom: 15px;
-    font-size: 1.5em;
-  }
-  
-  p {
-    color: var(--text-color);
-    line-height: 1.6;
-  }
-  
-  .subscription-item, .pet-item, .personal-info, .personal-bio {
-    margin-bottom: 30px;
-  }
-  
-  .placeholder {
-    font-style: italic;
-    color: var(--text-color);
-  }
-  
-  button.back-btn {
-    background-color: var(--primary-color);
-    color: #fff;
-    border: none;
-    padding: 10px 20px;
-    cursor: pointer;
-    font-size: 1em;
-    border-radius: 5px;
-    transition: background-color 0.3s;
-    margin-bottom: 20px;
-  }
-  
-  button.back-btn:hover {
-    background-color: var(--hover-color);
-    color: var(--text-color);
-  }
-  
+}
