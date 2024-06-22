@@ -1,11 +1,15 @@
 # Awesome-pawsome
 E-Commerce site specialising in delivering tailor-made, hassle free services to dedicated PAWSOME pet owners.
 # General Installation
-`cd backend` OR `cd frontend`  
-`npm install`  
-`npm run dev`
+```
+cd backend OR cd frontend
+npm start
+```
 - Will run as long as the npm process is running
     - Frontend runs on port 5173 by default
+    - Server runs on port 4000 by default
+- Runs `npm install` before actual commands used for start
+    - Located in the `package.json` files
 # Frontend Instructions
 1. When running locally, if want to run on port 80 persistently, change nginx config to  
     ```
@@ -71,7 +75,7 @@ E-Commerce site specialising in delivering tailor-made, hassle free services to 
     - Full overview - `contracts.txt`
 
 1. Ensure backend server is up and running
-    - Runs on port 4000, can be changed later on in `/backend/app.js`
+    - Runs on port 4000 by default, can be changed later on in `/backend/app.js`
     ```
     cd backend
     npm run dev
