@@ -2,6 +2,8 @@ import React, { useContext, useState } from 'react'
 import './FoodItem.css'
 import { assets } from '../../assets/assets'
 import { StoreContext } from '../../context/StoreContext'
+import { Link, useLocation } from 'react-router-dom';
+
 
 const FoodItem = ({id, name, price, description, image}) => {
     
@@ -11,7 +13,11 @@ const FoodItem = ({id, name, price, description, image}) => {
     return (
         <div className='food-item'>
             <div className='food-item-img-container'>
-                <img className='food-item-image' src={image} alt=""></img>
+                {/* direct to individual product page upon click 
+                    state will be what properties you wish to pass over to the other side, the other side must retrieve using location.state)
+                */}
+                <Link to="/individualProductPage" state={{id, name, price, description, image}}>
+                <img className='food-item-image' src={image} alt=""></img></Link>   
                 {/* if there are no item count (itemCount = 0), display just the + sign, else display both + - and the item count */}
                 {!cartItems[id]  
                     ?<img className='add' onClick={() => addToCart(id)} src={assets.add_icon_white}></img>  // if add, call addtocart function (refer to storecontext for functionality)
@@ -26,7 +32,7 @@ const FoodItem = ({id, name, price, description, image}) => {
             </div>
             <div className='food-item-info'>
                 <div className='food-item-name-rating'>
-                    <p>{name}</p>
+                    <p className='food-item-name'>{name}</p>
                     <img src={assets.rating_starts} alt=''/>
                 </div>
                 <p className='food-item-desc'>{description}</p>

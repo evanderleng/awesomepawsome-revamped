@@ -1,20 +1,20 @@
-.explore-menu{
+.filter-breed{
     display: flex;
     flex-direction:column;
     gap: 20px;
 }
 
-.explore-menu h1{
+.filter-breed h1{
     color: #262626;
     font-weight: 500;
 }
 
-.explore-menu-text{
+.filter-breed-text{
     max-width: 60%;
     color: #808080;
 }
 
-.explore-menu-list{
+.filter-breed-list{
     display:flex;
     justify-content: space-between;
     align-items: center;
@@ -24,26 +24,30 @@
     overflow-x:scroll;  /*To make it scroll sideway in case of overflowing*/
 }
 
-.explore-menu-list::-webkit-scrollbar{
+.filter-breed-list::-webkit-scrollbar{
     display:none;
 }
 
-.explore-menu-list-item img{
+.filter-breed-list-item img{
     width: 7.5vw;
-    min-width: 80px;
+    min-width: 190px;
     cursor: pointer;
     border-radius: 50%;
     transition: 0.2s;
+    max-height: 100px;
+    object-fit: cover;  /*This will not stretch the image*/
+
+    
 }
 
-.explore-menu-list-item p{
+.filter-breed-list-item p{
     margin-top: 10px;
     color: #747474;
     font-size: max(1.4vw, 16px);
     cursor: pointer;
 }
 
-.explore-menu hr{
+.filter-breed hr{
     margin: 10px 0px;
     height: 2px;
     background-color: #e2e2e2;
@@ -51,8 +55,9 @@
 }
 
 
-.explore-menu-list-item .active{
+.filter-breed-list-item .active{
     border: 4px solid tomato;
     padding: 2px;
 
 }
+
