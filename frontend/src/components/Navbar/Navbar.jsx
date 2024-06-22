@@ -45,16 +45,10 @@ const Navbar = ({setShowLogin}) => {
                 <li onClick={() => setMenu("home")} className={menu==="home"?"active":""}><Link to="/">home</Link></li>
                 <li onClick={() => setMenu("product")} className={menu==="product"?"active":""}><Link to="/productPage">product</Link></li>
                 <li onClick={() => setMenu("recommend me")} className={menu==="recommend me"?"active":""}><Link to="/recommendMePage">recommend me</Link></li>
-                <li onClick={() => setMenu("contact us")} className={menu==="contact us"?"active":""}>contact us</li>
                 <li onClick={() => setMenu("profile")} className={menu==="profile"?"active":""}><Link to="/profile">profile</Link></li>
 
             </ul>
             <div className='navbar-right'>
-                <div className='navbar-basket-icon'>
-                    <img src={assets.basket_icon} alt=''/>
-                    <div className='dot'></div>
-                </div>
-                <img src={assets.search_icon} alt='' className='navbar-search-icon' />
                 <ul className='navbar-menu'>
                     <li className={menu === "cart" ? "active" : ""} onClick={() => setMenu("cart")}>
                         <Link to="/cart">
