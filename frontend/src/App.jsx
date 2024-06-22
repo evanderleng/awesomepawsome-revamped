@@ -6,9 +6,14 @@ import Home from './pages/Home/Home'
 import Footer from './components/Footer/Footer'
 import LoginPopup from './components/LoginPopup/LoginPopup'
 import ProductPage from './pages/ProductPage/ProductPage'
+import Profile from './pages/Profile/Profile'
+import Payment from './pages/Payment/Payment'
 import IndividualProductPage from './pages/IndividualProductPage/IndividualProductPage'
 import RecommendMePage from './pages/RecommendMePage/RecommendMePage'
 import Error404 from './pages/Error404/Error404'
+import '@fortawesome/fontawesome-svg-core/styles.css';
+
+
 
 const App = () => {
 
@@ -39,6 +44,9 @@ const App = () => {
         <Route path='/' element={<Home/>} />
         <Route path='/cart' element={<Cart/>} />
         <Route path='/productPage' element={<ProductPage/>} />
+        <Route path='/profile' element={<Profile/>} />
+        <Route path='/payment' element={<Payment/>} />
+
         <Route path='/individualProductPage' element={<IndividualProductPage/>} /> 
         <Route path='/recommendMePage' element={<RecommendMePage/>} /> 
         <Route path='*' element={<Error404 />} />

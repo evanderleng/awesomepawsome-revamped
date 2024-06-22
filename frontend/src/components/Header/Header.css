@@ -1,8 +1,8 @@
 .header{
     height: 34vw;
     margin: 30px auto;
-    background: url('/src/assets/dog-with-food.png') no-repeat;
-    background-size: contain;
+    background: url('/src/assets/header.jpg') no-repeat;
+    background-size: cover;
     position: relative;
 }
 
