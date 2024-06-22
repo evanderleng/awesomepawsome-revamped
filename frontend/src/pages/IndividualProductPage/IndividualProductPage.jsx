@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import './IndividualProductPage.css'
 import IndividualProduct from '../../components/IndividualProduct/IndividualProduct'
 import { useLocation, useParams } from 'react-router-dom'
@@ -15,6 +15,10 @@ const IndividualProductPage = () => {
   console.log('description brought over: ', description);
   console.log('image brought over: ', image);
 
+  // Scroll to top on component mount
+  useEffect(() => {
+    window.scrollTo(0, 0); // Scrolls to top-left corner of the page
+  }, []); // Empty dependency array ensures this effect runs only on component mount
 
 
   return (

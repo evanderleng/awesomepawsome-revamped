@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import Navbar from './components/Navbar/Navbar'
-import { Route, Routes } from 'react-router-dom'
+import { Navigate, Route, Routes, useLocation } from 'react-router-dom'
 import Cart from './pages/Cart/Cart'
 import Home from './pages/Home/Home'
 import Footer from './components/Footer/Footer'
@@ -10,6 +10,7 @@ import Profile from './pages/Profile/Profile'
 import Payment from './pages/Payment/Payment'
 import IndividualProductPage from './pages/IndividualProductPage/IndividualProductPage'
 import RecommendMePage from './pages/RecommendMePage/RecommendMePage'
+import Error404 from './pages/Error404/Error404'
 import '@fortawesome/fontawesome-svg-core/styles.css';
 
 
@@ -19,12 +20,18 @@ const App = () => {
   const [showLogin, setShowLogin] = useState(false)
 
 
+  const location = useLocation(); // Get the current location
+
+
+  // Check if the current path matches the error route
+  const isErrorPage = !['/', '/cart', '/productPage', '/individualProductPage', '/recommendMePage'].includes(location.pathname);
+
   return(
     <>
     {showLogin ? <LoginPopup setShowLogin={setShowLogin} /> : <></>}
     <div className='app'>
       {/* this navbar will be applied throughout the entire app (all pages) */}
-      <Navbar setShowLogin={setShowLogin}/>
+      {!isErrorPage && <Navbar setShowLogin={setShowLogin} />}
 
       {/* set routes here (which page to go where) 
           - remember to import the page that you are navigating to 
@@ -41,10 +48,11 @@ const App = () => {
         <Route path='/payment' element={<Payment/>} />
 
         <Route path='/individualProductPage' element={<IndividualProductPage/>} /> 
-
+        <Route path='/recommendMePage' element={<RecommendMePage/>} /> 
+        <Route path='*' element={<Error404 />} />
       </Routes>
     </div>
-    <Footer/>
+    {!isErrorPage && <Footer />}
     </>
   )
 }

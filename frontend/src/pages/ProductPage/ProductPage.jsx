@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import './ProductPage.css'
-import ExploreMenu from '../../components/ExploreMenu/ExploreMenu'
+import FilterBreed from '../../components/FilterBreed/FilterBreed'
 import FoodDisplay from '../../components/FoodDisplay/FoodDisplay'
 
 
@@ -13,8 +13,14 @@ const ProductPage = () => {
   return (
     <div className='place-order'>
 
-      {/* you are passing both the state and the setter to ExploreMenu */}
-      <ExploreMenu breedSize={breedSize} setBreedSize={setBreedSize}/>  
+      <div className="search-bar-container">
+        <form action="" className="search-bar-form">
+          <input type="text" className='search-input' placeholder='Search Your Product Here...'/>
+        </form>
+      </div>
+
+      {/* you are passing both the state and the setter to FilterBreed */}
+      <FilterBreed breedSize={breedSize} setBreedSize={setBreedSize}/>  
 
       {/*you are passing state of breedSize to FoodDisplay component*/}
       <FoodDisplay breedSize={breedSize}/>

@@ -5,7 +5,7 @@ import RecommendProduct from '../../components/RecommendProduct/RecommendProduct
 const RecommendMePage = () => {
   return (
     <div>
-      <RecommendProduct/>
+      <RecommendProduct petIsRegistered={false}/>
     </div>
   )
 }
