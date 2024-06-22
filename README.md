@@ -50,21 +50,34 @@ E-Commerce site specialising in delivering tailor-made, hassle free services to 
 ### Reconnecting
 1. If container has stopped  
     `docker start mongodb` 
-    1. If ever need to restart container  
-        `docker restart mongodb`  
+
+1. If ever need to restart container  
+    `docker restart mongodb`  
+
 1. Running mongosh to connect to db  
-    1. if running on same computer
+    - if running on same computer
         `mongosh awesomepawsome --port 27017` OR  
-    1. Generic conenct command
+    - Generic conenct command
     `mongosh "mongodb://<user>@<ip>:<port>/<database>"`
         - default port is 27017
 
 ## Interacting with Backend data
 1. Useful locations and information
-    1. DB connection info is in `/backend/.env`
-        1. Change this to connect to your own db when running locally
-    1. DB schemas are in `/backend/models`
-    1. API functions are in `/backend/controllers`
-    1. API routes are in `/backend/routes`
-    1. Full overview - `contracts.txt`
-1. Use Postman to send HTTP requests to `<url>/<api route>` to test with backend
+    - DB connection info is in `/backend/.env`
+        - Change this to connect to your own db when running locally
+    - DB schemas are in `/backend/models`
+    - API functions are in `/backend/controllers`
+    - API routes are in `/backend/routes`
+    - Full overview - `contracts.txt`
+
+1. Ensure backend server is up and running
+    - Runs on port 4000, can be changed later on in `/backend/app.js`
+    ```
+    cd backend
+    npm run dev
+    ```
+
+1. Use Postman to send HTTP requests to `<url>:<port>/<api route>` to test with backend
+    - *\<url>:\<port>* is where the backend server is currently running on
+    - *\<api route>* is where you want to test on, as seen in `contracts.txt`
+    - Currently it takes in JSON as data type, within the body, so remember to set as that

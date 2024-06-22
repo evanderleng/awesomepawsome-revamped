@@ -23,6 +23,12 @@ app.get("/api/test", (req,res) => {
     res.json({"testing": "if you can read this, you have connected to backend"})
 })
 
+// logging purposes, delete before submission
+app.use((req, res, next) => {
+    console.log('Received request body:', req.body);
+    next();
+});
+
 
 app.use("/api/user", UserRouter);
 app.use("/api/product", ProductRouter);
@@ -30,4 +36,5 @@ app.use("/api/order", OrderRouter);
 app.use("/api/review", ReviewRouter);
 app.use("/api/cart", CartRouter);
 
+// Server Listening Port
 app.listen(4000, () => {console.log("Server started on port 4000")})
