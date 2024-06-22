@@ -1,5 +1,5 @@
 import { createContext, useEffect, useState } from "react";
-import { dog_food_list } from "../assets/assets";
+import { food_list } from "../assets/assets";
 
 
 export const StoreContext = createContext(null)
@@ -36,7 +36,7 @@ useEffect(()=>{console.log(cartItems);}, [cartItems])
 
 
     const contextValue = {
-        dog_food_list,  // so now food_list can be accessed anywhere
+        food_list,  // so now food_list can be accessed anywhere
         cartItems,
         setCartItems,
         addToCart,

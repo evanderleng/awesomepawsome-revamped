@@ -1,5 +1,5 @@
 import basket_icon from './basket_icon.png'
-import logo from './logo_with_name.jpg'
+import logo from './logo.png'
 import header_img from './header_img.png'
 import search_icon from './search_icon.png'
 import menu_1 from './menu_1.png'
@@ -43,16 +43,6 @@ import food_29 from './food_29.png'
 import food_30 from './food_30.png'
 import food_31 from './food_31.png'
 import food_32 from './food_32.png'
-
-import dog_food_1 from './dog_food_1.jpg'
-import dog_food_2 from './dog_food_2.jpg'
-import dog_food_3 from './dog_food_3.png'
-import dog_food_4 from './dog_food_4.jpg'
-
-import small_breed_dog from './small_breed_dog.jpg'
-import medium_breed_dog from './medium_breed_dog.jpg'
-import big_breed_dog from './big_breed_dog.jpg'
-
 
 import add_icon_white from './add_icon_white.png'
 import add_icon_green from './add_icon_green.png'
@@ -357,56 +347,4 @@ export const food_list = [
         description: "Food provides essential nutrients for overall health and well-being",
         category: "Noodles"
     }
-]
-
-
-export const dog_food_list = [
-    {
-        id: "1",
-        name: "Pedigree Small Dog",
-        image: dog_food_1,
-        price: 15, 
-        description: " ",
-        breedSize: "Small"
-    },
-    {
-        id: "2",
-        name: "Pedigree Small Dog",
-        image: dog_food_2,
-        price: 25, 
-        description: " ",
-        breedSize: "Small"
-    },
-    {
-        id: "3",
-        name: "Royal Cain Small/Petit Dog",
-        image: dog_food_3,
-        price: 45, 
-        description: " ",
-        breedSize: "Small"
-    },
-    {
-        id: "4",
-        name: "Royal Cain Medium/Moyen Dog",
-        image: dog_food_4,
-        price: 45, 
-        description: " ",
-        breedSize: "Medium"
-    },
-]
-
-export const dog_breedSize_list = [
-    {
-        breedSize: "Small",
-        image: small_breed_dog
-    },
-    {
-        breedSize: "Medium",
-        image: medium_breed_dog
-    },
-    {
-        breedSize: "Big",
-        image: big_breed_dog
-    }
-
 ]
