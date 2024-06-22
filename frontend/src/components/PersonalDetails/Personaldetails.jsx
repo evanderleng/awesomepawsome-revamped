@@ -1,70 +1,58 @@
-// import React from 'react';
-
-// const PersonalDetails = () => {
-//   return (
-//     <div>
-//       <h1>Personal Details</h1>
-//       <div className="personal-info">
-//         <h2>Name: <span className="placeholder">Your Name</span></h2>
-//         <p>Email: <span className="placeholder">your.email@example.com</span></p>
-//         <p>Phone: <span className="placeholder">123-456-7890</span></p>
-//         <p>Address: <span className="placeholder">Your address...</span></p>
-//       </div>
-//       <div className="personal-bio">
-//         <h2>Bio</h2>
-//         <p>Short biography about yourself...</p>
-//       </div>
-//     </div>
-//   );
-// };
-
-
-// export default PersonalDetails;
-
-import React from 'react';
+import React, { useState } from 'react';
+import { FaPencilAlt } from 'react-icons/fa'; // Import the pencil icon
 
 const PersonalDetails = ({ personalDetails, setPersonalDetails }) => {
+  const [editMode, setEditMode] = useState(false);
+
   const handleChange = (event) => {
     const { name, value } = event.target;
     setPersonalDetails({ ...personalDetails, [name]: value });
   };
 
-  return (
-    <div>
-      <h2>Personal Details</h2>
-      <form>
-        <label>
-          Name:
-          <input
-            type="text"
-            name="name"
-            value={personalDetails.name}
-            onChange={handleChange}
-            placeholder="Enter your name"
-          />
-        </label>
-        <label>
-          Email:
-          <input
-            type="email"
-            name="email"
-            value={personalDetails.email}
-            onChange={handleChange}
-            placeholder="Enter your email"
-          />
-        </label>
+  const handleSave = () => {
+    setEditMode(false);
+    // Add save logic here, e.g., API call
+  };
 
-        <label>
-          Address:
-          <input
-            type="address"
-            name="address"
-            value={personalDetails.address}
-            onChange={handleChange}
-            placeholder="Enter your address"
-          />
-        </label>
-      </form>
+  return (
+    <div className="personal-details">
+      <h2>Personal Details</h2>
+      {editMode ? (
+        <form>
+          <label>
+            Name:
+            <input
+              type="text"
+              name="name"
+              value={personalDetails.name}
+              onChange={handleChange}
+              placeholder="Enter your name"
+            />
+          </label>
+          <label>
+            Email:
+            <input
+              type="email"
+              name="email"
+              value={personalDetails.email}
+              onChange={handleChange}
+              placeholder="Enter your email"
+            />
+          </label>
+          <button type="button" onClick={handleSave}>
+            Save
+          </button>
+        </form>
+      ) : (
+        <div>
+           <button onClick={() => setEditMode(true)}>
+            <FaPencilAlt /> Edit
+          </button>
+          <p><strong>Name:</strong> {personalDetails.name}</p>
+          <p><strong>Email:</strong> {personalDetails.email}</p>
+         
+        </div>
+      )}
     </div>
   );
 };

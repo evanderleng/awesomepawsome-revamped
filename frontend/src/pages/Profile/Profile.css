@@ -1,11 +1,3 @@
-/* Profile.css */
-
-/* General Reset */
-body, h1, h2, h3, p, div {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
 
 /* Layout */
 .profile {
@@ -66,7 +58,7 @@ body, h1, h2, h3, p, div {
 /* Content */
 .content h2 {
   margin-bottom: 20px;
-  font-size: 1.5rem;
+  font-size: 2.5rem;
   color: #da5e07;
 }
 
@@ -88,22 +80,6 @@ body, h1, h2, h3, p, div {
   font-size: 1rem;
 }
 
-.content button {
-  align-self: flex-start;
-  padding: 10px 20px;
-  background-color: #e75512;
-  color: #fff;
-  border: none;
-  border-radius: 4px;
-  font-size: 1rem;
-  cursor: pointer;
-  transition: background-color 0.3s, color 0.3s;
-}
-
-.content button:hover {
-  background-color: #ffa60d;
-}
-
 /* Responsive */
 @media (max-width: 768px) {
   .profile {
@@ -119,4 +95,105 @@ body, h1, h2, h3, p, div {
   .content {
     padding: 15px;
   }
+}
+
+/* Styles for PersonalDetails component */
+.personal-details {
+  margin-bottom: 20px;
+}
+
+.personal-details button {
+  display: flex;
+  align-items: self-end;
+  background-color: transparent;
+  color: #f39c12; /* Orange color */
+  border: 1px solid #f39c12; /* Orange outline */
+  border-radius: 4px;
+  padding: 5px 10px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+}
+
+.personal-details button:hover {
+  color: #e67e22; /* Darker orange */
+  border-color: #e67e22; /* Darker orange border */
+}
+
+.personal-details button svg {
+  margin-right: 5px; /* Space between the icon and text */
+}
+
+.personal-details form button {
+  margin-top: 10px;
+}
+
+.personal-details form input {
+  width: 100%;
+  margin-bottom: 10px;
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+/* Styles for PetDetails component */
+.pet-details {
+  margin-bottom: 20px;
+  position: relative;
+}
+
+.pet-details .header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.pet-details .header h2 {
+  margin: 0;
+}
+
+.pet-details button {
+  display: flex;
+  align-items:center;
+  background-color: transparent;
+  color: #f39c12; /* Orange color */
+  border: 1px solid #f39c12; /* Orange outline */
+  border-radius: 4px;
+  padding: 5px 10px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+}
+
+.pet-details button:hover {
+  color: #e67e22; /* Darker orange */
+  border-color: #e67e22; /* Darker orange border */
+}
+
+.pet-details button svg {
+  margin-right: 5px; /* Space between the icon and text */
+}
+
+.pet-details form {
+  display: flex;
+  flex-direction: column;
+  margin-top: 15px;
+}
+
+.pet-details form button {
+  margin-top: 10px;
+}
+
+.pet-details form input {
+  width: 100%;
+  margin-bottom: 10px;
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.pet-details p {
+  margin: 10px 0;
+  font-size: 1rem;
+  color: #333;
 }
