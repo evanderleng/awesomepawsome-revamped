@@ -16,7 +16,7 @@ const PetDetails = ({ petDetails, setPetDetails }) => {
 
   return (
     <div className="pet-details">
-      <div>
+       <div className="title-container">
         <h2>Pet Details</h2>
         <button className="edit-button" onClick={() => setEditMode(!editMode)}>
           <FaPencilAlt /> Edit

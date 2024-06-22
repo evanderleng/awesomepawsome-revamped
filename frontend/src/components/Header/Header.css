@@ -21,14 +21,17 @@
 }
 
 .header-contents h2{
-    font-weight: 500;
-    color: white;
+    font-weight: 800;
+    color: rgb(67, 26, 3);
+    text-align: left;
     font-size: max(4.5vw, 22px);
+    
 }
 
 .header-contents p{
-    color: white;
+    color: rgb(0, 0, 0);
     font-size: 2vw;
+    text-align: left;
 }
 
 .header-contents button{

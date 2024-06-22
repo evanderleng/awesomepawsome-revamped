@@ -16,7 +16,12 @@ const PersonalDetails = ({ personalDetails, setPersonalDetails }) => {
 
   return (
     <div className="personal-details">
-      <h2>Personal Details</h2>
+      <div className="title-container">
+        <h2>Personal Details</h2>
+        <button className="edit-button" onClick={() => setEditMode(!editMode)}>
+          <FaPencilAlt /> Edit
+        </button>
+      </div>
       {editMode ? (
         <form>
           <label>
@@ -45,12 +50,8 @@ const PersonalDetails = ({ personalDetails, setPersonalDetails }) => {
         </form>
       ) : (
         <div>
-           <button onClick={() => setEditMode(true)}>
-            <FaPencilAlt /> Edit
-          </button>
           <p><strong>Name:</strong> {personalDetails.name}</p>
           <p><strong>Email:</strong> {personalDetails.email}</p>
-         
         </div>
       )}
     </div>

@@ -16,7 +16,7 @@
 
 .sidebar {
   width: 250px;
-  background-color: #f7f7f7;
+  background-color: #e2d6d1;
   padding: 20px;
   border-right: 1px solid #ddd;
 }
@@ -40,7 +40,7 @@
 .sidebar button {
   background: none;
   border: none;
-  color: #333;
+  color: #ffffff;
   padding: 10px;
   text-align: left;
   width: 100%;
@@ -51,7 +51,7 @@
 }
 
 .sidebar button:hover, .sidebar button.active {
-  background-color: #ff5314;
+  background-color: #d9c4bc;
   color: #fff;
 }
 
@@ -104,17 +104,16 @@
 
 .personal-details button {
   display: flex;
-  align-items: self-end;
+  align-items:center;
   background-color: transparent;
-  color: #f39c12; /* Orange color */
-  border: 1px solid #f39c12; /* Orange outline */
+  color: #626262; /* Orange color */
+  border: 2px solid #454140; /* Orange outline */
   border-radius: 4px;
   padding: 5px 10px;
   cursor: pointer;
-  font-size: 0.9rem;
+  font-size: 2 rem;
   transition: background-color 0.3s, color 0.3s, border-color 0.3s;
 }
-
 .personal-details button:hover {
   color: #e67e22; /* Darker orange */
   border-color: #e67e22; /* Darker orange border */
@@ -136,6 +135,19 @@
   border-radius: 4px;
 }
 
+.personal-details .title-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* Align title and button on opposite sides */
+}
+.personal-details p {
+  margin: 10px 0;
+  font-size: 1.2rem;
+  color: #0c0c0c;
+}
+
+
+
 /* Styles for PetDetails component */
 .pet-details {
   margin-bottom: 20px;
@@ -151,22 +163,26 @@
 .pet-details .header h2 {
   margin: 0;
 }
-
+.pet-details .title-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* Align title and button on opposite sides */
+}
 .pet-details button {
   display: flex;
   align-items:center;
   background-color: transparent;
-  color: #f39c12; /* Orange color */
-  border: 1px solid #f39c12; /* Orange outline */
+  color: #626262; /* Orange color */
+  border: 2px solid #454140; /* Orange outline */
   border-radius: 4px;
   padding: 5px 10px;
   cursor: pointer;
-  font-size: 0.9rem;
+  font-size: 1.5 rem;
   transition: background-color 0.3s, color 0.3s, border-color 0.3s;
 }
 
 .pet-details button:hover {
-  color: #e67e22; /* Darker orange */
+  color: #e34603; /* Darker orange */
   border-color: #e67e22; /* Darker orange border */
 }
 
@@ -194,6 +210,6 @@
 
 .pet-details p {
   margin: 10px 0;
-  font-size: 1rem;
-  color: #333;
+  font-size: 1.2rem;
+  color: #0c0c0c;
 }
