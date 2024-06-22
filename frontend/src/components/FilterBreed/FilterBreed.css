@@ -1,0 +1,63 @@
+.filter-breed{
+    display: flex;
+    flex-direction:column;
+    gap: 20px;
+}
+
+.filter-breed h1{
+    color: #262626;
+    font-weight: 500;
+}
+
+.filter-breed-text{
+    max-width: 60%;
+    color: #808080;
+}
+
+.filter-breed-list{
+    display:flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 30px;
+    text-align: center;
+    margin: 20px 0px;
+    overflow-x:scroll;  /*To make it scroll sideway in case of overflowing*/
+}
+
+.filter-breed-list::-webkit-scrollbar{
+    display:none;
+}
+
+.filter-breed-list-item img{
+    width: 7.5vw;
+    min-width: 190px;
+    cursor: pointer;
+    border-radius: 50%;
+    transition: 0.2s;
+    max-height: 100px;
+    object-fit: cover;  /*This will not stretch the image*/
+
+    
+}
+
+.filter-breed-list-item p{
+    margin-top: 10px;
+    color: #747474;
+    font-size: max(1.4vw, 16px);
+    cursor: pointer;
+}
+
+.filter-breed hr{
+    margin: 10px 0px;
+    height: 2px;
+    background-color: #e2e2e2;
+    border: none;
+}
+
+
+.filter-breed-list-item .active{
+    border: 4px solid tomato;
+    padding: 2px;
+
+}
+

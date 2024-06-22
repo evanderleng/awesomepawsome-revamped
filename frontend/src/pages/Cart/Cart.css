@@ -1,0 +1,27 @@
+.cart {
+    font-family: Arial, sans-serif;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.cart-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.cart-items {
+    flex: 3;
+    margin-right: 20px;
+}
+
+.cart-summary {
+    flex: 1;
+    background-color: #f8f8f8;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    min-width: 300px;
+    align-self: flex-start;
+}

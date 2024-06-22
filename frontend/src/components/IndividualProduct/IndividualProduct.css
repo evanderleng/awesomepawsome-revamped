@@ -1,0 +1,94 @@
+.individual-product-container {
+    padding-top: 40px;
+}
+
+/* Flex container for image and details */
+.product-content {
+    display: flex;
+    /* Enable flexbox */
+    flex-direction: row;
+    /* Default direction is row */
+
+}
+
+.product-details {
+    flex: 1;
+    /* Take up more space than the image */
+    display: flex;
+    flex-direction: column;
+}
+
+
+.product-title {}
+
+.product-img {
+    border: 1px solid black;
+    flex: 1;
+    /* Allow image to take up space */
+    margin-right: 20px;
+    /* Space between image and text */
+    border-radius: 10px;
+}
+
+.product-img img {
+    max-width: 100%;
+    /* Responsive image */
+    height: auto;
+    /* Maintain aspect ratio */
+    border-radius: 10px;
+    /* Optional: add some border-radius for style */
+
+}
+
+
+.product-description {}
+
+/* put it in a nested way so that this button's css won't affect the other buttons with the same class name*/
+.individual-product-container .add-to-cart button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 1rem;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.individual-product-container .add-to-cart button:hover {
+    background-color: #45a049;
+}
+
+.product-title h1 {
+    font-size: 2rem;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.product-description h3 {
+    font-size: 1.2rem;
+    color: #333;
+    margin-bottom: 8px;
+}
+
+.product-description p {
+    font-size: 1rem;
+    color: #666;
+    line-height: 1.5;
+    margin-bottom: 10px;
+}
+
+.price h3 {
+    font-size: 1.2rem;
+    color: #333;
+    margin-bottom: 8px;
+}
+
+.price p {
+    font-size: 1rem;
+    color: #666;
+    margin-bottom: 10px;
+}
