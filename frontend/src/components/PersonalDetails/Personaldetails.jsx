@@ -44,6 +44,16 @@ const PersonalDetails = ({ personalDetails, setPersonalDetails }) => {
               placeholder="Enter your email"
             />
           </label>
+          <label>
+            Address:
+            <input
+              type="address"
+              name="address"
+              value={personalDetails.address}
+              onChange={handleChange}
+              placeholder="Enter your delivery address"
+            />
+          </label>
           <button type="button" onClick={handleSave}>
             Save
           </button>
@@ -52,7 +62,9 @@ const PersonalDetails = ({ personalDetails, setPersonalDetails }) => {
         <div>
           <p><strong>Name:</strong> {personalDetails.name}</p>
           <p><strong>Email:</strong> {personalDetails.email}</p>
+          <p><strong> Shipping Address:</strong> {personalDetails.address}</p>
         </div>
+      
       )}
     </div>
   );

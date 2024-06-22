@@ -35,13 +35,24 @@ const PetDetails = ({ petDetails, setPetDetails }) => {
             />
           </label>
           <label>
-            Pet Type:
+            Breed:
             <input
               type="text"
-              name="petType"
+              name="petBreed"
               value={petDetails.petType}
               onChange={handleChange}
-              placeholder="Enter your pet's type"
+              placeholder="Enter your pet's breed"
+            />
+          </label>
+
+          <label>
+            Age:
+            <input
+              type="text"
+              name="petAge"
+              value={petDetails.petType}
+              onChange={handleChange}
+              placeholder="Enter your pet's age"
             />
           </label>
           <button type="button" onClick={handleSave}>
@@ -50,8 +61,10 @@ const PetDetails = ({ petDetails, setPetDetails }) => {
         </form>
       ) : (
         <div>
-          <p><strong>Pet Name:</strong> {petDetails.petName}</p>
-          <p><strong>Pet Type:</strong> {petDetails.petType}</p>
+          <p><strong>Name:</strong> {petDetails.petName}</p>
+          <p><strong>Breed:</strong> {petDetails.petBreed}</p>
+          <p><strong>Age:</strong> {petDetails.petAge}</p>
+          <p><strong>Size:</strong> {petDetails.petSize}</p>
         </div>
       )}
     </div>
