@@ -24,7 +24,7 @@ const App = () => {
 
 
   // Check if the current path matches the error route
-  const isErrorPage = !['/', '/cart', '/productPage', '/individualProductPage', '/recommendMePage'].includes(location.pathname);
+  const isErrorPage = !['/', '/cart', '/productPage', '/individualProductPage', '/recommendMePage', '/profile', '/payment'].includes(location.pathname);
 
   return(
     <>
