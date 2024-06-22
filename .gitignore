@@ -3,3 +3,6 @@
 
 ./frontend/node_modules
 node_modules/
+
+# remove line below if want to include built version inside source code
+dist/ 
