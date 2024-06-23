@@ -15,7 +15,7 @@ const ProductPage = () => {
 
       <div className="search-bar-container">
         <form action="" className="search-bar-form">
-          <input type="text" className='search-input' placeholder='Search Your Product Here...'/>
+          <input type="text" className='search-input' placeholder='Search Your Products Here...'/>
         </form>
       </div>
 
