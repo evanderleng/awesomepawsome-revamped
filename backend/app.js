@@ -2,6 +2,7 @@ const express = require('express')
 const dotenv = require('dotenv')
 const mongoSanitize = require('express-mongo-sanitize')
 const helmet = require('helmet')
+const cors = require('cors')
 const connDB = require('./db')
 
 const UserRouter = require("./routes/UserRoutes.js")
@@ -14,7 +15,15 @@ const CartRouter = require("./routes/CartRoutes.js")
 dotenv.config()
 connDB()
 const app = express()
-app.use(helmet())
+
+if (process.env.NODE_ENV == "development") {
+    app.use(cors())
+    console.log("development mode detected. CORS disabled.")
+} else {
+    //app.use(helmet())
+    console.log("production mode detected. CORS enabled.")
+}
+
 app.use(express.json())
 app.use(mongoSanitize())
 
