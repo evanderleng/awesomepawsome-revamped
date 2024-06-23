@@ -3,10 +3,7 @@ pipeline {
     stages {
         stage('Checkout SCM') {
             steps {
-                script {
-                    env.GIT_CREDENTIALS = credentials('GIT_CREDENTIALS_ID')
-                }
-                git branch: 'main', url: 'https://github.com/fwishyy/awesome-pawsome.git', credentialsId: env.GIT_CREDENTIALS
+                git branch: 'main', url: 'https://github.com/fwishyy/awesome-pawsome.git', credentialsId: '7bae4c9d-4aa5-48fd-afef-32abfcd0fa3c'
             }
         }
 
