@@ -3,7 +3,19 @@ import "./IndividualProduct.css";
 import { assets, dog_food_list } from "../../assets/assets";
 import dog_food_image from "../../assets/dog_food_1.jpg";
 
-const IndividualProduct = ({id, name, price, description, image}) => {
+const IndividualProduct = ({
+  id,
+  brand,
+  name,
+  weight,
+  price,
+  rating,
+  ratingCount,
+  description,
+  ingredients,
+  breedSize,
+  image,
+}) => {
   return (
     <div className="individual-product-container">
       <div className="product-content">
@@ -15,13 +27,30 @@ const IndividualProduct = ({id, name, price, description, image}) => {
           <div className="product-title">
             <h1>{name}</h1>
           </div>
+          <div className="product-brand">
+            <p>{brand}</p>
+          </div>
           <div className="product-description">
             <h3>Description</h3>
-            <p>Give your small dog the nourishment they deserve with Pedigree Small Dog Complete Nutrition. Crafted with high-quality ingredients and enriched with essential nutrients, this dog food is specially formulated to meet the unique dietary needs of small breed dogs.</p>
-            <h3>Ingredients</h3>
-            <p>Ground whole corn, meat and bone meal, corn gluten meal, animal fat (preserved with BHA/BHT), chicken by-product meal</p>
+            <p>{description}</p>
           </div>
-          <div className="price">
+          <div className="product-ingredients">
+            <h3>Ingredients</h3>
+            <p>{ingredients}</p>
+          </div>
+          <div className="product-weight">
+            <h3>Weight</h3>
+            <p>{weight}</p>
+          </div>
+          <div className="product-rating">
+            <h3>Rating</h3>
+            <p>{rating}</p>
+          </div>
+          <div className="product-breed-size">
+            <h3>Breed Size</h3>
+            <p>{breedSize}</p>
+          </div>
+          <div className="product-price">
             <h3>Subscription Price</h3>
             <p>${price} / Month</p>
           </div>

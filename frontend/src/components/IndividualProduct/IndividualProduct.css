@@ -19,7 +19,6 @@
 }
 
 
-.product-title {}
 
 .product-img {
     border: 1px solid black;
@@ -41,7 +40,91 @@
 }
 
 
-.product-description {}
+.product-title h1 {
+    font-size: 2rem;
+    color: #333;
+}
+
+
+.product-brand p {
+    padding-bottom: 10px;
+    font-style: italic;
+    color: #333;
+
+}
+
+.product-description h3 {
+    font-size: 1.2rem;
+    color: #333;
+}
+
+.product-description p {
+    font-size: 1rem;
+    color: #666;
+    line-height: 1.5;
+    margin-bottom: 10px;
+}
+
+.product-ingredients h3 {
+    font-size: 1.2rem;
+    color: #333;
+}
+
+.product-ingredients p {
+    font-size: 1rem;
+    color: #666;
+    line-height: 1.5;
+    margin-bottom: 10px;
+}
+
+.product-weight h3 {
+    font-size: 1.2rem;
+    color: #333;
+}
+
+.product-weight p {
+    font-size: 1rem;
+    color: #666;
+    line-height: 1.5;
+    margin-bottom: 10px;
+}
+
+.product-rating h3 {
+    font-size: 1.2rem;
+    color: #333;
+}
+
+.product-rating p {
+    font-size: 1rem;
+    color: #666;
+    line-height: 1.5;
+    margin-bottom: 10px;
+}
+
+.product-breed-size h3 {
+    font-size: 1.2rem;
+    color: #333;
+}
+
+.product-breed-size p {
+    font-size: 1rem;
+    color: #666;
+    line-height: 1.5;
+    margin-bottom: 10px;
+}
+
+
+.product-price h3 {
+    font-size: 1.2rem;
+    color: #333;
+}
+
+.product-price p {
+    font-size: 1rem;
+    color: #666;
+    margin-bottom: 10px;
+}
+
 
 /* put it in a nested way so that this button's css won't affect the other buttons with the same class name*/
 .individual-product-container .add-to-cart button {
@@ -60,35 +143,4 @@
 
 .individual-product-container .add-to-cart button:hover {
     background-color: #45a049;
-}
-
-.product-title h1 {
-    font-size: 2rem;
-    color: #333;
-    margin-bottom: 10px;
-}
-
-.product-description h3 {
-    font-size: 1.2rem;
-    color: #333;
-    margin-bottom: 8px;
-}
-
-.product-description p {
-    font-size: 1rem;
-    color: #666;
-    line-height: 1.5;
-    margin-bottom: 10px;
-}
-
-.price h3 {
-    font-size: 1.2rem;
-    color: #333;
-    margin-bottom: 8px;
-}
-
-.price p {
-    font-size: 1rem;
-    color: #666;
-    margin-bottom: 10px;
 }

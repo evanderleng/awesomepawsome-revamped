@@ -20,7 +20,7 @@ const FoodItem = ({id, brand, name, weight, price, rating, ratingCount, descript
                 <img className='food-item-image' src={image} alt=""></img></Link>    */}
                 {/* if there are no item count (itemCount = 0), display just the + sign, else display both + - and the item count */}
 
-                    
+
             </div>
             <div className='food-item-info'>
                 <div className='food-item-name-rating'>
@@ -29,6 +29,7 @@ const FoodItem = ({id, brand, name, weight, price, rating, ratingCount, descript
                 </div>
                 <p className='food-item-desc'>{description}</p>
                 <p className='food-item-price'>${price}</p>
+                <button><Link to="/individualProductPage" state={{id, brand, name, weight, price, rating, ratingCount, description, ingredients, breedSize}}>More Info</Link></button>
             </div>
         
         </div>
