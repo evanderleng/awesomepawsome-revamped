@@ -5,7 +5,7 @@ import { StoreContext } from '../../context/StoreContext'
 import { Link, useLocation } from 'react-router-dom';
 
 
-const FoodItem = ({id, name, price, description, image}) => {
+const FoodItem = ({id, brand, name, weight, price, rating, ratingCount, description, ingredients, breedSize}) => {
     
     const {cartItems, addToCart, removeFromCart} = useContext(StoreContext);
     
@@ -16,19 +16,11 @@ const FoodItem = ({id, name, price, description, image}) => {
                 {/* direct to individual product page upon click 
                     state will be what properties you wish to pass over to the other side, the other side must retrieve using location.state)
                 */}
-                <Link to="/individualProductPage" state={{id, name, price, description, image}}>
-                <img className='food-item-image' src={image} alt=""></img></Link>   
+                {/* <Link to="/individualProductPage" state={{id, name, price, description, image}}>
+                <img className='food-item-image' src={image} alt=""></img></Link>    */}
                 {/* if there are no item count (itemCount = 0), display just the + sign, else display both + - and the item count */}
-                {!cartItems[id]  
-                    ?<img className='add' onClick={() => addToCart(id)} src={assets.add_icon_white}></img>  // if add, call addtocart function (refer to storecontext for functionality)
-                    :<div className='food-item-counter'>
-                        <img onClick={() => removeFromCart(id)} src={assets.remove_icon_red} alt=''></img>
-                        <p>{cartItems[id]}</p>
-                        <p>Item is {id}</p>
-                        <img onClick={() => addToCart(id)} src={assets.add_icon_green} alt=''></img>
 
-                    </div>
-            }
+                    
             </div>
             <div className='food-item-info'>
                 <div className='food-item-name-rating'>
