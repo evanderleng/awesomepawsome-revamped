@@ -1,0 +1,21 @@
+pipeline {
+    agent any
+    stages {
+        stage('Checkout SCM') {
+            steps {
+                git branch: 'main', url: 'https://github.com/fwishyy/awesome-pawsome.git', credentialsId: '7bae4c9d-4aa5-48fd-afef-32abfcd0fa3c'
+            }
+        }
+
+        stage('OWASP DependencyCheck') {
+            steps {
+                dependencyCheck additionalArguments: '--format HTML --format XML', odcInstallation: 'Default'
+            }
+        }
+    }
+    post {
+        success {
+            dependencyCheckPublisher pattern: 'dependency-check-report.xml'
+        }
+    }
+} 
