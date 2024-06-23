@@ -213,3 +213,97 @@
   font-size: 1.2rem;
   color: #0c0c0c;
 }
+
+/* Subscriptions.css */
+
+/* Container */
+.subscriptions {
+  margin-bottom: 20px;
+}
+
+/* Title Container */
+.subscriptions .title-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+
+/* Table Styles */
+.subscription-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.subscription-table th, .subscription-table td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.subscription-table th {
+  background-color: #f7f7f7;
+  font-weight: bold;
+}
+
+.subscription-table tr:hover {
+  background-color: #f1f1f1;
+}
+
+/* No Subscription Message */
+.no-subscription {
+  color: #777;
+  font-size: 1rem;
+  margin-top: 10px;
+}
+
+/* Status Styles */
+.status {
+  text-transform: capitalize;
+}
+
+.status.pending {
+  color: #ffa500; /* Orange for pending */
+}
+
+.status.active {
+  color: #28a745; /* Green for active */
+}
+
+.status.trial {
+  color: #007bff; /* Blue for trial */
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .subscription-table, .subscription-table th, .subscription-table td {
+    display: block;
+    width: 100%;
+  }
+
+  .subscription-table th {
+    background-color: transparent;
+    position: relative;
+  }
+
+  .subscription-table tr {
+    margin-bottom: 10px;
+  }
+
+  .subscription-table td {
+    padding-left: 50%;
+    text-align: right;
+  }
+
+  .subscription-table td:before {
+    content: attr(data-label);
+    position: absolute;
+    left: 0;
+    width: 45%;
+    padding-left: 10px;
+    text-align: left;
+    font-weight: bold;
+    background-color: #f7f7f7;
+  }
+}
