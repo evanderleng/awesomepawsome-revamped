@@ -6,8 +6,8 @@
   "proxy": "127.0.0.1:4000",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node app",
-    "dev": "NODE_ENV=development nodemon app"
+    "start": "npm install && node app",
+    "dev": "npm install && NODE_ENV=development nodemon app"
   },
   "keywords": [],
   "author": "",
