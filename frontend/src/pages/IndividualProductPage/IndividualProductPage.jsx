@@ -29,18 +29,12 @@ const IndividualProductPage = () => {
 
   // API Call to get list of reviews for specific product
   useEffect(() => {
-    const url = "http://127.0.0.1:4000/api/review/getReview";
-
-    // body to be sent with the GET request
-    const requestBody = {
-      product_id : "665b60e31271676dae7eb111",  // change this to id after testing
-    };
+    const url = "http://127.0.0.1:4000/api/review/getReview/?product_id=665b60e31271676dae7eb111";
 
     // Make the GET request with axios
     axios({
       method: "get", // HTTP method
       url: url, // URL to send the request to
-      data: requestBody, // Body of the request
       headers: {
         "Content-Type": "application/json", // Content-Type header
       },
