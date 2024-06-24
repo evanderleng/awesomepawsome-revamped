@@ -70,14 +70,16 @@ const IndividualProductPage = () => {
 
       {/*Based on the reviews state (obtained from API call), call the customer review component and pass in props*/}
       <h3 className="review-title">Reviews</h3>
-      {reviews.map((review) => 
-        <CustomerReview
-          key={review.product_id}
-          rating={review.rating}
-          comment={review.comment}
-          createdAt={review.createdAt}
-        />
-      )}
+      <div className="reviews-container">
+        {reviews.map((review) => (
+          <CustomerReview
+            key={review.product_id}
+            rating={review.rating}
+            comment={review.comment}
+            createdAt={review.createdAt}
+          />
+        ))}
+      </div>
     </div>
   );
 };

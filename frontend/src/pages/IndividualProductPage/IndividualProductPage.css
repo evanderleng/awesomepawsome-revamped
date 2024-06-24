@@ -1,3 +1,12 @@
 .review-title {
     padding-top: 30px;
 }
+
+
+/* Reviews container */
+.reviews-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Responsive side-by-side layout */
+    gap: 1rem; /* Space between each review item */
+    margin-top: 2rem; /* Space above the review section */
+  }

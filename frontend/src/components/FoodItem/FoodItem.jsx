@@ -27,7 +27,7 @@ const FoodItem = ({id, brand, name, weight, price, rating, ratingCount, descript
                     <p className='food-item-name'>{name}</p>
                     <img src={assets.rating_starts} alt=''/>
                 </div>
-                <p className='food-item-desc'>{description}</p>
+                {/* <p className='food-item-desc'>{description}</p> */}
                 <p className='food-item-price'>${price}</p>
                 <button><Link to="/individualProductPage" state={{id, brand, name, weight, price, rating, ratingCount, description, ingredients, breedSize}}>More Info</Link></button>
             </div>
