@@ -8,7 +8,32 @@ import './Profile.css';
 
 const Profile = () => {
   const [selectedTab, setSelectedTab] = useState('subscriptions');
-  const [subscriptions, setSubscriptions] = useState([]);
+  const [subscriptions, setSubscriptions] = useState([
+    {
+      name: 'Basic Plan',
+      startDate: 'July 6, 2020',
+      recurring: '$39.99 / year',
+      nextBilling: 'August 6, 2021',
+      endDate: '-',
+      status: 'Pending',
+    },
+    {
+      name: 'Premium Plan',
+      startDate: 'July 6, 2020',
+      recurring: '$75.00 / month',
+      nextBilling: 'August 6, 2020',
+      endDate: '-',
+      status: 'Active',
+    },
+    {
+      name: 'Trial Plan',
+      startDate: 'July 6, 2020',
+      recurring: '$0.00 / trial',
+      nextBilling: 'July 16, 2020',
+      endDate: 'July 16, 2020',
+      status: 'Trial',
+    },
+  ]); // Example subscriptions
   const [personalDetails, setPersonalDetails] = useState({ name: '', email: '' });
   const [petDetails, setPetDetails] = useState({ petName: '', petType: '' });
 
@@ -39,3 +64,4 @@ const Profile = () => {
 };
 
 export default Profile;
+
