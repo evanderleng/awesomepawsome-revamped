@@ -2,8 +2,8 @@ import React from "react";
 import './RecommendProduct.css'
 import dog_food from '../../assets/dog_food_3.png'
 
-const RecommendProduct = ({petIsRegistered}) => {
-  if (petIsRegistered){
+const RecommendProduct = ({petIsRegistered, isLogin}) => {
+  if (petIsRegistered && isLogin){
     return (
     <div className="recommend-product-container">
       <div className="recommend-header-title">
@@ -30,7 +30,7 @@ const RecommendProduct = ({petIsRegistered}) => {
     </div>
     );
   }
-  else{
+  else if(!petIsRegistered && isLogin){
     return(
       <>
       <div className="pet-not-registered-container">
@@ -38,6 +38,16 @@ const RecommendProduct = ({petIsRegistered}) => {
        <p>Do sign up your pet so we know what product to recommend based on their age, breed size and weight as well!</p> 
        <button>Register Your Pet Here!</button>
  
+      </div>
+      </>
+    )
+  }
+  else{
+    return(
+      <>
+      <div className="pet-not-registered-container">
+       <h3>Sorry, you are not logged in!</h3>
+       <p>Do log in first and remember to register your pet if you would like us to recommend you the package!</p> 
       </div>
       </>
     )
