@@ -41,12 +41,7 @@ const Navbar = ({ setShowLogin }) => {
         >
           <Link to="/recommendMePage">recommend me</Link>
         </li>
-        <li
-          onClick={() => setMenu("contact us")}
-          className={menu === "contact us" ? "active" : ""}
-        >
-          contact us
-        </li>
+
 
         {/* if isLogin state is true, display profile button, else remove it */}
         {isLogin ? (
