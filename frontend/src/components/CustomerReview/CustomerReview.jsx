@@ -8,7 +8,7 @@ const CustomerReview = ({product_id}) => {
             <p>Cesars top sirloin 100g dog food saved my life!</p>
         </div>
         <div className="customer-rating">
-            <p>4</p>
+            <p>4 / 10</p>
         </div>
     </div>
   )
