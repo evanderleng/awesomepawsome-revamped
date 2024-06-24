@@ -2,6 +2,7 @@ import React, { useEffect } from 'react'
 import './IndividualProductPage.css'
 import IndividualProduct from '../../components/IndividualProduct/IndividualProduct'
 import { useLocation, useParams } from 'react-router-dom'
+import CustomerReview from '../../components/CustomerReview/CustomerReview'
 
 const IndividualProductPage = () => {
 
@@ -24,6 +25,7 @@ const IndividualProductPage = () => {
   return (
     <div className='individualProductPage'>
       <IndividualProduct id={id} brand={brand} name={name} weight={weight} price={price} rating={rating} ratingCount={ratingCount} description={description} ingredients={ingredients} breedSize={breedSize}/>
+      <CustomerReview product_id={'665b60e31271676dae7eb111'}/>
     </div>
   )
 }
