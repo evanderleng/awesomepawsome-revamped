@@ -1,6 +1,8 @@
 import React from "react";
 import './RecommendProduct.css'
 import dog_food from '../../assets/dog_food_3.png'
+import { Link, useLocation } from 'react-router-dom';
+
 
 const RecommendProduct = ({petIsRegistered, isLogin}) => {
   if (petIsRegistered && isLogin){
@@ -36,7 +38,7 @@ const RecommendProduct = ({petIsRegistered, isLogin}) => {
       <div className="pet-not-registered-container">
        <h3>Sorry, your pet is not registered yet!</h3>
        <p>Do sign up your pet so we know what product to recommend based on their age, breed size and weight as well!</p> 
-       <button>Register Your Pet Here!</button>
+       <button><Link to="/profile">Register Your Pet Here!</Link></button>
  
       </div>
       </>
