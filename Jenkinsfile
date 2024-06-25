@@ -5,7 +5,7 @@ pipeline {
             steps {
                 dependencyCheck additionalArguments: ''' 
                             --format HTML --format XML
-                            ''', odcInstallation: 'OWASP Dependency-Check Vulnerabilities'
+                            ''', odcInstallation: 'Dependency Check'
                 
                 dependencyCheckPublisher pattern: 'dependency-check-report.xml'
             }
