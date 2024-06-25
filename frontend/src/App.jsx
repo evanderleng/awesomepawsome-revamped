@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import Navbar from './components/Navbar/Navbar'
 import { Navigate, Route, Routes, useLocation } from 'react-router-dom'
 import Cart from './pages/Cart/Cart'
@@ -12,6 +12,8 @@ import IndividualProductPage from './pages/IndividualProductPage/IndividualProdu
 import RecommendMePage from './pages/RecommendMePage/RecommendMePage'
 import Error404 from './pages/Error404/Error404'
 import '@fortawesome/fontawesome-svg-core/styles.css';
+import AdminDashboard from './pages/AdminDashboard/AdminDashboard';
+import { StoreContext } from './context/StoreContext'
 
 
 const App = () => {
@@ -21,9 +23,12 @@ const App = () => {
 
   const location = useLocation(); // Get the current location
 
+  const {userIsAdmin} = useContext(StoreContext)
+  
+
 
   // Check if the current path matches the error route
-  const isErrorPage = !['/', '/cart', '/productPage', '/individualProductPage', '/recommendMePage', '/profile', '/payment'].includes(location.pathname);
+  const isErrorPage = !['/', '/cart', '/productPage', '/individualProductPage', '/recommendMePage', '/profile', '/payment', '/adminDashboard'].includes(location.pathname);
 
   return(
     <>
@@ -48,6 +53,10 @@ const App = () => {
 
         <Route path='/individualProductPage' element={<IndividualProductPage/>} /> 
         <Route path='/recommendMePage' element={<RecommendMePage/>} /> 
+
+        {/* only if user is admin, then this route will exist, else no one can access this route*/}
+        {userIsAdmin &&<Route path='adminDashboard/' element={<AdminDashboard/>}/>}
+
         <Route path='*' element={<Error404 />} />
       </Routes>
     </div>

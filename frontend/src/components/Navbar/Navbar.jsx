@@ -10,9 +10,9 @@ const Navbar = ({ setShowLogin }) => {
   // function name is setMenu, menu is the state
   const [menu, setMenu] = useState("home"); // create state variable and initialise with home
 
-    // state isLogin (boolean), method setIsLogin to set state.
-    // from StoredContext, which means every part of the app can share this state
-    const {isLogin, setIsLogin} = useContext(StoreContext)
+  // state isLogin (boolean), method setIsLogin to set state.
+  // from StoredContext, which means every part of the app can share this state
+  const { isLogin, setIsLogin, userIsAdmin } = useContext(StoreContext);
 
   return (
     <div className="navbar">
@@ -35,21 +35,37 @@ const Navbar = ({ setShowLogin }) => {
         >
           <Link to="/productPage">product</Link>
         </li>
-        <li
-          onClick={() => setMenu("recommend me")}
-          className={menu === "recommend me" ? "active" : ""}
-        >
-          <Link to="/recommendMePage">recommend me</Link>
-        </li>
 
+        {/* if user is admin, recommend me page will not display, only for users and guests */}
+        {!userIsAdmin ? (
+          <li
+            onClick={() => setMenu("recommend me")}
+            className={menu === "recommend me" ? "active" : ""}
+          >
+            <Link to="/recommendMePage">recommend me</Link>
+          </li>
+        ) : null}
 
         {/* if isLogin state is true, display profile button, else remove it */}
+        {/* on top of that, if it is admin, then dont display profile button */}
         {isLogin ? (
+          userIsAdmin ? null : (
+            <li
+              onClick={() => setMenu("profile")}
+              className={menu === "profile" ? "active" : ""}
+            >
+              <Link to="/profile">profile</Link>
+            </li>
+          )
+        ) : null}
+
+        {/* if userIsAdmin state is true, display the dashboard button, else remove it */}
+        {userIsAdmin ? (
           <li
-            onClick={() => setMenu("profile")}
-            className={menu === "profile" ? "active" : ""}
+            onClick={() => setMenu("admin dashboard")}
+            className={menu === "admin dashboard" ? "active" : ""}
           >
-            <Link to="/profile">profile</Link>
+            <Link to="/adminDashboard">dashboard</Link>
           </li>
         ) : null}
       </ul>
