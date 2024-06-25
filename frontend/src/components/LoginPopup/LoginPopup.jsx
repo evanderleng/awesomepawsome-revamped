@@ -1,9 +1,13 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import "./LoginPopup.css";
 import { assets } from "../../assets/assets";
+import { StoreContext } from "../../context/StoreContext";
 
 const LoginPopup = ({ setShowLogin }) => {
   const [currState, setCurrState] = useState("Sign Up");
+
+  // state to set the isLogin state, obtained from StoredContext
+  const { isLogin, setIsLogin } = useContext(StoreContext);
 
   // to handle create account submission
   const handleCreateAccount = async (e) => {
@@ -45,8 +49,7 @@ const LoginPopup = ({ setShowLogin }) => {
     }
   };
 
-
-  // function to handle login 
+  // function to handle login
   const handleLogin = async (e) => {
     e.preventDefault();
 
@@ -55,7 +58,7 @@ const LoginPopup = ({ setShowLogin }) => {
 
     const name = formData.get("name");
     const password = formData.get("password");
-    
+
     try {
       const response = await fetch("http://127.0.0.1:4000/api/user/login", {
         method: "POST",
@@ -69,12 +72,13 @@ const LoginPopup = ({ setShowLogin }) => {
         }),
       });
 
+      // if response ok (login successful), do the following
       if (response.ok) {
-        console.log("User Logged In")
+        console.log("User Logged In");
         const result = await response.json();
-        console.log("User Logged In:", result);
-        // Optionally close the popup or clear the form
-        setShowLogin(false);
+        console.log("User Logged In:", result); // debugging
+        setShowLogin(false); // set state to false to remove the popup
+        setIsLogin(true); // set state to true to show that user is logged in
       } else {
         const errorData = await response.json();
         throw new Error(errorData.message || "Failed to Login.");
@@ -82,12 +86,10 @@ const LoginPopup = ({ setShowLogin }) => {
     } catch (error) {
       console.error("Error:", error);
     }
-
   };
 
-
-
   // Determine which handler to use based on currState
+  // called in the onSubmit under forms
   const handleSubmit = (e) => {
     if (currState === "Sign Up") {
       handleCreateAccount(e);
@@ -95,9 +97,6 @@ const LoginPopup = ({ setShowLogin }) => {
       handleLogin(e);
     }
   };
-
-
-
 
   return (
     <div className="login-popup">
@@ -116,10 +115,15 @@ const LoginPopup = ({ setShowLogin }) => {
           {currState === "Login" ? (
             <></>
           ) : (
-            <input type="email" name="email" placeholder="Your Email" required />
-          )}
-            <input type="text" name="name" placeholder="Your Username" required />
             <input
+              type="email"
+              name="email"
+              placeholder="Your Email"
+              required
+            />
+          )}
+          <input type="text" name="name" placeholder="Your Username" required />
+          <input
             type="password"
             name="password"
             placeholder="Password"
@@ -131,9 +135,7 @@ const LoginPopup = ({ setShowLogin }) => {
         ) : (
           <button type="submit">Login</button>
         )}
-        {/* <button type="submit">
-          {currState === "Sign Up" ? "Create Account" : "Login"}
-        </button> */}
+
         <div className="login-popup-condition">
           <input type="checkbox" required />
           <p>By continuing, I agree to the terms of use & privacy policy.</p>

@@ -7,17 +7,24 @@ export const StoreContext = createContext(null)
 
 const StoreContextProvider = (props) => {
 
-    const [isLogin, setIsLogin] = useState(true); // state variable to see if user is logged in or not
+    const [isLogin, setIsLogin] = useState(false); // state variable to see if user is logged in or not
 
     const [petIsRegistered, setPetIsRegistered] = useState(false); // state variable to see if user has registered their pets
 
+    const [userId, setUserId] = useState(""); // state variable to store their userId upon logging in
+
+    const [userIsAdmin, setUserIsAdmin] = useState(false) // state variable to indicate if user is admin or not
 
     const contextValue = {
         dog_food_list,  // so now food_list can be accessed anywhere
         isLogin,
         setIsLogin,
         petIsRegistered,
-        setPetIsRegistered
+        setPetIsRegistered,
+        userId,
+        setUserId,
+        userIsAdmin,
+        setUserIsAdmin
     }
     
     return(
