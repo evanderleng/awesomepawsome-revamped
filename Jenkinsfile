@@ -1,9 +1,13 @@
 pipeline {
     agent any
     stages {
-        stage('Test Echo') { 
+        stage('Dependency Check') {
             steps {
-                echo 'Hello, Jenkins! This is a test script'
+                dependencyCheck additionalArguments: ''' 
+                            --format HTML --format XML
+                            ''', odcInstallation: 'OWASP Dependency-Check Vulnerabilities'
+                
+                dependencyCheckPublisher pattern: 'dependency-check-report.xml'
             }
         }
     }
