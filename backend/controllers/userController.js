@@ -53,7 +53,7 @@ const login = async (req, res)=>{ //to add check if already logged in
                     maxAge: 60 * 60 * 24 //3 days
                 }))
 
-                return res.status(200).json({message: "Login successful. You have logged in as " +user.username+ "."})
+                return res.status(200).json({message: "Login successful", username: user.username, _id: user._id, admin: user.admin, "token": token})
             }
         } 
         req.ip
