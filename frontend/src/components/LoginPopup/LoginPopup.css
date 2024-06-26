@@ -72,3 +72,25 @@
     font-weight: 500;
     cursor: pointer;
 }
+
+
+.error-popup {
+    position: fixed;
+    top: 72%;         /* Center vertically */
+    left: 42%;        /* Center horizontally */
+    background-color: rgba(255, 0, 0, 0.8);
+    color: white;
+    padding: 15px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  }
+  
+  .error-popup button {
+    background-color: transparent;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+    margin-left: 10px;
+  }
+  

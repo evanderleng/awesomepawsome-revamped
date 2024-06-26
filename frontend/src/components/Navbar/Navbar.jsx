@@ -1,5 +1,6 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
+import Cookies from "js-cookie";
 import "./Navbar.css";
 import { assets } from "../../assets/assets";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
@@ -12,7 +13,15 @@ const Navbar = ({ setShowLogin }) => {
 
   // state isLogin (boolean), method setIsLogin to set state.
   // from StoredContext, which means every part of the app can share this state
-  const { isLogin, setIsLogin, userIsAdmin } = useContext(StoreContext);
+  const { isLogin, setIsLogin, userIsAdmin, setUserIsAdmin } = useContext(StoreContext);
+
+  useEffect(() => {
+    console.log("userIsAdmin updated:", userIsAdmin);
+    // Perform actions based on userIsAdmin change
+  }, [userIsAdmin]); // Include userIsAdmin in dependency array
+
+
+
 
   return (
     <div className="navbar">
@@ -86,7 +95,21 @@ const Navbar = ({ setShowLogin }) => {
         </ul>
         {/* if isLogin state is true, show logout button, else show sign in button*/}
         {isLogin ? (
-          <button onClick={() => setIsLogin(false)}>Logout</button>
+          <button
+            onClick={() => {
+              setIsLogin(false);
+
+              // Remove the auth token cookie using js-cookie
+              Cookies.remove("authToken", { path: "/" });
+              console.log("Token cookie cleared");
+              localStorage.removeItem('isAdmin');
+              console.log("Local Storage isAdmin Cleared");
+
+              setUserIsAdmin(false);  // to ensure it is back to non admin explciitly
+              
+
+            }}
+          >Logout</button>
         ) : (
           <button onClick={() => setShowLogin(true)}>Sign In</button>
         )}
