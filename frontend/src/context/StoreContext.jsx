@@ -13,6 +13,10 @@ const StoreContextProvider = (props) => {
 
   const [userIsAdmin, setUserIsAdmin] = useState(); // state variable to indicate if user is admin or not
 
+
+
+
+
   // this is consistently check if there is a token stored in the cookie or not, in case of app refreshes
   useEffect(() => {
     // Function to check and set userIsAdmin
@@ -20,6 +24,7 @@ const StoreContextProvider = (props) => {
       // Check if isAdmin is stored in localStorage
       const isAdminStored = localStorage.getItem("isAdmin");
       console.log("Is Admin stored in localStorage? ", isAdminStored);
+
 
       if (isAdminStored !== null) {
         setUserIsAdmin(isAdminStored === "true"); // Convert string to boolean
