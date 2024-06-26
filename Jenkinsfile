@@ -6,6 +6,12 @@ pipeline {
     }
 
     stages {
+        stage('Build') { 
+            steps {
+                sh 'npm install' 
+            }
+        }
+        
         stage('Dependency Check') {
             steps {
                 dependencyCheck additionalArguments: ''' 
