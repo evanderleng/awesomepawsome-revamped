@@ -10,5 +10,10 @@ pipeline {
                 dependencyCheckPublisher pattern: 'dependency-check-report.xml'
             }
         }
+        stage('Testing Phase') {
+            steps {
+                sh 'npm test'
+            }
+        }
     }
 }
