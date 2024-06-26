@@ -25,7 +25,9 @@ pipeline {
         }
         stage('Testing Phase') {
             steps {
-                sh 'npm test'
+                dir('backend') {
+                    sh 'npm test'
+                }
             }
         }
     }
