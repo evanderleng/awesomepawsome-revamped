@@ -8,10 +8,12 @@ pipeline {
     stages {
         stage('Build') { 
             steps {
-                sh 'npm install' 
+                dir('backend') {
+                    sh 'npm install'
+                }
             }
         }
-        
+
         stage('Dependency Check') {
             steps {
                 dependencyCheck additionalArguments: ''' 
