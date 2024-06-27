@@ -9,4 +9,6 @@ const emailController = require("../controllers/emailController.js")
 
 router.route("/sendTestEmail").get(emailController.sendTestEmail)
 
+router.route("/postEmail").post(emailController.postEmail)
+
 module.exports = router;
