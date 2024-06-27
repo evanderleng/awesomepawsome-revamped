@@ -29,7 +29,8 @@ const addUser = async (req, res)=>{
             username,
             password: hash,
             email,
-            admin: false
+            admin: false,
+            avatar: "https://res.cloudinary.com/dg7xhtwnl/image/upload/v1719492487/avatars/default.jpg",
         })
         return res.status(201).json({message: "Successfully added!"})
     } catch (err) {
