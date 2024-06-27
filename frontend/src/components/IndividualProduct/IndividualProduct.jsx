@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useContext } from "react";
 import "./IndividualProduct.css";
 import axiosInstance from "../../../axiosConfig";
+import { StoreContext } from "../../context/StoreContext";
 
 const IndividualProduct = ({
   id,
@@ -15,6 +16,10 @@ const IndividualProduct = ({
   breedSize,
   image,
 }) => {
+  
+  // states from storedContext
+  const { isLogin } = useContext(StoreContext);
+
   // Handle Add to Cart Function
   const addToCart = () => {
     const handleAddToCart = async () => {
@@ -35,8 +40,8 @@ const IndividualProduct = ({
         );
       }
     };
-        // Call the async function to add to cart
-        handleAddToCart();
+    // Call the async function to add to cart
+    handleAddToCart();
   };
 
   return (
@@ -78,7 +83,7 @@ const IndividualProduct = ({
             <p>${price} / Month</p>
           </div>
           <div className="add-to-cart">
-            <button onClick={addToCart}>Add To Cart</button>
+            {isLogin && <button onClick={addToCart}>Add To Cart</button>}
           </div>
         </div>
       </div>
