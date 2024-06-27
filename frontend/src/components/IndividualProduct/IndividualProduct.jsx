@@ -1,7 +1,7 @@
-import React from "react";
+import React, { useContext } from "react";
 import "./IndividualProduct.css";
-import { assets, dog_food_list } from "../../assets/assets";
-import dog_food_image from "../../assets/dog_food_1.jpg";
+import axiosInstance from "../../../axiosConfig";
+import { StoreContext } from "../../context/StoreContext";
 
 const IndividualProduct = ({
   id,
@@ -16,6 +16,34 @@ const IndividualProduct = ({
   breedSize,
   image,
 }) => {
+  
+  // states from storedContext
+  const { isLogin } = useContext(StoreContext);
+
+  // Handle Add to Cart Function
+  const addToCart = () => {
+    const handleAddToCart = async () => {
+      try {
+        // testing adding item to cart
+        const cartData = {
+          product_id: id,
+          quantity: "1",
+        };
+
+        // Making a POST request to update the cart
+        const response = await axiosInstance.post("/cart/updateCart", cartData);
+        console.log("Cart updated successfully:", response.data);
+      } catch (error) {
+        console.error(
+          "Error updating cart:",
+          error.response ? error.response.data : error.message
+        );
+      }
+    };
+    // Call the async function to add to cart
+    handleAddToCart();
+  };
+
   return (
     <div className="individual-product-container">
       <div className="product-content">
@@ -55,7 +83,7 @@ const IndividualProduct = ({
             <p>${price} / Month</p>
           </div>
           <div className="add-to-cart">
-            <button>Add To Cart</button>
+            {isLogin && <button onClick={addToCart}>Add To Cart</button>}
           </div>
         </div>
       </div>

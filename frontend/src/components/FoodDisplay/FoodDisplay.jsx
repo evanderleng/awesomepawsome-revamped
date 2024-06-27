@@ -3,13 +3,15 @@ import  './FoodDisplay.css'
 import { StoreContext } from '../../context/StoreContext'
 import FoodItem from '../FoodItem/FoodItem'
 
-const FoodDisplay = ({breedSize}) => {
+const FoodDisplay = ({breedSize, searchQuery}) => {
 
     // this lets you use the stored context that is shared across the app (Debugging Purpose, fake data)
     // const {dog_food_list} = useContext(StoreContext)
 
       // set state for list of products after obtaining them from API Request
   const [products, setProducts] = useState([]);
+
+  console.log("Food Searched: ", searchQuery)
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -34,19 +36,39 @@ const FoodDisplay = ({breedSize}) => {
     }, []);
 
 
+  // Filter products based on breed size and search query
+  const filteredProducts = products.filter(product => {
+    const matchesBreedSize = breedSize === "All" || product.breedSize === breedSize;
+    const matchesSearchQuery = searchQuery === "" || product.name.toLowerCase().includes(searchQuery.toLowerCase());
 
+    return matchesBreedSize && matchesSearchQuery;
+  });
 
   return (
     <div className='food-display' id='food-display'>
       <h2>Here's what we have!</h2>
       <div className='food-display-list'>
         {/* depending on how many items in dog_food_list, it will loop through and display all */}
-        {products.map(product => {
-          if(breedSize === "All" || breedSize===product.breedSize){   //if breedSize was all or that breedSize was called, it will display that particular food for that size
-            return <FoodItem id={product._id} brand={product.brand} name={product.name} weight={product.weight} price={product.price} rating={product.rating} ratingCount={product.ratingCount} 
-            breedSize={product.breedSize} description={product.description} ingredients={product.ingredients}/>
-          }
-        } )}
+        {/* Render the filtered list of products */}
+        {filteredProducts.length > 0 ? (
+          filteredProducts.map(product => (
+            <FoodItem
+              key={product._id} // Add a key prop to each item
+              id={product._id}
+              brand={product.brand}
+              name={product.name}
+              weight={product.weight}
+              price={product.price}
+              rating={product.rating}
+              ratingCount={product.ratingCount}
+              breedSize={product.breedSize}
+              description={product.description}
+              ingredients={product.ingredients}
+            />
+          ))
+        ) : (
+          <p>No matching products found</p>
+        )}
       </div>
     </div>
   )

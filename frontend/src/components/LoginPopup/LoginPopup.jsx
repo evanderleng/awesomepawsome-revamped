@@ -88,7 +88,10 @@ const LoginPopup = ({ setShowLogin }) => {
         console.log("User Logged In:", result); // debugging
 
         const receivedToken = result.token;
+
         // Store the token in a cookie
+        // secure: true means cookie is only sent over HTTPS
+        // sameSite: strict means the cookie is not sent with cross-site requests
         Cookies.set('authToken', receivedToken, { path: '/', secure: true, sameSite: 'Strict' });
         // Optionally, trigger a UI update or redirect
         console.log('Token stored in cookies:', receivedToken);
@@ -98,6 +101,7 @@ const LoginPopup = ({ setShowLogin }) => {
         setUserIsAdmin(result.admin); // set state to show if it is admin or not
 
 
+        //
         localStorage.setItem('isAdmin', result.admin ? true : false);
 
 

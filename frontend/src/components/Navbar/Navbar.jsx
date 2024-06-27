@@ -77,7 +77,7 @@ const Navbar = ({ setShowLogin }) => {
             <Link to="/adminDashboard">dashboard</Link>
           </li>
         ) : null}
-      </ul>
+      </ul> 
       <div className="navbar-right">
         <ul className="navbar-menu">
           <li
