@@ -35,7 +35,7 @@ const authAdmin = async (req, res, next) => {
                 req.user = user
                 next()
             } else { //not an admin >:(
-                return res.status(401).json({message: "gg Unauthorised"})
+                return res.status(401).json({message: "Unauthorised"})
             }
         } catch (err){
             console.log(err.message)
