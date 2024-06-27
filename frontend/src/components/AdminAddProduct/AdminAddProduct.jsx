@@ -1,5 +1,24 @@
 import React from 'react'
+import axios from 'axios'
 import './AdminAddProduct.css'
+
+
+const handleSubmit = (e) => {
+  e.preventDefault();
+  const formData = new FormData(e.target);
+  let url = "http://127.0.0.1:4000/api/product/addProduct";
+  axios.post(url, formData, {
+    headers: {
+      'Authorization': 'Bearer xxx', //pls fix
+      'content-type': 'multipart/form-data'
+    },
+  })
+      .then(res => {
+        console.log(res.data);
+      })
+      .catch(err => console.log(err))
+};
+
 
 const AdminAddProduct = () => {
   return (
@@ -7,7 +26,7 @@ const AdminAddProduct = () => {
         <div className="add-product-title">
             <h1>Add a Product</h1>
         </div>
-        <form action="" className="add-product-form">
+        <form enctype="multipart/form-data" onSubmit={handleSubmit} className="add-product-form">
             <h3>Brand</h3>
             <input type="text" name='brand' placeholder='brand'/>
             <h3>Item Name</h3>
@@ -22,8 +41,9 @@ const AdminAddProduct = () => {
             <input type="text" name='ingredients' placeholder='ingredients'/>
             <h3>Breed Size</h3>
             <input type="text" name='breedSize' placeholder='breed size'/>
+            <h3>Image</h3>
+            <input type="file" name='product_image'/>
             <button>Add Product</button>
-
         </form>
     </div>
   )

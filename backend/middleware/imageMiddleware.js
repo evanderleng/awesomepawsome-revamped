@@ -38,7 +38,7 @@ const uploadProduct = async (file, image_name) => {
         const upload = await cloudinary.v2.uploader.upload(file.path, {folder:'products', resource_type: 'image', public_id: image_name, overwrite: true});
         return upload.secure_url;
     } catch (error) {
-        throw error;
+        console.log(error)
     }
 };
 
@@ -55,4 +55,4 @@ const uploadAvatar = async (file, image_name) => {
 
 
 
-module.exports = {uploadToLocal, uploadAvatar}
+module.exports = {uploadToLocal, uploadProduct, uploadAvatar}
