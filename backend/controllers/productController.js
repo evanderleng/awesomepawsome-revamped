@@ -6,7 +6,7 @@ const {uploadToLocal, uploadProduct} = require("../middleware/imageMiddleware.js
 const getProduct = async (req, res)=>{
     try{
 
-        const {brand, name, copy, weight,price, animal, rating} = req.body;
+        const {brand, name, weight, price, description, ingedients, breedSize, ageGroup} = req.body;
         let product = await Product.find(req.body);
 
         if (product) {
