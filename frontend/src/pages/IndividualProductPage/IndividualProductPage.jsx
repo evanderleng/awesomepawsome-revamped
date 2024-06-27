@@ -71,14 +71,19 @@ const IndividualProductPage = () => {
       {/*Based on the reviews state (obtained from API call), call the customer review component and pass in props*/}
       <h3 className="review-title">Reviews</h3>
       <div className="reviews-container">
-        {reviews.map((review) => (
-          <CustomerReview
-            key={review.product_id}
-            rating={review.rating}
-            comment={review.comment}
-            createdAt={review.createdAt}
-          />
-        ))}
+        {/* check if reviews exist or not (some products may have no reviews), if no review then just display message */}
+        {reviews && reviews.length > 0 ? (
+          reviews.map((review) => (
+            <CustomerReview
+              key={review.product_id}
+              rating={review.rating}
+              comment={review.comment}
+              createdAt={review.createdAt}
+            />
+          ))
+        ) : (
+          <p>No reviews available</p> // display a message if there are no reviews
+        )}
       </div>
     </div>
   );
