@@ -11,6 +11,16 @@ const OrderRouter = require("./routes/OrderRoutes.js")
 const ReviewRouter = require("./routes/ReviewRoutes.js")
 const CartRouter = require("./routes/CartRoutes.js")
 
+const EmailRouter = require("./routes/EmailRoutes.js")
+
+// const nodemailer = require('nodemailer'); // new
+// const transporter = require('./services/EmailService.js')
+
+// const req_num = 3;
+
+// const emailController = require("./controllers/emailController.js")
+
+
 
 dotenv.config()
 connDB()
@@ -32,6 +42,9 @@ app.get("/api/test", (req,res) => {
     res.json({"testing": "if you can read this, you have connected to backend"})
 })
 
+// for testing email
+// app.get("/api/testemail", emailController.sendTestEmail)
+
 // logging purposes, delete before submission
 app.use((req, res, next) => {
     console.log('Received request body:', req.body);
@@ -44,6 +57,7 @@ app.use("/api/product", ProductRouter);
 app.use("/api/order", OrderRouter);
 app.use("/api/review", ReviewRouter);
 app.use("/api/cart", CartRouter);
+app.use("/api/email", EmailRouter);
 
 // Server Listening Port
 app.listen(4000, () => {console.log("Server started on port 4000")})
