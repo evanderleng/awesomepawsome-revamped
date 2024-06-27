@@ -15,8 +15,8 @@ GET body optional: brand, animal etc (filter) (to view all, have no input fields
 returns: product array json (lmk if u need pagination)
 returns 200, 500
 
-/api/review/getReview     (get all reviews for a specific product)
-GET body req: product_id
+/api/review/getReview?product_id=xxx     (get all reviews for a specific product)
+GET
 returns: [ json(product_id, username, rating, comment(optional), createdAt, updatedAt) ]
 returns 200, 500
 

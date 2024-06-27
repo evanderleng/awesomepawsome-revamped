@@ -397,15 +397,15 @@ export const dog_food_list = [
 
 export const dog_breedSize_list = [
     {
-        breedSize: "Small",
+        breedSize: "small",
         image: small_breed_dog
     },
     {
-        breedSize: "Medium",
+        breedSize: "medium",
         image: medium_breed_dog
     },
     {
-        breedSize: "Big",
+        breedSize: "big",
         image: big_breed_dog
     }
 

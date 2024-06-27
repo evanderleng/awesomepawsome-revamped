@@ -1,9 +1,33 @@
 pipeline {
     agent any
+
+    tools {
+        nodejs "NodeJS"
+    }
+
     stages {
-        stage('Test Echo') { 
+        stage('Build') { 
             steps {
-                echo 'Hello, Jenkins! This is a test script'
+                dir('backend') {
+                    sh 'npm install'
+                }
+            }
+        }
+
+        stage('Dependency Check') {
+            steps {
+                dependencyCheck additionalArguments: ''' 
+                            --format HTML --format XML
+                            ''', odcInstallation: 'Dependency Check'
+                
+                dependencyCheckPublisher pattern: 'dependency-check-report.xml'
+            }
+        }
+        stage('Testing Phase') {
+            steps {
+                dir('backend') {
+                    sh 'npm test'
+                }
             }
         }
     }
