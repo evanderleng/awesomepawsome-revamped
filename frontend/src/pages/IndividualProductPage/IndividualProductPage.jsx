@@ -76,8 +76,10 @@ const IndividualProductPage = () => {
           reviews.map((review) => (
             <CustomerReview
               key={review.product_id}
+              username={review.username}
               rating={review.rating}
               comment={review.comment}
+              avatar={review.avatar}
               createdAt={review.createdAt}
             />
           ))

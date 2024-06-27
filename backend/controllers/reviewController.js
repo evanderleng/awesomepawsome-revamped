@@ -24,6 +24,7 @@ const getReview = async (req, res)=>{
                 {
                     "product_id": 1,
                     "username": {"$first": "$user.username"},
+                    "avatar": {"$first": "$user.avatar"},
                     "rating": 1,
                     "comment": 1,
                     "createdAt": 1,
