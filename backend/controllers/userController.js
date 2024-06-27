@@ -4,6 +4,7 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const cookie = require('cookie');
 const escape = require('escape-html');
+const {uploadToLocal,uploadAvatar} = require("../middleware/imageMiddleware.js")
 
 const addUser = async (req, res)=>{
     try{
@@ -53,7 +54,7 @@ const login = async (req, res)=>{ //to add check if already logged in
                     maxAge: 60 * 60 * 24 //3 days
                 }))
 
-                return res.status(200).json({message: "Login successful", username: user.username, _id: user._id, admin: user.admin, "token": token})
+                return res.status(200).json({message: "Login successful", username: user.username, _id: user._id, admin: user.admin, avatar:user.avatar, "token": token})
             }
         } 
         req.ip
@@ -91,4 +92,34 @@ const getProfile = async (req, res) => {
 }
 
 
-module.exports = {addUser, login, editProfile, getProfile}
+const editAvatar = async (req, res) => {
+    try{
+        const upload = uploadToLocal.single('avatar');
+
+        upload(req, res, async function (err) {
+            if (err) {
+                return res.status(500).json({ message: err.message });
+            }
+
+            console.log("file: "+req.file)
+            if (req.file){
+
+                let user = await User.findOne({ _id: req.user._id })
+
+                const cloudImgUrl = await uploadAvatar(req.file, user.username);
+
+                let updateUser = await User.updateOne({ _id: req.user }, {$set: {avatar: cloudImgUrl}})
+                if (updateUser){
+                    return res.status(200).json({message: "Upload success"})
+                }
+            } else {
+                return res.status(500).json({ message: "Error with uploading file" });
+            }
+        });
+    } catch (err) {
+        return res.status(500).json({message: err.message});
+    }
+}
+
+
+module.exports = {addUser, login, editProfile, getProfile, editAvatar}
