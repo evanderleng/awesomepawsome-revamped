@@ -79,7 +79,7 @@ const login = async (req, res)=>{ //to add check if already logged in
 
 const getProfile = async (req, res) => {
     try{
-        let user = await User.findOne({ _id: req.user._id }, {_id:0,username:1,email:1,createdAt:1})
+        let user = await User.findOne({ _id: req.user._id }, {_id:0,username:1,email:1,createdAt:1, avatar:1})
 
         
         user.username = escape(user.username)
