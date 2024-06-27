@@ -8,9 +8,9 @@ const {checkValid} = require('../middleware/validators/validatorMiddleware.js')
 const userController = require("../controllers/userController.js");
 
 
-router.route("/editProfile").patch(authMiddleware.auth, userController.editProfile);
+router.route("/editProfile").post(authMiddleware.auth, userController.editProfile);
 router.route("/getProfile").get(authMiddleware.auth, userController.getProfile);
-router.route("/editAvatar").post(authMiddleware.auth, userController.editAvatar);
+//router.route("/editAvatar").post(authMiddleware.auth, userController.editAvatar);
 
 router.post("/addUser", checkAddUserReq, checkValid, userController.addUser);
 router.post("/login", checkLoginReq ,checkValid, userController.login);

@@ -1,5 +1,5 @@
 import React from 'react'
-import axios from 'axios'
+import axiosInstance from '../../../axiosConfig'
 import './AdminAddProduct.css'
 
 
@@ -7,9 +7,8 @@ const handleSubmit = (e) => {
   e.preventDefault();
   const formData = new FormData(e.target);
   let url = "http://127.0.0.1:4000/api/product/addProduct";
-  axios.post(url, formData, {
+  axiosInstance.post(url, formData, {
     headers: {
-      'Authorization': 'Bearer xxx', //pls fix
       'content-type': 'multipart/form-data'
     },
   })

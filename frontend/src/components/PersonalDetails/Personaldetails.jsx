@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { FaPencilAlt } from 'react-icons/fa'; // Import the pencil icon
+import axiosInstance from '../../../axiosConfig'
 
 const PersonalDetails = ({ personalDetails, setPersonalDetails }) => {
   const [editMode, setEditMode] = useState(false);
@@ -9,9 +10,21 @@ const PersonalDetails = ({ personalDetails, setPersonalDetails }) => {
     setPersonalDetails({ ...personalDetails, [name]: value });
   };
 
-  const handleSave = () => {
+  const handleSubmit = (e) => {
     setEditMode(false);
-    // Add save logic here, e.g., API call
+    
+    e.preventDefault();
+    const formData = new FormData(e.target);
+    let url = "http://127.0.0.1:4000/api/user/editProfile";
+    axiosInstance.post(url, formData, {
+      headers: {
+        'content-type': 'multipart/form-data'
+      },
+    })
+    .then(res => {
+      console.log(res.data);
+    })
+    .catch(err => console.log(err))
   };
 
   return (
@@ -23,7 +36,7 @@ const PersonalDetails = ({ personalDetails, setPersonalDetails }) => {
         </button>
       </div>
       {editMode ? (
-        <form>
+        <form enctype="multipart/form-data" onSubmit={handleSubmit} >
           <label>
             Name:
             <input
@@ -54,7 +67,11 @@ const PersonalDetails = ({ personalDetails, setPersonalDetails }) => {
               placeholder="Enter your delivery address"
             />
           </label>
-          <button type="button" onClick={handleSave}>
+          <label>
+            Avatar:
+            <input type="file" name='avatar'/>
+          </label>
+          <button>
             Save
           </button>
         </form>
