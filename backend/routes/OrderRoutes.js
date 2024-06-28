@@ -1,12 +1,31 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
 
-
-const authMiddleware = require('../middleware/authMiddleware.js')
+const authMiddleware = require("../middleware/authMiddleware.js");
 const orderController = require("../controllers/orderController.js");
 
+router.route("/create").post(async (req, res) => {
+  try {
+    const { cart } = req.body;
+    const { jsonResponse, httpStatusCode } =
+      await orderController.createOrder(cart);
+    res.status(httpStatusCode).json(jsonResponse);
+  } catch (error) {
+    console.error("Failed to create order:", error);
+    res.status(500).json({ error: "Failed to create order." });
+  }
+});
 
-router.route("/confirm").post(authMiddleware.auth, orderController.confirmOrder);
-
+router.route("/:orderID/capture").post(async (req, res) => {
+  try {
+    const { orderID } = req.params;
+    const { jsonResponse, httpStatusCode } =
+      await orderController.captureOrder(orderID);
+    res.status(httpStatusCode).json(jsonResponse);
+  } catch (error) {
+    console.error("Failed to capture order:", error);
+    res.status(500).json({ error: "Failed to capture order." });
+  }
+});
 
 module.exports = router;
