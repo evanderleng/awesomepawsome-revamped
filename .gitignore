@@ -9,3 +9,6 @@ dist/
 
 # remove below if need be
 backend/.env
+
+# ignore db files
+*db/
