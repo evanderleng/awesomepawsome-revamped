@@ -80,17 +80,28 @@ const login = async (req, res)=>{ //to add check if already logged in
 
 const getProfile = async (req, res) => {
     try{
-        let user = await User.findOne({ _id: req.user._id }, {_id:0,username:1,email:1,createdAt:1, avatar:1})
+        let user = await User.findOne({ _id: req.user._id }, {_id:0,username:1,email:1,createdAt:1, address:1, avatar:1})
+
+        if (!user) {
+            return res.status(404).json({ message: 'User not found.' });
+          }
+      
+          // Log the user profile data
+          console.log('Fetched user profile:', user);
 
         
         user.username = escape(user.username)
         user.email = escape(user.email)
+        if (user.shipping_address) {
+           
+          }
 
-        return res.status(200).json(user)
-    } catch (err) {
-        return res.status(500).json({message: err.message});
-    }
-}
+          return res.status(200).json(user);
+        } catch (err) {
+          console.error('Error fetching user profile:', err.message);
+          return res.status(500).json({ message: err.message });
+        }
+      }
 
 
 const editProfile = async (req, res) => {
@@ -101,18 +112,18 @@ const editProfile = async (req, res) => {
             if (err) {
                 return res.status(500).json({ message: err.message });
             }
-            const {name, email, address} = req.body;
+            const {username, email, address} = req.body;
             if (req.file){
                 let user = await User.findOne({ _id: req.user._id })
 
                 const cloudImgUrl = await uploadAvatar(req.file, user.username);
 
-                let updateUser = await User.updateOne({ _id: req.user }, {$set: {avatar: cloudImgUrl, name,email,address}})
+                let updateUser = await User.updateOne({ _id: req.user }, {$set: {avatar: cloudImgUrl, username,email,address}})
                 if (updateUser){
                     return res.status(200).json({message: "Edit Success"})
                 }
             } else {
-                let updateUser = await User.updateOne({ _id: req.user }, {$set: { name,email,address}})
+                let updateUser = await User.updateOne({ _id: req.user }, {$set: { avatar: cloudImgUrl, username,email,address}})
                 if (updateUser){
                     return res.status(200).json({message: "Edit Success"})
                 }
