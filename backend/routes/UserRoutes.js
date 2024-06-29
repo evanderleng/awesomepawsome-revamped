@@ -3,11 +3,12 @@ const router = express.Router();
 
 
 const authMiddleware = require('../middleware/authMiddleware.js')
-const {checkAddUserReq, checkLoginReq} = require('../middleware/validators/userValidator.js')
+const {checkAddUserReq, checkLoginReq, checkEditProfileReq} = require('../middleware/validators/userValidator.js')
 const {checkValid} = require('../middleware/validators/validatorMiddleware.js')
 const userController = require("../controllers/userController.js");
 
 
+router.route("/editPet").post(authMiddleware.auth, userController.editPet);
 router.route("/editProfile").post(authMiddleware.auth, userController.editProfile);
 router.route("/getProfile").get(authMiddleware.auth, userController.getProfile);
 //router.route("/editAvatar").post(authMiddleware.auth, userController.editAvatar);
