@@ -12,6 +12,9 @@ const ReviewRouter = require("./routes/ReviewRoutes.js")
 const CartRouter = require("./routes/CartRoutes.js")
 
 
+const {checktmp} = require("./middleware/imageMiddleware.js")
+
+checktmp() //check tmp folder exists
 dotenv.config()
 connDB()
 const app = express()
