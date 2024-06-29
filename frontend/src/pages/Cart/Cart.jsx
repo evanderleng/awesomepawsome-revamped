@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import axiosInstance from '../../../axiosConfig'; // Use the configured axios instance
+import axiosInstance from '../../../axiosConfig';
 import CartItem from '../../components/CartItem/CartItem';
 import CartSummary from '../../components/CartSummary/CartSummary';
-import cartEmptyImg from '../../assets/cart-empty.png'; // Import the image
+import cartEmptyImg from '../../assets/cart-empty.png'; 
 import './Cart.css';
 
 const Cart = () => {
@@ -17,12 +17,6 @@ const Cart = () => {
       const cartResponse = await axiosInstance.get('http://127.0.0.1:4000/api/cart/getCart');
       console.log('Fetched cart data:', cartResponse.data); // Debug: log the fetched data
 
-      // Check if the cart list exists and is an array
-      if (!Array.isArray(cartResponse.data)) {
-        console.error("Invalid cart data structure:", cartResponse.data);
-        throw new Error("Invalid cart data structure");
-      }
-
       // Log product_name, price, and quantity for each item in the cart list
       cartResponse.data.forEach(item => {
         console.log(`Product Name: ${item.product_name}, Price: ${item.price}, Quantity: ${item.quantity}`);
@@ -30,17 +24,12 @@ const Cart = () => {
 
       const cartItems = cartResponse.data.map(item => ({
         id: item.product_id,
-        title: item.product_name, // Use product name
-        price: parseFloat(item.price), // Ensure price is a number
-        quantity: parseFloat(item.quantity), // Ensure quantity is a number
+        title: item.product_name, 
+        price: parseFloat(item.price), 
+        quantity: parseFloat(item.quantity), 
         selected: false, // Initialize all items as not selected
-        image: 'placeholder.jpg' // Replace with actual product image if available
+        image: 'placeholder.jpg' // TODO: Replace with actual product image when available
       }));
-
-      // Log the quantity of each cart item
-      cartItems.forEach(({ quantity }) => {
-        console.log(`Quantity: ${quantity}`);
-      });
 
       setItems(cartItems);
     } catch (error) {
@@ -67,7 +56,6 @@ const Cart = () => {
   };
 
   const updateQuantity = (id, newQuantity) => {
-    console.log(`Updating quantity for product ${id} to ${newQuantity}`);
     handleAddToCart(id, newQuantity);
     // Update the state directly to reflect changes immediately in the UI
     setItems(prevItems =>
@@ -112,7 +100,7 @@ const Cart = () => {
         <div className="cart-items">
           {items.map(item => (
             <CartItem
-              key={item.id} // Ensure each item has a unique key prop
+              key={item.id} 
               item={item}
               updateQuantity={(newQuantity) => updateQuantity(item.id, newQuantity)}
               toggleSelection={() => toggleSelection(item.id)}
