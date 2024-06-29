@@ -5,7 +5,7 @@ import { StoreContext } from '../../context/StoreContext'
 import { Link, useLocation } from 'react-router-dom';
 
 
-const FoodItem = ({id, brand, name, weight, price, rating, ratingCount, description, ingredients, breedSize}) => {
+const FoodItem = ({id, brand, name, weight, price, rating, ratingCount, description, ingredients, breedSize, imageURL}) => {
     
     const {cartItems, addToCart, removeFromCart} = useContext(StoreContext);
     
@@ -19,6 +19,7 @@ const FoodItem = ({id, brand, name, weight, price, rating, ratingCount, descript
                 {/* <Link to="/individualProductPage" state={{id, name, price, description, image}}>
                 <img className='food-item-image' src={image} alt=""></img></Link>    */}
                 {/* if there are no item count (itemCount = 0), display just the + sign, else display both + - and the item count */}
+                <img src={imageURL} alt="food-item-image" className="food-item-image" />
 
 
             </div>
@@ -29,7 +30,7 @@ const FoodItem = ({id, brand, name, weight, price, rating, ratingCount, descript
                 </div>
                 {/* <p className='food-item-desc'>{description}</p> */}
                 <p className='food-item-price'>${price}</p>
-                <button><Link to="/individualProductPage" state={{id, brand, name, weight, price, rating, ratingCount, description, ingredients, breedSize}}>More Info</Link></button>
+                <button><Link to="/individualProductPage" state={{id, brand, name, weight, price, rating, ratingCount, description, ingredients, breedSize, imageURL}}>More Info</Link></button>
             </div>
         
         </div>

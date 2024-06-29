@@ -14,7 +14,7 @@ const IndividualProduct = ({
   description,
   ingredients,
   breedSize,
-  image,
+  imageURL,
 }) => {
   
   // states from storedContext
@@ -48,7 +48,7 @@ const IndividualProduct = ({
     <div className="individual-product-container">
       <div className="product-content">
         <div className="product-img">
-          <img src={image} alt="" />
+          <img src={imageURL} alt="" />
         </div>
 
         <div className="product-details">

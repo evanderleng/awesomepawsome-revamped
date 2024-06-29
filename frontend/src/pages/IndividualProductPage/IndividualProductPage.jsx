@@ -18,6 +18,7 @@ const IndividualProductPage = () => {
     description,
     ingredients,
     breedSize,
+    imageURL,
   } = location.state || {}; // Destructure name and price from location.state
 
   // variable to store array of reviews after requesting API
@@ -66,6 +67,7 @@ const IndividualProductPage = () => {
         description={description}
         ingredients={ingredients}
         breedSize={breedSize}
+        imageURL={imageURL}
       />
 
       {/*Based on the reviews state (obtained from API call), call the customer review component and pass in props*/}
