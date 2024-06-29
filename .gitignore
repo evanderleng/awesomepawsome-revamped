@@ -9,3 +9,5 @@ dist/
 
 # remove below if need be
 backend/.env
+
+.vscode/
