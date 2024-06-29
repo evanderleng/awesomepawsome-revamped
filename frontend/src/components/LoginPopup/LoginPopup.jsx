@@ -8,7 +8,7 @@ import Cookies from 'js-cookie';
 const LoginPopup = ({ setShowLogin }) => {
 
   // state to check if it is sign up 
-  const [currState, setCurrState] = useState("Sign Up");
+  const [currState, setCurrState] = useState("Login");
 
   // state to set the isLogin state, obtained from StoredContext
   const { isLogin, setIsLogin, userId, setUserId, userIsAdmin, setUserIsAdmin } = useContext(StoreContext);
