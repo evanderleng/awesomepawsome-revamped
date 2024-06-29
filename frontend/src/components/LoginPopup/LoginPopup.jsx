@@ -3,6 +3,8 @@ import "./LoginPopup.css";
 import { assets } from "../../assets/assets";
 import { StoreContext } from "../../context/StoreContext";
 import Cookies from 'js-cookie';
+import { Link, useLocation } from "react-router-dom";
+
 
 
 const LoginPopup = ({ setShowLogin }) => {
@@ -182,6 +184,14 @@ const LoginPopup = ({ setShowLogin }) => {
             <span onClick={() => setCurrState("Login")}>Login Here</span>
           </p>
         )}
+
+        <div className="forget-password">
+          <p>
+            Forget your password?{" "}
+            <span onClick={() => setShowLogin(false)}><Link to='/verifyEmailPage'>Reset Password</Link></span>
+          </p>
+        </div>
+
       </form>
 
       {errorMsg && (

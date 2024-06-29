@@ -14,7 +14,8 @@ import Error404 from './pages/Error404/Error404'
 import '@fortawesome/fontawesome-svg-core/styles.css';
 import AdminDashboard from './pages/AdminDashboard/AdminDashboard';
 import { StoreContext } from './context/StoreContext'
-
+import ResetPasswordPage from './pages/ResetPasswordPage/ResetPasswordPage'
+import VerifyEmailPage from './pages/VerifyEmailPage/VerifyEmailPage'
 
 const App = () => {
 
@@ -28,7 +29,7 @@ const App = () => {
 
 
   // Check if the current path matches the error route
-  const isErrorPage = !['/', '/cart', '/productPage', '/individualProductPage', '/recommendMePage', '/profile', '/payment', '/adminDashboard'].includes(location.pathname);
+  const isErrorPage = !['/', '/cart', '/productPage', '/individualProductPage', '/recommendMePage', '/profile', '/payment', '/adminDashboard', '/resetPasswordPage', '/verifyEmailPage'].includes(location.pathname);
 
   return(
     <>
@@ -52,7 +53,11 @@ const App = () => {
         <Route path='/payment' element={<Payment/>} />
 
         <Route path='/individualProductPage' element={<IndividualProductPage/>} /> 
-        <Route path='/recommendMePage' element={<RecommendMePage/>} /> 
+        <Route path='/recommendMePage' element={<RecommendMePage/>} />
+        <Route path='/resetPasswordPage' element={<ResetPasswordPage/>} />
+        <Route path='/verifyEmailPage' element={<VerifyEmailPage/>} />
+
+
 
         {/* only if user is admin, then this route will exist, else no one can access this route*/}
         {userIsAdmin &&<Route path='adminDashboard/' element={<AdminDashboard/>}/>}
