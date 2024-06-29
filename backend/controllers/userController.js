@@ -29,7 +29,8 @@ const addUser = async (req, res)=>{
             username,
             password: hash,
             email,
-            admin: false
+            admin: false,
+            avatar: "https://res.cloudinary.com/dg7xhtwnl/image/upload/v1719492487/avatars/default.jpg",
         })
         return res.status(201).json({message: "Successfully added!"})
     } catch (err) {
@@ -64,35 +65,46 @@ const login = async (req, res)=>{ //to add check if already logged in
     }
 }
 
-const editProfile = async (req, res) => { //MUST FIX TO ADD SECURITY
-    try{
-        console.log(req.user)
+// const editProfile = async (req, res) => { //MUST FIX TO ADD SECURITY
+//     try{
+//         console.log(req.user)
 
-        let changes = await User.updateOne({ _id: req.user }, {$set: [req.body]})
+//         let changes = await User.updateOne({ _id: req.user }, {$set: [req.body]})
 
-        //let hh = await User.updateOne({ _id: req.user }, {$set: {username: req.body.newUsername}})
-        return res.status(200).json({message: "Profile change successful."})
-    } catch (err) {
-        return res.status(500).json({message: err.message});
-    }
-}
+//         //let hh = await User.updateOne({ _id: req.user }, {$set: {username: req.body.newUsername}})
+//         return res.status(200).json({message: "Profile change successful."})
+//     } catch (err) {
+//         return res.status(500).json({message: err.message});
+//     }
+// }
 
 const getProfile = async (req, res) => {
     try{
-        let user = await User.findOne({ _id: req.user._id }, {_id:0,username:1,email:1,createdAt:1})
+        let user = await User.findOne({ _id: req.user._id }, {_id:0,username:1,email:1,createdAt:1, address:1, avatar:1})
+
+        if (!user) {
+            return res.status(404).json({ message: 'User not found.' });
+          }
+      
+          // Log the user profile data
+          console.log('Fetched user profile:', user);
 
         
         user.username = escape(user.username)
         user.email = escape(user.email)
+        if (user.shipping_address) {
+           
+          }
 
-        return res.status(200).json(user)
-    } catch (err) {
-        return res.status(500).json({message: err.message});
-    }
-}
+          return res.status(200).json(user);
+        } catch (err) {
+          console.error('Error fetching user profile:', err.message);
+          return res.status(500).json({ message: err.message });
+        }
+      }
 
 
-const editAvatar = async (req, res) => {
+const editProfile = async (req, res) => {
     try{
         const upload = uploadToLocal.single('avatar');
 
@@ -100,20 +112,21 @@ const editAvatar = async (req, res) => {
             if (err) {
                 return res.status(500).json({ message: err.message });
             }
-
-            console.log("file: "+req.file)
+            const {username, email, address} = req.body;
             if (req.file){
-
                 let user = await User.findOne({ _id: req.user._id })
 
                 const cloudImgUrl = await uploadAvatar(req.file, user.username);
 
-                let updateUser = await User.updateOne({ _id: req.user }, {$set: {avatar: cloudImgUrl}})
+                let updateUser = await User.updateOne({ _id: req.user }, {$set: {avatar: cloudImgUrl, username,email,address}})
                 if (updateUser){
-                    return res.status(200).json({message: "Upload success"})
+                    return res.status(200).json({message: "Edit Success"})
                 }
             } else {
-                return res.status(500).json({ message: "Error with uploading file" });
+                let updateUser = await User.updateOne({ _id: req.user }, {$set: { avatar: cloudImgUrl, username,email,address}})
+                if (updateUser){
+                    return res.status(200).json({message: "Edit Success"})
+                }
             }
         });
     } catch (err) {
@@ -122,4 +135,4 @@ const editAvatar = async (req, res) => {
 }
 
 
-module.exports = {addUser, login, editProfile, getProfile, editAvatar}
+module.exports = {addUser, login, editProfile, getProfile}

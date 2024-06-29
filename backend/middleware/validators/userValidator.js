@@ -11,6 +11,7 @@ const checkAddUserReq = [
 	check('username', usernameMsg).matches(usernameRegex).notEmpty(),
 	check('password', passwordMsg).matches(passwordRegex).notEmpty(),
 	check('email',"Email is required").notEmpty().isEmail()
+	
 ]
 
 const checkLoginReq = [

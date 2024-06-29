@@ -6,6 +6,7 @@
   "password": "$2a$10$vwMscxI6najaR0SXh6kpVOwk1wB2hg5zod4LwavBYs8t5.djNVkAe",
   "email": "admin@gmail.com",
   "admin": true,
+  "avatar": "https://res.cloudinary.com/dg7xhtwnl/image/upload/v1719492487/avatars/default.jpg",
   "createdAt": {
     "$date": "2024-06-07T03:07:39.202Z"
   },
@@ -22,6 +23,7 @@
   "password": "$2a$10$9x/.PuMPg8T2sC6SQJdCtu8RK3pQR5BzuUkY9hm3KbEbngzIl2btO",
   "email": "admin2@gmail.com",
   "admin": true,
+  "avatar": "https://res.cloudinary.com/dg7xhtwnl/image/upload/v1719492487/avatars/default.jpg",
   "createdAt": {
     "$date": "2024-06-07T03:11:11.553Z"
   },
@@ -38,6 +40,7 @@
   "password": "$2a$10$BllA6lHlcn.W1VRBSygCRODlG5sX9wB06uefjwjyFrhLCqypOCivS",
   "email": "pass@gmail.com",
   "admin": false,
+  "avatar": "https://res.cloudinary.com/dg7xhtwnl/image/upload/v1719492487/avatars/default.jpg",
   "createdAt": {
     "$date": "2024-05-25T08:13:50.997Z"
   },
@@ -51,6 +54,7 @@
   "password": "$2a$10$/JkoLcHSNNYYrErPwajNG.LGJJK.gIjBLDTcHlacqKo6aIRPIlChC",
   "email": "user@gmail.com",
   "admin": false,
+  "avatar": "https://res.cloudinary.com/dg7xhtwnl/image/upload/v1719492487/avatars/default.jpg",
   "createdAt": {
     "$date": "2024-05-25T08:13:50.997Z"
   },
@@ -64,6 +68,7 @@
   "password": "$2a$10$QH5EbE2TO6m6EA58ZU7PxOWedUE1QuMST2Sq.t5QqiMSnL6s2IOMq",
   "email": "john@gmail.com",
   "admin": false,
+  "avatar": "https://res.cloudinary.com/dg7xhtwnl/image/upload/v1719492487/avatars/default.jpg",
   "createdAt": {
     "$date": "2024-05-25T08:13:50.997Z"
   },
@@ -77,6 +82,7 @@
   "password": "$2a$10$SQN0nUs7U7qfivLrsV5Jr.O06jg5cK8RNioW2a7XP8hNzesl1x2ku",
   "email": "jack@gmail.com",
   "admin": false,
+  "avatar": "https://res.cloudinary.com/dg7xhtwnl/image/upload/v1719492487/avatars/default.jpg",
   "createdAt": {
     "$date": "2024-05-25T08:13:50.997Z"
   },
@@ -90,6 +96,7 @@
   "password": "$2a$10$alJWfuWLvD3xOXtACJ5e2OI8cVtpDjrwAmM75nolIIMgof1tiSR.a",
   "email": "jim@gmail.com",
   "admin": false,
+  "avatar": "https://res.cloudinary.com/dg7xhtwnl/image/upload/v1719492487/avatars/default.jpg",
   "createdAt": {
     "$date": "2024-05-25T08:13:50.997Z"
   },
@@ -103,6 +110,7 @@
   "password": "$2a$10$xoNuCwcSsao9ll9o2Q/i0.rNGAgv9kZqRzOY7dvLrwLpdQoIaUh5e",
   "email": "tom@gmail.com",
   "admin": false,
+  "avatar": "https://res.cloudinary.com/dg7xhtwnl/image/upload/v1719492487/avatars/default.jpg",
   "createdAt": {
     "$date": "2024-05-25T08:13:50.997Z"
   },
@@ -116,6 +124,7 @@
   "password": "$2a$10$WLMIJmWJkAR6OK/Hnvr5zOV8Qg3fbq4tQsJofPvpso.snmKITWfA2",
   "email": "adam@gmail.com",
   "admin": false,
+  "avatar": "https://res.cloudinary.com/dg7xhtwnl/image/upload/v1719492487/avatars/default.jpg",
   "createdAt": {
     "$date": "2024-05-25T08:13:50.997Z"
   },
@@ -129,6 +138,7 @@
   "password": "$2a$10$ZGswo8kzTfXNjTHZfzh5quMuj4oW3ZAz4m.ia1kOyXN9p6uOPXnuW",
   "email": "bill@gmail.com",
   "admin": false,
+  "avatar": "https://res.cloudinary.com/dg7xhtwnl/image/upload/v1719492487/avatars/default.jpg",
   "createdAt": {
     "$date": "2024-05-25T08:13:50.997Z"
   },
@@ -142,6 +152,7 @@
   "password": "$2a$10$szQNgaYe35CPWXnzI3rzVem/TXL94osNclcmGKYjU9tmJgwL7lqp.",
   "email": "may@gmail.com",
   "admin": false,
+  "avatar": "https://res.cloudinary.com/dg7xhtwnl/image/upload/v1719492487/avatars/default.jpg",
   "createdAt": {
     "$date": "2024-06-07T03:28:14.852Z"
   },
@@ -158,6 +169,7 @@
   "password": "$2a$10$JCb.7vXxPHELi5f1lxRHpuvT.jAnjA983VUVKJxdzRl2kwffl10H2",
   "email": "jane@gmail.com",
   "admin": false,
+  "avatar": "https://res.cloudinary.com/dg7xhtwnl/image/upload/v1719492487/avatars/default.jpg",
   "createdAt": {
     "$date": "2024-06-07T03:28:59.979Z"
   },

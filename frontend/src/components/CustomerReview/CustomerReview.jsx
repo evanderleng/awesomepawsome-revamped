@@ -1,7 +1,7 @@
 import React from 'react'
 import './CustomerReview.css'
 
-const CustomerReview = ({key, rating, createdAt, comment}) => {
+const CustomerReview = ({key, rating, createdAt, comment, username, avatar}) => {
 
     // Parse the ISO string into a Date object
   const date = new Date(createdAt);
@@ -20,6 +20,10 @@ const CustomerReview = ({key, rating, createdAt, comment}) => {
 
   return (
     <div className="customer-review-container">
+        <div>
+            <p>{username}</p>
+            <img height="50" width="50" src={avatar}></img>
+        </div>
         <div className="customer-review">
             <p>{comment}</p>
             <p className='comment-date'>{formattedDate}</p>
