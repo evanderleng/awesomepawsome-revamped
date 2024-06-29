@@ -214,6 +214,47 @@
   color: #0c0c0c;
 }
 
+/* Container for each form element, helps in alignment and spacing */
+.form-group {
+  margin-bottom: 10px;
+}
+
+
+
+/* Basic styling for the dropdowns */
+select {
+  width: 100%;
+  padding: 8px 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: white;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  transition: all 0.3s ease;
+}
+
+/* Styles for dropdowns when they are active/focused */
+select:focus {
+  border-color: #cb4501;
+  box-shadow: 0 0 8px rgba(226, 227, 231, 0.5);
+  outline: none;
+}
+
+/* Button styling */
+.button {
+  padding: 10px 20px;
+  background-color: #f25c5c;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.button:hover {
+  background-color: #e17f4a;
+}
+
+
 /* Subscriptions.css */
 
 /* Container */

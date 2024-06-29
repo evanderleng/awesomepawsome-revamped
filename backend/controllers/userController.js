@@ -31,6 +31,7 @@ const addUser = async (req, res)=>{
             email,
             admin: false,
             avatar: "https://res.cloudinary.com/dg7xhtwnl/image/upload/v1719492487/avatars/default.jpg",
+        
         })
         return res.status(201).json({message: "Successfully added!"})
     } catch (err) {
@@ -79,60 +80,65 @@ const login = async (req, res)=>{ //to add check if already logged in
 // }
 
 const getProfile = async (req, res) => {
-    try{
-        let user = await User.findOne({ _id: req.user._id }, {_id:0,username:1,email:1,createdAt:1, address:1, avatar:1})
+    try {
+        let user = await User.findOne(
+            { _id: req.user._id }, 
+            { _id: 0, username: 1, email: 1, createdAt: 1, address: 1, avatar: 1, petDetails: 1 }
+        );
 
         if (!user) {
             return res.status(404).json({ message: 'User not found.' });
-          }
-      
-          // Log the user profile data
-          console.log('Fetched user profile:', user);
-
-        
-        user.username = escape(user.username)
-        user.email = escape(user.email)
-        if (user.shipping_address) {
-           
-          }
-
-          return res.status(200).json(user);
-        } catch (err) {
-          console.error('Error fetching user profile:', err.message);
-          return res.status(500).json({ message: err.message });
         }
-      }
+      
+        // Log the user profile data
+        console.log('Fetched user profile:', user);
+
+        // If you need to escape certain fields for security reasons
+        user.username = escape(user.username);
+        user.email = escape(user.email);
+
+        // Consider handling other fields if needed
+        // For example, you could escape pet details or handle them conditionally
+        
+        return res.status(200).json(user);
+    } catch (err) {
+        console.error('Error fetching user profile:', err.message);
+        return res.status(500).json({ message: err.message });
+    }
+}
 
 
 const editProfile = async (req, res) => {
-    try{
-        const upload = uploadToLocal.single('avatar');
+    const upload = uploadToLocal.single('avatar');
+    upload(req, res, async function (err) {
+        if (err) {
+            return res.status(500).json({ message: "File upload failed: " + err.message });
+        }
+        try {
+            const { username, email, address, petDetails } = req.body;
+            const updateData = { username, email, address, petDetails };
 
-        upload(req, res, async function (err) {
-            if (err) {
-                return res.status(500).json({ message: err.message });
+            if (req.file) {
+                const cloudImgUrl = await uploadAvatar(req.file, req.user.username);
+                updateData.avatar = cloudImgUrl;
             }
-            const {username, email, address} = req.body;
-            if (req.file){
-                let user = await User.findOne({ _id: req.user._id })
 
-                const cloudImgUrl = await uploadAvatar(req.file, user.username);
+            const updateUser = await User.updateOne({ _id: req.user._id }, { $set: updateData });
 
-                let updateUser = await User.updateOne({ _id: req.user }, {$set: {avatar: cloudImgUrl, username,email,address}})
-                if (updateUser){
-                    return res.status(200).json({message: "Edit Success"})
-                }
+            if (updateUser.nModified) {
+                return res.status(200).json({ message: "Edit Success" });
             } else {
-                let updateUser = await User.updateOne({ _id: req.user }, {$set: { avatar: cloudImgUrl, username,email,address}})
-                if (updateUser){
-                    return res.status(200).json({message: "Edit Success"})
-                }
+                // User found but no data modified
+                return res.status(200).json({ message: "No changes needed" });
             }
-        });
-    } catch (err) {
-        return res.status(500).json({message: err.message});
-    }
-}
+        } catch (dbError) {
+            console.error('Database error during profile update:', dbError);
+            return res.status(500).json({ message: "Database error: " + dbError.message });
+        }
+    });
+};
+
+
 
 
 module.exports = {addUser, login, editProfile, getProfile}

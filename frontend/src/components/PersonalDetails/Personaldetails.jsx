@@ -44,7 +44,6 @@ const PersonalDetails = ({ personalDetails, setPersonalDetails }) => {
     })
     .then(res => {
       console.log(res.data);
-      // Update the displayed details after editing
       fetchProfile();
     })
     .catch(err => console.log(err));
