@@ -12,7 +12,7 @@ const initialOptions = {
   currency: "SGD",
   "enable-funding": "paylater,venmo,card",
   "disable-funding": "",
-  "data-sdk-integration-source": "integrationbuilder_sc",
+  "data-sdk-integration-source": "developer-studio",
 };
 
 const Cart = () => {
@@ -95,6 +95,7 @@ const Cart = () => {
     // Update the state directly to reflect changes immediately in the UI
     setItems((prevItems) => prevItems.filter((item) => item.id !== id));
   };
+
   const createOrder = async () => {
     try {
       const response = await fetch("/api/order/create", {
@@ -129,7 +130,7 @@ const Cart = () => {
     }
   };
 
-  async function onApprove(data, actions) {
+  const onApprove = async (data, actions) => {
     try {
       // Capture order to receive payout
       const response = await fetch(`/api/order/${data.orderID}/capture`, {
@@ -178,9 +179,9 @@ const Cart = () => {
     } catch (error) {
       console.error(error);
     }
-  }
+  };
 
-  async function confirmOrder(orderID) {
+  const confirmOrder = async (orderID) => {
     const url = `/order/${orderID}/confirm`;
     const response = await axiosInstance.post(
       url,
@@ -195,7 +196,17 @@ const Cart = () => {
     );
 
     return response;
-  }
+  };
+
+  // Note: This error handler is a catch-all. Errors at this point aren't expected to be handled beyond showing a generic error message or page.
+  // per https://developer.paypal.com/sdk/js/reference/
+  const onError = (err) => {
+    console.error(err);
+  };
+
+  const onCancel = () => {
+    console.log("Order cancelled");
+  };
 
   const clearCart = (orderList) => {
     console.log(orderList);
@@ -268,6 +279,7 @@ const Cart = () => {
             <PayPalButtons
               createOrder={createOrder}
               onApprove={onApprove}
+              onError={onError}
               style={{ layout: "vertical" }}
               disabled={subtotal <= 0} // Disable the button when subtotal is 0
               forceReRender={(grandTotal, items)}
