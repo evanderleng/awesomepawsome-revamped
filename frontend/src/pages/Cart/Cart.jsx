@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axiosInstance from '../../../axiosConfig'; // Use the configured axios instance
 import CartItem from '../../components/CartItem/CartItem';
 import CartSummary from '../../components/CartSummary/CartSummary';
+import cartEmptyImg from '../../assets/cart-empty.png'; // Import the image
 import './Cart.css';
 
 const Cart = () => {
@@ -31,10 +32,15 @@ const Cart = () => {
         id: item.product_id,
         title: item.product_name, // Use product name
         price: parseFloat(item.price), // Ensure price is a number
-        quantity: item.quantity,
+        quantity: parseFloat(item.quantity), // Ensure quantity is a number
         selected: false, // Initialize all items as not selected
         image: 'placeholder.jpg' // Replace with actual product image if available
       }));
+
+      // Log the quantity of each cart item
+      cartItems.forEach(({ quantity }) => {
+        console.log(`Quantity: ${quantity}`);
+      });
 
       setItems(cartItems);
     } catch (error) {
@@ -49,6 +55,9 @@ const Cart = () => {
         quantity: quantity
       };
 
+      // Log the payload before sending
+      console.log('Sending payload:', cartData);
+
       const response = await axiosInstance.post('/cart/updateCart', cartData);
       console.log("Cart updated successfully:", response.data); // Debug: log the success response
       fetchCartData(); // Re-fetch cart data to reflect changes
@@ -58,11 +67,22 @@ const Cart = () => {
   };
 
   const updateQuantity = (id, newQuantity) => {
+    console.log(`Updating quantity for product ${id} to ${newQuantity}`);
     handleAddToCart(id, newQuantity);
+    // Update the state directly to reflect changes immediately in the UI
+    setItems(prevItems =>
+      prevItems.map(item =>
+        item.id === id ? { ...item, quantity: newQuantity } : item
+      )
+    );
   };
 
   const removeItem = (id) => {
     handleAddToCart(id, 0);
+    // Update the state directly to reflect changes immediately in the UI
+    setItems(prevItems =>
+      prevItems.filter(item => item.id !== id)
+    );
   };
 
   const toggleSelection = (id) => {
@@ -74,6 +94,16 @@ const Cart = () => {
   const subtotal = items.reduce((acc, item) => item.selected ? acc + item.quantity * item.price : acc, 0);
   const deliveryCharge = 15.00;
   const grandTotal = subtotal + deliveryCharge;
+
+  if (items.length === 0) {
+    return (
+      <div className='empty-cart'>
+        <img src={cartEmptyImg} alt="Empty Cart" style={{ width: '150px', height: '150px' }} />
+        <h2>YOUR CART IS EMPTY</h2>
+        <p>Looks like you have not added anything to your cart.</p>
+      </div>
+    );
+  }
 
   return (
     <div className='cart'>
