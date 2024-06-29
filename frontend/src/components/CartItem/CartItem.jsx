@@ -17,10 +17,10 @@ function CartItem({ item, updateQuantity, toggleSelection, removeItem }) {
               <input type='text' value={item.quantity} readOnly />
               <button onClick={() => updateQuantity(item.id, item.quantity + 1)}>+</button>
             </div>
-            <div className='item-price'>${item.price.toFixed(2)}</div>
+            <div className='item-price'>${item.price}</div>
           </div>
         </div>
-        <button className='remove-item' onClick={removeItem}>DELETE</button>
+        <button className='remove-item' onClick={() => removeItem(item.id)}>DELETE</button>
       </div>
     </div>
   );
