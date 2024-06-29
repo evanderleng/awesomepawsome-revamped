@@ -280,6 +280,7 @@ const Cart = () => {
               createOrder={createOrder}
               onApprove={onApprove}
               onError={onError}
+              onCancel={onCancel}
               style={{ layout: "vertical" }}
               disabled={subtotal <= 0} // Disable the button when subtotal is 0
               forceReRender={(grandTotal, items)}
