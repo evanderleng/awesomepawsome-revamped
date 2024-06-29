@@ -123,6 +123,7 @@ const Cart = () => {
 
   async function onApprove(data, actions) {
     try {
+      // Capture order to receive payout
       const response = await fetch(`/api/order/${data.orderID}/capture`, {
         method: "POST",
         headers: {
@@ -130,13 +131,13 @@ const Cart = () => {
         },
       });
 
-      const orderData = await response.json();
+      const captureData = await response.json();
       // Three cases to handle:
       //   (1) Recoverable INSTRUMENT_DECLINED -> call actions.restart()
       //   (2) Other non-recoverable errors -> Show a failure message
       //   (3) Successful transaction -> Show confirmation or thank you message
 
-      const errorDetail = orderData?.details?.[0];
+      const errorDetail = captureData?.details?.[0];
 
       if (errorDetail?.issue === "INSTRUMENT_DECLINED") {
         // (1) Recoverable INSTRUMENT_DECLINED -> call actions.restart()
@@ -144,18 +145,27 @@ const Cart = () => {
         return actions.restart();
       } else if (errorDetail) {
         // (2) Other non-recoverable errors -> Show a failure message
-        throw new Error(`${errorDetail.description} (${orderData.debug_id})`);
+        throw new Error(`${errorDetail.description} (${captureData.debug_id})`);
       } else {
-        // (3) Successful transaction -> Confirm order and create entry in DB
-        const transaction = orderData.purchase_units[0].payments.captures[0];
+        // (3) Successful transaction -> Confirm order, create entry in DB, clear cart and redirect
+        const transaction = captureData.purchase_units[0].payments.captures[0];
         console.log(
           "Capture result",
-          orderData,
-          JSON.stringify(orderData, null, 2),
+          captureData,
+          JSON.stringify(captureData, null, 2),
         );
 
-        const confirmResponse = await confirmOrder(orderData.id);
+        const confirmResponse = await confirmOrder(captureData.id);
         console.log(confirmResponse);
+
+        const orderList = confirmResponse.data.order_list;
+
+        if (confirmResponse.status == 201) {
+          // clear cart here and redirect
+          clearCart(orderList);
+        } else {
+          throw new Error(confirmResponse.statusText);
+        }
       }
     } catch (error) {
       console.error(error);
@@ -178,6 +188,13 @@ const Cart = () => {
 
     return response;
   }
+
+  const clearCart = (orderList) => {
+    console.log(orderList);
+    orderList.forEach((item) => {
+      removeItem(item.product_id);
+    });
+  };
 
   const getOrderList = () => {
     const selectedItems = items.filter((item) => item.selected);
