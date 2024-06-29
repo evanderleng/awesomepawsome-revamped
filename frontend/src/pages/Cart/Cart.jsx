@@ -24,28 +24,36 @@ const Cart = () => {
 
   const fetchCartData = async () => {
     try {
-      const cartResponse = await axiosInstance.get(
-        "http://127.0.0.1:4000/api/cart/getCart",
+      // check if cart exists before trying to fetch
+      const hasCartResponse = await axiosInstance.get(
+        "http://127.0.0.1:4000/api/cart/hasCart",
       );
-      console.log("Fetched cart data:", cartResponse.data); // Debug: log the fetched data
 
-      // Log product_name, price, and quantity for each item in the cart list
-      cartResponse.data.forEach((item) => {
-        console.log(
-          `Product Name: ${item.product_name}, Price: ${item.price}, Quantity: ${item.quantity}`,
+      const hasCart = hasCartResponse.data.cart;
+      if (hasCart) {
+        const cartResponse = await axiosInstance.get(
+          "http://127.0.0.1:4000/api/cart/getCart",
         );
-      });
+        console.log("Fetched cart data:", cartResponse.data); // Debug: log the fetched data
 
-      const cartItems = cartResponse.data.map((item) => ({
-        id: item.product_id,
-        title: item.product_name,
-        price: parseFloat(item.price),
-        quantity: parseFloat(item.quantity),
-        selected: false, // Initialize all items as not selected
-        image: item.imageURL,
-      }));
+        // Log product_name, price, and quantity for each item in the cart list
+        cartResponse.data.forEach((item) => {
+          console.log(
+            `Product Name: ${item.product_name}, Price: ${item.price}, Quantity: ${item.quantity}`,
+          );
+        });
 
-      setItems(cartItems);
+        const cartItems = cartResponse.data.map((item) => ({
+          id: item.product_id,
+          title: item.product_name,
+          price: parseFloat(item.price),
+          quantity: parseFloat(item.quantity),
+          selected: false, // Initialize all items as not selected
+          image: item.imageURL,
+        }));
+
+        setItems(cartItems);
+      }
     } catch (error) {
       console.error("Error fetching cart data:", error); // Debug: log the error
     }

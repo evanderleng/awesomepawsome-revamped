@@ -24,14 +24,25 @@ const IndividualProduct = ({
   useEffect(() => {
     const fetchCartData = async () => {
       try {
-        const cartResponse = await axiosInstance.get('http://127.0.0.1:4000/api/cart/getCart');
-        console.log('Fetched cart data:', cartResponse.data); // Debug: log the fetched data
+        const cartResponse = await axiosInstance.get(
+          "http://127.0.0.1:4000/api/cart/getCart",
+        );
+        console.log("Fetched cart data:", cartResponse.data); // Debug: log the fetched data
 
-        // Check if the current product is in the cart
-        const productInCart = cartResponse.data.some(item => item.product_id === id);
-        setInCart(productInCart);
+        const hasCartResponse = await axiosInstance.get(
+          "http://127.0.0.1:4000/api/cart/hasCart",
+        );
+
+        const hasCart = hasCartResponse.data.cart;
+        if (hasCart) {
+          // Check if the current product is in the cart
+          const productInCart = cartResponse.data.some(
+            (item) => item.product_id === id,
+          );
+          setInCart(productInCart);
+        }
       } catch (error) {
-        console.error('Error fetching cart data:', error); // Debug: log the error
+        console.error("Error fetching cart data:", error); // Debug: log the error
       }
     };
 
@@ -48,7 +59,7 @@ const IndividualProduct = ({
 
         const response = await axiosInstance.post("/cart/updateCart", cartData);
         console.log("Cart updated successfully:", response.data);
-        
+
         // Show notification
         setNotification("Item added to cart successfully!");
         setInCart(true);
@@ -60,7 +71,7 @@ const IndividualProduct = ({
       } catch (error) {
         console.error(
           "Error updating cart:",
-          error.response ? error.response.data : error.message
+          error.response ? error.response.data : error.message,
         );
       }
     };
