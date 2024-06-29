@@ -20,7 +20,7 @@ function fileFilter (req, file, cb) {
     let extName = path.extname(file.originalname);
     let ext = extName.substring(1).toLowerCase();
     if (ext !== "png" && ext !== "jpg" && ext !== "jpeg") {
-        return cb(new Error("Only images are accepted"));
+        return cb(new Error("Only png, jpg, jpeg are accepted"));
     }
     cb(null, true);  
 }

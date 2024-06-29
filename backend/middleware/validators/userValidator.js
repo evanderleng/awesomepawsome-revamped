@@ -18,4 +18,12 @@ const checkLoginReq = [
 	check('password', "Password is required").notEmpty().isLength({ max:40 })
 ]
 
-module.exports = {checkAddUserReq, checkLoginReq};
+const checkEditProfileReq = [ //username, email, address
+	check('username',"Username is required").notEmpty().isLength({ max:20 }),
+	check('email', "Password is required").notEmpty().isLength({ max:40 }),
+	check('address', "Password is required").notEmpty().isLength({ max:40 }),
+	//check('petDetails', "Password is required").notEmpty().isLength({ max:40 })
+]
+
+
+module.exports = {checkAddUserReq, checkLoginReq, checkEditProfileReq};
