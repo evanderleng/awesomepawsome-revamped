@@ -154,7 +154,8 @@ const Cart = () => {
           JSON.stringify(orderData, null, 2),
         );
 
-        confirmOrder(orderData.id, getOrderList());
+        const confirmResponse = await confirmOrder(orderData.id);
+        console.log(confirmResponse);
       }
     } catch (error) {
       console.error(error);
@@ -175,16 +176,13 @@ const Cart = () => {
       },
     );
 
-    if (response.ok) {
-      console.log("SUCCESS");
-      return response;
-    }
+    return response;
   }
 
   const getOrderList = () => {
     const selectedItems = items.filter((item) => item.selected);
     const orderList = selectedItems.map((item) => {
-      return { product_id: item.product_id, quantity: item.quantity };
+      return { product_id: item.id, quantity: item.quantity };
     });
     return JSON.stringify(orderList);
   };

@@ -18,6 +18,7 @@ router.route("/create").post(async (req, res) => {
 
 router.route("/:orderID/capture").post(async (req, res) => {
   try {
+    const { orderID } = req.params;
     const { jsonResponse, httpStatusCode } =
       await orderController.captureOrder(orderID);
     res.status(httpStatusCode).json(jsonResponse);
