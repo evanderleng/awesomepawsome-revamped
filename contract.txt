@@ -60,7 +60,11 @@ POST: {product_id: xxx, quantity: 4}
 returns: message
 returns 400, 201, 500
 
-
+/api/review/addReview  
+header: "Authorization: Bearer {token}" 
+POST: {product_id: xxx, rating: 1-5, comment (optional + 500 chars and below)}
+returns: message
+returns 400, 201, 500
 
 
 todo:
