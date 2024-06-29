@@ -5,9 +5,11 @@
 node_modules/
 
 # remove line below if want to include built version inside source code
-dist/ 
+dist/
 
 # remove below if need be
 backend/.env
 
+# ignore db files
+*db/
 backend/tmp/*
