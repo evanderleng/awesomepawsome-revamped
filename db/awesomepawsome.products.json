@@ -1,120 +1,42 @@
 [{
   "_id": {
-    "$oid": "665b60e31271676dae7eb111"
+    "$oid": "667fb2c6f3e202628d1c5d0b"
   },
-  "brand": "Cesar",
-  "name": "Top Sirloin Flavor",
-  "weight": "100g",
-  "price": 5,
-  "animal": "dog",
+  "brand": "Purina",
+  "name": "Bakers Recipe Using Superfoods (With Beef)",
+  "weight": "2.85kg",
+  "price": 40,
   "rating": 0,
-  "ratingCount": 0
+  "ratingCount": 0,
+  "description": "Introducing NutriPaws Small Breed Dog Food—crafted to meet the unique nutritional needs of small dogs. Each bite-sized kibble is packed with high-quality proteins from chicken and fish, essential vitamins, and balanced fats, ensuring your petite pooch gets the energy and nutrients they need. With added Omega-3 and Omega-6 for a glossy coat, and prebiotics for a healthy gut, NutriPaws supports your small dog's overall well-being. Plus, our formula is free from artificial colors, flavors, and preservatives, making it the perfect choice for a healthy, happy pet.",
+  "breedSize": "small",
+  "imageURL": "https://res.cloudinary.com/dg7xhtwnl/image/upload/v1719644869/products/Bakers%20Recipe%20Using%20Superfoods%20%28With%20Beef%29.jpg",
+  "createdAt": {
+    "$date": "2024-06-29T07:07:50.061Z"
+  },
+  "updatedAt": {
+    "$date": "2024-06-29T07:07:50.061Z"
+  },
+  "__v": 0
 },
 {
   "_id": {
-    "$oid": "665b60e31271676dae7eb112"
+    "$oid": "66802575c1d51a4a274fbe34"
   },
-  "brand": "Cesar",
-  "name": "Chicken Flavor",
-  "weight": "100g",
-  "price": 5,
-  "animal": "dog",
+  "brand": "Royal Canin",
+  "name": "Royal Canin for Small Petit (Dry Food)",
+  "weight": "2.9kg",
+  "price": 40,
   "rating": 0,
-  "ratingCount": 0
-},
-{
-  "_id": {
-    "$oid": "665b60e31271676dae7eb113"
+  "ratingCount": 0,
+  "description": " Royal Canin dog food offers a range of scientifically formulated diets tailored to meet the specific nutritional needs of dogs at every life stage and breed. Utilizing a blend of high-quality ingredients, Royal Canin provides precise nutrition that supports overall health, energy levels, and vitality. Each recipe is crafted with a deep understanding of pet biology and nutritional science, ensuring that dogs receive balanced meals that promote optimal growth, digestive health, and skin and coat condition. From small breed puppies to senior large breeds, Royal Canin’s dedicated approach ensures that every dog gets the precise nutrition they need to thrive.",
+  "breedSize": "small",
+  "imageURL": "https://res.cloudinary.com/dg7xhtwnl/image/upload/v1719674228/products/Royal%20Canin%20for%20Small%20Petit%20%28Dry%20Food%29.png",
+  "createdAt": {
+    "$date": "2024-06-29T15:17:09.178Z"
   },
-  "brand": "Cesar",
-  "name": "Beef Stroganoff Flavor",
-  "weight": "100g",
-  "price": 5,
-  "animal": "dog",
-  "rating": 0,
-  "ratingCount": 0
-},
-{
-  "_id": {
-    "$oid": "665b60e31271676dae7eb114"
+  "updatedAt": {
+    "$date": "2024-06-29T15:17:09.178Z"
   },
-  "brand": "Cesar",
-  "name": "Meat Lasagna Flavor",
-  "weight": "100g",
-  "price": 5,
-  "animal": "dog",
-  "rating": 0,
-  "ratingCount": 0
-},
-{
-  "_id": {
-    "$oid": "665b60e31271676dae7eb115"
-  },
-  "brand": "Friskies",
-  "name": "Farm Favourites Dry Cat Food",
-  "weight": "7.26kg",
-  "price": 55,
-  "animal": "cat",
-  "rating": 0,
-  "ratingCount": 0
-},
-{
-  "_id": {
-    "$oid": "665b60e31271676dae7eb116"
-  },
-  "brand": "Friskies",
-  "name": "Farm Favourites Dry Cat Food",
-  "weight": "1.42kg",
-  "price": 19,
-  "animal": "cat",
-  "rating": 0,
-  "ratingCount": 0
-},
-{
-  "_id": {
-    "$oid": "665b60e31271676dae7eb117"
-  },
-  "brand": "Friskies",
-  "name": "Indoor Delights Dry Cat Food",
-  "weight": "7.26kg",
-  "price": 55,
-  "animal": "cat",
-  "rating": 0,
-  "ratingCount": 0
-},
-{
-  "_id": {
-    "$oid": "665b60e31271676dae7eb118"
-  },
-  "brand": "Friskies",
-  "name": "Indoor Delights Dry Cat Food",
-  "weight": "1.42kg",
-  "price": 19,
-  "animal": "cat",
-  "rating": 0,
-  "ratingCount": 0
-},
-{
-  "_id": {
-    "$oid": "665b60e31271676dae7eb119"
-  },
-  "brand": "Friskies",
-  "name": "Seafood Sensations Dry Cat Food",
-  "weight": "7.26kg",
-  "price": 55,
-  "animal": "cat",
-  "rating": 0,
-  "ratingCount": 0
-},
-{
-  "_id": {
-    "$oid": "665b60e31271676dae7eb11a"
-  },
-  "brand": "Friskies",
-  "name": "Seafood Sensations Dry Cat Food",
-  "weight": "1.42kg",
-  "price": 19,
-  "animal": "cat",
-  "rating": 0,
-  "ratingCount": 0
+  "__v": 0
 }]

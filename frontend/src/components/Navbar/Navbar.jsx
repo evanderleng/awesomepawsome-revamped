@@ -111,7 +111,7 @@ const Navbar = ({ setShowLogin }) => {
             }}
           >Logout</button>
         ) : (
-          <button onClick={() => setShowLogin(true)}>Sign In</button>
+          <button onClick={() => setShowLogin(true)}>Login</button>
         )}
       </div>
     </div>

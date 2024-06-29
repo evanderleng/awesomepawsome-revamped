@@ -64,6 +64,7 @@ const FoodDisplay = ({breedSize, searchQuery}) => {
               breedSize={product.breedSize}
               description={product.description}
               ingredients={product.ingredients}
+              imageURL = {product.imageURL}
             />
           ))
         ) : (

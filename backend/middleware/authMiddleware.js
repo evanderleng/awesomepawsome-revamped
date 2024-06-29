@@ -15,7 +15,6 @@ const auth = async (req, res, next) => {
             return res.status(401).json({message: "Unauthorised"})
         }
     } else { //no token found
-        console.log(err.message)
         return res.status(401).json({message: "Unauthorised"})
     }
 }
@@ -35,7 +34,7 @@ const authAdmin = async (req, res, next) => {
                 req.user = user
                 next()
             } else { //not an admin >:(
-                return res.status(401).json({message: "gg Unauthorised"})
+                return res.status(401).json({message: "Unauthorised"})
             }
         } catch (err){
             console.log(err.message)

@@ -14,7 +14,7 @@ const IndividualProduct = ({
   description,
   ingredients,
   breedSize,
-  image,
+  imageURL,
 }) => {
   const { isLogin } = useContext(StoreContext);
 
@@ -72,7 +72,7 @@ const IndividualProduct = ({
       {notification && <div className="notification">{notification}</div>}
       <div className="product-content">
         <div className="product-img">
-          <img src={image} alt={name} />
+          <img src={imageURL} alt="" />
         </div>
 
         <div className="product-details">
