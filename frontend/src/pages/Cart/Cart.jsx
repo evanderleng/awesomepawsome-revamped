@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import axiosInstance from "../../../axiosConfig";
 import CartItem from "../../components/CartItem/CartItem";
 import CartSummary from "../../components/CartSummary/CartSummary";
-import "./Cart.css";
+import cartEmptyImg from "../../assets/cart-empty.png";
 import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
-import axiosInstance from "../../../axiosConfig";
-// import CartEmpty from '../../components/CartEmpty/CartEmpty';
+import "./Cart.css";
 
 const initialOptions = {
   "client-id":
@@ -16,28 +16,77 @@ const initialOptions = {
 };
 
 const Cart = () => {
-  const [items, setItems] = useState([
-    {
-      product_id: "665b60e31271676dae7eb118",
-      title: "FOOD",
-      quantity: "50",
-      price: 1,
-    },
-  ]);
+  const [items, setItems] = useState([]);
 
-  async function getCart() {
+  useEffect(() => {
+    fetchCartData();
+  }, []);
+
+  const fetchCartData = async () => {
     try {
-      const url = "/cart/getCart";
-      const response = await axiosInstance.get(url);
-      const cartData = await response.data;
+      const cartResponse = await axiosInstance.get(
+        "http://127.0.0.1:4000/api/cart/getCart",
+      );
+      console.log("Fetched cart data:", cartResponse.data); // Debug: log the fetched data
 
-      console.log(cartData);
-      return cartData;
+      // Log product_name, price, and quantity for each item in the cart list
+      cartResponse.data.forEach((item) => {
+        console.log(
+          `Product Name: ${item.product_name}, Price: ${item.price}, Quantity: ${item.quantity}`,
+        );
+      });
+
+      const cartItems = cartResponse.data.map((item) => ({
+        id: item.product_id,
+        title: item.product_name,
+        price: parseFloat(item.price),
+        quantity: parseFloat(item.quantity),
+        selected: false, // Initialize all items as not selected
+        image: item.imageURL,
+      }));
+
+      setItems(cartItems);
     } catch (error) {
-      console.error(error);
+      console.error("Error fetching cart data:", error); // Debug: log the error
     }
-  }
+  };
 
+  const handleAddToCart = async (product_id, quantity) => {
+    try {
+      const cartData = {
+        product_id: product_id,
+        quantity: quantity,
+      };
+
+      // Log the payload before sending
+      console.log("Sending payload:", cartData);
+
+      const response = await axiosInstance.post("/cart/updateCart", cartData);
+      console.log("Cart updated successfully:", response.data); // Debug: log the success response
+      fetchCartData(); // Re-fetch cart data to reflect changes
+    } catch (error) {
+      console.error(
+        "Error updating cart:",
+        error.response ? error.response.data : error.message,
+      ); // Debug: log the error
+    }
+  };
+
+  const updateQuantity = (id, newQuantity) => {
+    handleAddToCart(id, newQuantity);
+    // Update the state directly to reflect changes immediately in the UI
+    setItems((prevItems) =>
+      prevItems.map((item) =>
+        item.id === id ? { ...item, quantity: newQuantity } : item,
+      ),
+    );
+  };
+
+  const removeItem = (id) => {
+    handleAddToCart(id, 0);
+    // Update the state directly to reflect changes immediately in the UI
+    setItems((prevItems) => prevItems.filter((item) => item.id !== id));
+  };
   const createOrder = async () => {
     try {
       const response = await fetch("/api/order/create", {
@@ -148,18 +197,6 @@ const Cart = () => {
     );
   };
 
-  const updateQuantity = (id, newQuantity) => {
-    setItems(
-      items.map((item) =>
-        item.id === id ? { ...item, quantity: newQuantity } : item,
-      ),
-    );
-  };
-
-  const removeItem = (id) => {
-    setItems(items.filter((item) => item.id !== id));
-  };
-
   const subtotal = items.reduce(
     (acc, item) => (item.selected ? acc + item.quantity * item.price : acc),
     0,
@@ -167,11 +204,19 @@ const Cart = () => {
   const deliveryCharge = 15.0;
   const grandTotal = subtotal + deliveryCharge;
 
-  // if (items.length === 0) {
-  //   // Return the CartEmpty component if there are no items
-  //   return <CartEmpty/>
-
-  // }
+  if (items.length === 0) {
+    return (
+      <div className="empty-cart">
+        <img
+          src={cartEmptyImg}
+          alt="Empty Cart"
+          style={{ width: "150px", height: "150px" }}
+        />
+        <h2>YOUR CART IS EMPTY</h2>
+        <p>Looks like you have not added anything to your cart.</p>
+      </div>
+    );
+  }
 
   return (
     <div className="cart">
@@ -182,7 +227,9 @@ const Cart = () => {
             <CartItem
               key={item.id}
               item={item}
-              updateQuantity={updateQuantity}
+              updateQuantity={(newQuantity) =>
+                updateQuantity(item.id, newQuantity)
+              }
               toggleSelection={() => toggleSelection(item.id)}
               removeItem={() => removeItem(item.id)}
             />

@@ -15,7 +15,6 @@ const auth = async (req, res, next) => {
             return res.status(401).json({message: "Unauthorised"})
         }
     } else { //no token found
-        console.log(err.message)
         return res.status(401).json({message: "Unauthorised"})
     }
 }
