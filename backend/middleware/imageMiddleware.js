@@ -1,6 +1,7 @@
 const multer = require('multer')
 const {cloudinary_func} = require('../util/cloud.js');
 const path = require('path')
+const fs = require('fs')
 
 
 const storage = multer.diskStorage({
@@ -22,6 +23,12 @@ function fileFilter (req, file, cb) {
         return cb(new Error("Only images are accepted"));
     }
     cb(null, true);  
+}
+
+function checktmp () {
+    fs.mkdir('./tmp', { recursive: true }, (err) => {
+        if (err) throw err;
+    });
 }
 
 const uploadToLocal = multer({
@@ -55,4 +62,4 @@ const uploadAvatar = async (file, image_name) => {
 
 
 
-module.exports = {uploadToLocal, uploadProduct, uploadAvatar}
+module.exports = {uploadToLocal, uploadProduct, uploadAvatar,checktmp}
