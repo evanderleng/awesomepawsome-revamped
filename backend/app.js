@@ -13,15 +13,6 @@ const CartRouter = require("./routes/CartRoutes.js")
 
 const EmailRouter = require("./routes/EmailRoutes.js")
 
-// const nodemailer = require('nodemailer'); // new
-// const transporter = require('./services/EmailService.js')
-
-// const req_num = 3;
-
-// const emailController = require("./controllers/emailController.js")
-
-
-
 dotenv.config()
 connDB()
 const app = express()
@@ -41,9 +32,6 @@ app.use(mongoSanitize())
 app.get("/api/test", (req,res) => {
     res.json({"testing": "if you can read this, you have connected to backend"})
 })
-
-// for testing email
-// app.get("/api/testemail", emailController.sendTestEmail)
 
 // logging purposes, delete before submission
 app.use((req, res, next) => {

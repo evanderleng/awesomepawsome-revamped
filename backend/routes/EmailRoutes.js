@@ -3,12 +3,13 @@ const router = express.Router();
 
 const emailController = require("../controllers/emailController.js")
 
+const {checkEmailReq} = require('../middleware/validators/emailValidator.js')
+const {checkValid} = require('../middleware/validators/validatorMiddleware.js')
+
 // TODO
-// router.post("/resetPassword", <request checks>** , <request controller>.<function>)
-// router.post("/2fa", <request checks>** , <request controller>.<function>)
+// 2fa checks
+// reset password checks
 
-router.route("/sendTestEmail").get(emailController.sendTestEmail)
-
-router.route("/postEmail").post(emailController.postEmail)
+router.post("/sendResetPasswordEmail", checkEmailReq, checkValid, emailController.sendResetPasswordEmail)
 
 module.exports = router;
