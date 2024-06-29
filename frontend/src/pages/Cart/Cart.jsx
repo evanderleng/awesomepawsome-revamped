@@ -3,6 +3,7 @@ import CartItem from "../../components/CartItem/CartItem";
 import CartSummary from "../../components/CartSummary/CartSummary";
 import "./Cart.css";
 import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
+import axiosInstance from "../../../axiosConfig";
 // import CartEmpty from '../../components/CartEmpty/CartEmpty';
 
 const initialOptions = {
@@ -15,7 +16,29 @@ const initialOptions = {
 };
 
 const Cart = () => {
-  async function createOrder() {
+  const [items, setItems] = useState([
+    {
+      product_id: "665b60e31271676dae7eb118",
+      title: "FOOD",
+      quantity: "50",
+      price: 1,
+    },
+  ]);
+
+  async function getCart() {
+    try {
+      const url = "/cart/getCart";
+      const response = await axiosInstance.get(url);
+      const cartData = await response.data;
+
+      console.log(cartData);
+      return cartData;
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  const createOrder = async () => {
     try {
       const response = await fetch("/api/order/create", {
         method: "POST",
@@ -26,6 +49,7 @@ const Cart = () => {
         // like product ids and quantities
         body: JSON.stringify({
           cart: {
+            orderList: `${getOrderList()}`,
             total: grandTotal,
           },
         }),
@@ -46,7 +70,7 @@ const Cart = () => {
     } catch (error) {
       console.error(error);
     }
-  }
+  };
 
   async function onApprove(data, actions) {
     try {
@@ -80,18 +104,41 @@ const Cart = () => {
           orderData,
           JSON.stringify(orderData, null, 2),
         );
+
+        confirmOrder(orderData.id, getOrderList());
       }
     } catch (error) {
       console.error(error);
     }
   }
 
-  const [items, setItems] = useState([
-    { id: 1, title: "Item 1", price: 10.0, quantity: 2, selected: true },
-    { id: 2, title: "Item 2", price: 20.0, quantity: 1, selected: false },
-    { id: 3, title: "Item 3", price: 20.0, quantity: 1, selected: false },
-    { id: 4, title: "Item 4", price: 20.0, quantity: 1, selected: false },
-  ]);
+  async function confirmOrder(orderID) {
+    const url = `/order/${orderID}/confirm`;
+    const response = await axiosInstance.post(
+      url,
+      JSON.stringify({
+        orderList: `${getOrderList()}`,
+      }),
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      },
+    );
+
+    if (response.ok) {
+      console.log("SUCCESS");
+      return response;
+    }
+  }
+
+  const getOrderList = () => {
+    const selectedItems = items.filter((item) => item.selected);
+    const orderList = selectedItems.map((item) => {
+      return { product_id: item.product_id, quantity: item.quantity };
+    });
+    return JSON.stringify(orderList);
+  };
 
   const toggleSelection = (id) => {
     setItems(
@@ -153,6 +200,7 @@ const Cart = () => {
               onApprove={onApprove}
               style={{ layout: "vertical" }}
               disabled={subtotal <= 0} // Disable the button when subtotal is 0
+              forceReRender={(grandTotal, items)}
             />
           </PayPalScriptProvider>
         </div>

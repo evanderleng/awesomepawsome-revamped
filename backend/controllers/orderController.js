@@ -33,7 +33,6 @@ const generateAccessToken = async () => {
 
 const createOrder = async (cart) => {
   const accessToken = await generateAccessToken();
-  console.log(cart.total);
   const url = `${endpoint_url}/v2/checkout/orders`;
   const payload = {
     intent: "CAPTURE",
@@ -94,9 +93,12 @@ async function handleResponse(response) {
 
 const confirmOrder = async (req, res) => {
   try {
+    const userID = req.user._id;
+    const { orderList } = req.body;
+
     const order = await Order.create({
-      user_id: req.user._id,
-      order_list: req.body.order_list,
+      user_id: userID,
+      order_list: JSON.parse(orderList),
     });
 
     return res.status(201).json({

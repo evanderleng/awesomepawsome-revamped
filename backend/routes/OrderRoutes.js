@@ -18,7 +18,6 @@ router.route("/create").post(async (req, res) => {
 
 router.route("/:orderID/capture").post(async (req, res) => {
   try {
-    const { orderID } = req.params;
     const { jsonResponse, httpStatusCode } =
       await orderController.captureOrder(orderID);
     res.status(httpStatusCode).json(jsonResponse);
@@ -27,5 +26,9 @@ router.route("/:orderID/capture").post(async (req, res) => {
     res.status(500).json({ error: "Failed to capture order." });
   }
 });
+
+router
+  .route("/:orderID/confirm")
+  .post(authMiddleware.auth, orderController.confirmOrder);
 
 module.exports = router;
