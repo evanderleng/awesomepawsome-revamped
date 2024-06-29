@@ -28,7 +28,7 @@ const Cart = () => {
         price: parseFloat(item.price), 
         quantity: parseFloat(item.quantity), 
         selected: false, // Initialize all items as not selected
-        image: 'placeholder.jpg' // TODO: Replace with actual product image when available
+        image: item.imageURL
       }));
 
       setItems(cartItems);

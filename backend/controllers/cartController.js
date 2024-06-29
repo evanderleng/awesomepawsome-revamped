@@ -42,6 +42,7 @@ const getCart = async (req, res) => {
                         "product_name": {"$first": "$product.name"},
                         "price": { "$first": "$product.price" },
                         "quantity": "$cart_list.quantity",
+                        "imageURL": { "$first": "$product.imageURL" },
                         "createdAt": 1,
                         "updatedAt": 1
                     }
@@ -54,6 +55,7 @@ const getCart = async (req, res) => {
                 item.product_name = escape(item.product_name)
                 item.price = escape(item.price)
                 item.quantity = escape(item.quantity)
+                item.imageURL = escape(item.imageURL); 
             })
 
             return res.status(200).json(cart)
