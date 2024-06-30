@@ -7,6 +7,12 @@ const usernameMsg = "Username can only contain alphabets, digits and underscores
 const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*\W)(?!.* )[a-zA-Z\d\W]{8,40}$/g //8+ character, must have 1 lower 1 upper 1 number 1 symbol no space
 const passwordMsg = "Password must be 8-40 characters and contain one uppercase, lowercase, digit and symbol"
 
+const petNameRegex = /^[a-zA-Z]{1,20}$/g //only alphabets, max 20 char
+const petNameMsg = "Pet name can only contain alphabets and have a maximum of 20 characters"
+
+const petAgeRegex = /^\d{1,2}$/g //only numbers (maybe add lookahead for leading zeros)
+const petAgeMsg = "Invalid Age!"
+
 const checkAddUserReq = [
 	check('username', usernameMsg).matches(usernameRegex).notEmpty(),
 	check('password', passwordMsg).matches(passwordRegex).notEmpty(),
@@ -14,16 +20,21 @@ const checkAddUserReq = [
 ]
 
 const checkLoginReq = [
-	check('username',"Username is required").notEmpty().isLength({ max:20 }),
-	check('password', "Password is required").notEmpty().isLength({ max:40 })
+	check('username',"Username is required").notEmpty().isLength({ min:1, max:20 }),
+	check('password', "Password is required").notEmpty().isLength({ min:1, max:40 })
 ]
 
-const checkEditProfileReq = [ //username, email, address
-	check('username',"Username is required").notEmpty().isLength({ max:20 }),
-	check('email', "Password is required").notEmpty().isLength({ max:40 }),
-	check('address', "Password is required").notEmpty().isLength({ max:40 }),
-	//check('petDetails', "Password is required").notEmpty().isLength({ max:40 })
+const checkEditProfileReq = [ //untested, to test and integrate
+	check('username', usernameMsg).matches(usernameRegex),
+	check('email',"Email is required").isEmail(),
+	check('address').isLength({ min:1, max:100 })
 ]
 
+const checkEditPetReq = [ //partially tested...
+	check('petDetails.petName', petNameMsg).matches(petNameRegex),
+	//check('petDetails.petAge', petAgeMsg).matches(petAgeRegex), //wrong
+	check('petDetails.petSize').isLength({ min:1, max:100 }),
+	check('petDetails.petBreed').isLength({ min:1, max:100 }),
+]
 
-module.exports = {checkAddUserReq, checkLoginReq, checkEditProfileReq};
+module.exports = {checkAddUserReq, checkLoginReq, checkEditProfileReq, checkEditPetReq};
