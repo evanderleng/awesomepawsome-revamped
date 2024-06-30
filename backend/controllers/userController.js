@@ -1,12 +1,11 @@
-const User = require("../models/User.js");
-const bcrypt = require("bcryptjs");
-const jwt = require("jsonwebtoken");
-const cookie = require("cookie");
-const escape = require("escape-html");
-const {
-  uploadToLocal,
-  uploadAvatar,
-} = require("../middleware/imageMiddleware.js");
+
+const User = require('../models/User.js');
+const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
+const cookie = require('cookie');
+const escape = require('escape-html');
+const speakeasy = require('speakeasy') // for totp generation
+const {uploadToLocal,uploadAvatar} = require("../middleware/imageMiddleware.js")
 
 const addUser = async (req, res) => {
   try {
@@ -25,19 +24,19 @@ const addUser = async (req, res) => {
 
     const hash = bcrypt.hashSync(password, bcrypt.genSaltSync());
 
-    user = await User.create({
-      username,
-      password: hash,
-      email,
-      admin: false,
-      avatar:
-        "https://res.cloudinary.com/dg7xhtwnl/image/upload/v1719492487/avatars/default.jpg",
-    });
-    return res.status(201).json({ message: "Successfully added!" });
-  } catch (err) {
-    return res.status(500).json({ message: err.message });
-  }
-};
+        user = await User.create({
+            username,
+            password: hash,
+            email,
+            admin: false,
+            avatar: "https://res.cloudinary.com/dg7xhtwnl/image/upload/v1719492487/avatars/default.jpg",
+            totpSecret: speakeasy.generateSecret().base32
+        })
+        return res.status(201).json({message: "Successfully added!"})
+    } catch (err) {
+        return res.status(500).json({message: err.message});
+    }
+}
 
 const login = async (req, res) => {
   //to add check if already logged in

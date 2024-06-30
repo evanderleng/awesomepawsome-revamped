@@ -13,3 +13,6 @@ backend/.env
 # ignore db files
 *db/
 backend/tmp/*
+
+
+.vscode/

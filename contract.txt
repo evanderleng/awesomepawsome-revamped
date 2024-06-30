@@ -66,6 +66,17 @@ POST: {product_id: xxx, rating: 1-5, comment (optional + 500 chars and below)}
 returns: message
 returns 400, 201, 500
 
+// Email sending
+/api/email/send2faEmail_ResetPassword           // use after user entered email to generate 2fa
+POST: {email: xxx}
+returns: message
+returns 400, 200, 500
+
+/api/email/sendResetPasswordEmail               //use after user enters 2fa
+POST: {email : xxx, otpToken: xxx}
+returns: message
+returns 400, 200, 500
+
 
 todo:
 mongo access control
