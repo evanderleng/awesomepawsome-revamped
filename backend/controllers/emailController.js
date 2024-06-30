@@ -6,8 +6,6 @@ const transporter = require("../services/EmailService.js");
 const User = require('../models/User.js');
 const otp = require("./2faController.js");
 
-let otpTokenStore = {};
-
 const sendResetPasswordEmail = async (req, res) => {
     try {
         const { email, otpToken } = req.body;

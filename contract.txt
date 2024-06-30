@@ -1,9 +1,9 @@
 
 
 /api/user/login
-POST body required: username, password
+POST body required: username, password, otpToken
 returns: message, jwt token httpOnly cookie 
-returns 200 OR 401
+returns 404, 401, 400, 200, 500
 
 /api/user/addUser
 POST body required: username, password, email
