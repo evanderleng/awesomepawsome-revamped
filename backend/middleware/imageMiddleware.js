@@ -33,8 +33,8 @@ function checktmp () {
 
 const uploadToLocal = multer({
     storage: storage,
-    limits: { //limit to 5MB
-        fileSize: 5 * 1000000,
+    limits: { //limit to 3MB
+        fileSize: 3 * 1000000,
     },
     fileFilter: fileFilter
 });
