@@ -5,12 +5,16 @@ const helmet = require("helmet");
 const cors = require("cors");
 const connDB = require("./db");
 
-const UserRouter = require("./routes/UserRoutes.js");
-const ProductRouter = require("./routes/ProductRoutes.js");
-const OrderRouter = require("./routes/OrderRoutes.js");
-const ReviewRouter = require("./routes/ReviewRoutes.js");
-const CartRouter = require("./routes/CartRoutes.js");
+const UserRouter = require("./routes/UserRoutes.js")
+const ProductRouter = require("./routes/ProductRoutes.js")
+const OrderRouter = require("./routes/OrderRoutes.js")
+const ReviewRouter = require("./routes/ReviewRoutes.js")
+const CartRouter = require("./routes/CartRoutes.js")
 
+const EmailRouter = require("./routes/EmailRoutes.js")
+
+dotenv.config()
+connDB()
 const { checktmp } = require("./middleware/imageMiddleware.js");
 
 checktmp(); //check tmp folder exists
@@ -45,6 +49,7 @@ app.use("/api/product", ProductRouter);
 app.use("/api/order", OrderRouter);
 app.use("/api/review", ReviewRouter);
 app.use("/api/cart", CartRouter);
+app.use("/api/email", EmailRouter);
 
 // Server Listening Port
 app.listen(4000, () => {
