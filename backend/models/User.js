@@ -28,6 +28,8 @@ const userSchema = new mongoose.Schema({
     address: {type: String},
     name: {type: String},
     totpSecret : {type: String},
+    resetPasswordToken: {type: String},
+    resetPasswordExpires: {type: Date},
     petDetails: petDetailsSchema 
 },
 {timestamps: true}
