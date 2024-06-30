@@ -76,7 +76,8 @@ const send2faEmail_ResetPassword = async (req, res) => {
                 subject: "Reset Password - 2FA Token",                      // Subject line
                 html: emailContent,                                         // html body
             }).then(info => {
-                return res.status(200).json({ message: "Successfully sent 2FA token!" });
+                // return res.status(200).json({ message: "Successfully sent 2FA token!" });
+                return res.status(200).json({ message: "Successfully sent 2FA token!", token: token}); //TODO  for debugging, remove this when submitting
             })
         }
         catch (err){
@@ -120,11 +121,11 @@ const send2faEmail_Login = async (req, res) => {
                 subject: "Login - 2FA Token",
                 html: emailContent,
             });
-
-            return { status: 200, message: 'Successfully sent 2FA token!' };
+            // return res.status(200).json({ message: "Successfully sent 2FA token!" });
+            return res.status(200).json({ message: "Successfully sent 2FA token!", token: token}); //TODO  for debugging, remove this when submitting
         } catch (err) {
             console.error(err); // TODO: remove this line when submitting
-            return { status: 500, message: 'Unable to send 2FA token' };
+            return { status: 400, message: 'Unable to send 2FA token' };
         }
     }
     catch (err) {
