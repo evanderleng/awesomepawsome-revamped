@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 import "./Navbar.css";
 import { assets } from "../../assets/assets";
@@ -10,6 +10,11 @@ import { StoreContext } from "../../context/StoreContext";
 const Navbar = ({ setShowLogin }) => {
   // function name is setMenu, menu is the state
   const [menu, setMenu] = useState("home"); // create state variable and initialise with home
+
+
+  // to navigate to other pages (can be set)
+  const navigate = useNavigate();
+
 
   // state isLogin (boolean), method setIsLogin to set state.
   // from StoredContext, which means every part of the app can share this state
@@ -105,6 +110,8 @@ const Navbar = ({ setShowLogin }) => {
               console.log("Token cookie cleared");
               localStorage.removeItem("isAdmin");
               console.log("Local Storage isAdmin Cleared");
+              navigate('/'); // redirect to home upon login
+
 
               setUserIsAdmin(false); // to ensure it is back to non admin explciitly
             }}

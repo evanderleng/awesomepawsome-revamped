@@ -24,7 +24,7 @@ const App = () => {
 
   const location = useLocation(); // Get the current location
 
-  const {userIsAdmin} = useContext(StoreContext)
+  const {userIsAdmin, resetPasswordOTPAuthenticated} = useContext(StoreContext)
   
 
 
@@ -54,10 +54,10 @@ const App = () => {
 
         <Route path='/individualProductPage' element={<IndividualProductPage/>} /> 
         <Route path='/recommendMePage' element={<RecommendMePage/>} />
-        <Route path='/resetPasswordPage' element={<ResetPasswordPage/>} />
         <Route path='/verifyEmailPage' element={<VerifyEmailPage/>} />
 
-
+        {/* only if reset password OTP is authenticated then this route will exist, else no one can access this route */}
+        {resetPasswordOTPAuthenticated && <Route path='/resetPasswordPage' element={<ResetPasswordPage/>} />}
 
         {/* only if user is admin, then this route will exist, else no one can access this route*/}
         {userIsAdmin &&<Route path='adminDashboard/' element={<AdminDashboard/>}/>}

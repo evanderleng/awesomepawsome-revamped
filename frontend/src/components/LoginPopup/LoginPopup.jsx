@@ -3,11 +3,15 @@ import "./LoginPopup.css";
 import { assets } from "../../assets/assets";
 import { StoreContext } from "../../context/StoreContext";
 import Cookies from 'js-cookie';
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 
 
 const LoginPopup = ({ setShowLogin }) => {
+
+  // to navigate to another page (can be set)
+  const navigate = useNavigate();
+
   const [currState, setCurrState] = useState("Login");
 
   // state to set the isLogin state, obtained from StoredContext
@@ -34,6 +38,7 @@ const LoginPopup = ({ setShowLogin }) => {
     const name = formData.get("name");
     const email = formData.get("email");
     const password = formData.get("password");
+    
 
     try {
       const response = await fetch("http://127.0.0.1:4000/api/user/addUser", {
@@ -109,6 +114,8 @@ const LoginPopup = ({ setShowLogin }) => {
         setShowLogin(false); // set state to false to remove the popup
         setIsLogin(true); // set state to true to show that user is logged in
         setUserIsAdmin(result.admin); // set state to show if it is admin or not
+        navigate('/'); // redirect to home upon login
+
 
         //
         localStorage.setItem("isAdmin", result.admin ? true : false);
