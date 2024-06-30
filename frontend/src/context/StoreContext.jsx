@@ -12,8 +12,6 @@ const StoreContextProvider = (props) => {
   const [userId, setUserId] = useState(""); // state variable to store their userId upon logging in
 
   const [userIsAdmin, setUserIsAdmin] = useState(); // state variable to indicate if user is admin or not
-  
-  const [resetPasswordOTPAuthenticated, setResetPasswordOTPAuthenticated] = useState(false); // state variable to indicate if the user has authenticate OTP for reset password
 
 
 
@@ -59,8 +57,6 @@ const StoreContextProvider = (props) => {
     setUserId,
     userIsAdmin,
     setUserIsAdmin,
-    resetPasswordOTPAuthenticated,
-    setResetPasswordOTPAuthenticated
   };
 
   return (

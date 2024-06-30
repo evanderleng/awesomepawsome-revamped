@@ -20,7 +20,7 @@ function fileFilter (req, file, cb) {
     let extName = path.extname(file.originalname);
     let ext = extName.substring(1).toLowerCase();
     if (ext !== "png" && ext !== "jpg" && ext !== "jpeg") {
-        return cb(new Error("Only png, jpg, jpeg are accepted"));
+        return cb(new Error("Only images are accepted"));
     }
     cb(null, true);  
 }
@@ -33,8 +33,8 @@ function checktmp () {
 
 const uploadToLocal = multer({
     storage: storage,
-    limits: { //limit to 3MB
-        fileSize: 3 * 1000000,
+    limits: { //limit to 5MB
+        fileSize: 5 * 1000000,
     },
     fileFilter: fileFilter
 });

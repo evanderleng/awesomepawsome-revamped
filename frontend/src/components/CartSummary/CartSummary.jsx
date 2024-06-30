@@ -12,12 +12,12 @@
 
 // export default CartSummary;
 
-import React from "react";
-import "./CartSummary.css"; // Ensure the CSS file is linked
+import React from 'react';
+import './CartSummary.css';  // Ensure the CSS file is linked
 
 function CartSummary({ subtotal, deliveryCharge, grandTotal }) {
   return (
-    <div className="cart-summary">
+    <div className='cart-summary'>
       <h2>Order Summary</h2>
       <div className="summary-row">
         <span>Subtotal</span>
@@ -32,6 +32,13 @@ function CartSummary({ subtotal, deliveryCharge, grandTotal }) {
         <span>Total</span>
         <span>${grandTotal.toFixed(2)}</span>
       </div>
+      <button 
+        className="checkout-button"
+        disabled={subtotal <= 0}  // Disable the button when subtotal is 0
+        onClick={() => subtotal > 0 && proceedToCheckout()}
+      >
+        Checkout
+      </button>
     </div>
   );
 }

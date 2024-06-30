@@ -49,12 +49,7 @@ import axiosInstance from '../../../axiosConfig'
 
   const handleSave = () => {
     // Ensure to structure the body as expected by your API
-    const url = "http://127.0.0.1:4000/api/user/editPet";
-    for (const key in petDetails) {
-      if (petDetails[key] == ""){
-        delete petDetails[key]
-      }
-    }
+    const url = "http://127.0.0.1:4000/api/user/editProfile";
     axiosInstance.post(url, { petDetails: petDetails })
         .then(response => {
             console.log('Pet details saved successfully:', response.data);
@@ -82,7 +77,6 @@ import axiosInstance from '../../../axiosConfig'
          <label>
              Breed:
              <select name="petBreed" value={petDetails.petBreed} onChange={handleChange}>
-                 <option disabled selected value="">- Please Select -</option>
                  {breedOptions.map(breed => (
                      <option key={breed} value={breed}>{breed}</option>
                  ))}
@@ -91,7 +85,6 @@ import axiosInstance from '../../../axiosConfig'
          <label>
              Age:
              <select name="petAge" value={petDetails.petAge} onChange={handleChange}>
-                 <option disabled selected value="">- Please Select -</option>
                  {ageOptions.map(age => (
                      <option key={age} value={age}>{age}</option>
                  ))}
@@ -100,7 +93,6 @@ import axiosInstance from '../../../axiosConfig'
          <label>
              Size:
              <select name="petSize" value={petDetails.petSize} onChange={handleChange}>
-                 <option disabled selected value="">- Please Select -</option>
                  {sizeOptions.map(size => (
                      <option key={size} value={size}>{size}</option>
                  ))}

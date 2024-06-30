@@ -1,9 +1,9 @@
 
 
 /api/user/login
-POST body required: username, password, otpToken
+POST body required: username, password
 returns: message, jwt token httpOnly cookie 
-returns 404, 401, 400, 200, 500
+returns 200 OR 401
 
 /api/user/addUser
 POST body required: username, password, email
@@ -65,22 +65,6 @@ header: "Authorization: Bearer {token}"
 POST: {product_id: xxx, rating: 1-5, comment (optional + 500 chars and below)}
 returns: message
 returns 400, 201, 500
-
-// Email sending
-/api/email/send2faEmail_ResetPassword           // use after user entered email to generate 2fa
-POST: {email: xxx}
-returns: message
-returns 400, 200, 500
-
-/api/email/sendResetPasswordEmail               //use after user enters 2fa
-POST: {email : xxx, otpToken: xxx}
-returns: message
-returns 400, 200, 500
-
-/api/email/send2faEmail_Login                   //use when user submit login info
-POST: {username : xxx, password : xxx}
-returns: message
-returns 404, 401, 400, 200, 500
 
 
 todo:

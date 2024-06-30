@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import Cookies from "js-cookie";
 import "./Navbar.css";
 import { assets } from "../../assets/assets";
@@ -11,20 +11,17 @@ const Navbar = ({ setShowLogin }) => {
   // function name is setMenu, menu is the state
   const [menu, setMenu] = useState("home"); // create state variable and initialise with home
 
-
-  // to navigate to other pages (can be set)
-  const navigate = useNavigate();
-
-
   // state isLogin (boolean), method setIsLogin to set state.
   // from StoredContext, which means every part of the app can share this state
-  const { isLogin, setIsLogin, userIsAdmin, setUserIsAdmin } =
-    useContext(StoreContext);
+  const { isLogin, setIsLogin, userIsAdmin, setUserIsAdmin } = useContext(StoreContext);
 
   useEffect(() => {
     console.log("userIsAdmin updated:", userIsAdmin);
     // Perform actions based on userIsAdmin change
   }, [userIsAdmin]); // Include userIsAdmin in dependency array
+
+
+
 
   return (
     <div className="navbar">
@@ -80,24 +77,21 @@ const Navbar = ({ setShowLogin }) => {
             <Link to="/adminDashboard">dashboard</Link>
           </li>
         ) : null}
-      </ul>
+      </ul> 
       <div className="navbar-right">
         <ul className="navbar-menu">
-          {/* if login state is true, show cart, else don't show (guest shouldnt be able to see the cart) */}
-          {isLogin ? (
-            <li
-              className={menu === "cart" ? "active" : ""}
-              onClick={() => setMenu("cart")}
-            >
-              <Link to="/cart">
-                {menu === "cart" ? (
-                  <ShoppingCartIcon />
-                ) : (
-                  <ShoppingCartOutlinedIcon />
-                )}
-              </Link>
-            </li>
-          ) : null}
+          <li
+            className={menu === "cart" ? "active" : ""}
+            onClick={() => setMenu("cart")}
+          >
+            <Link to="/cart">
+              {menu === "cart" ? (
+                <ShoppingCartIcon />
+              ) : (
+                <ShoppingCartOutlinedIcon />
+              )}
+            </Link>
+          </li>
         </ul>
         {/* if isLogin state is true, show logout button, else show sign in button*/}
         {isLogin ? (
@@ -108,16 +102,14 @@ const Navbar = ({ setShowLogin }) => {
               // Remove the auth token cookie using js-cookie
               Cookies.remove("authToken", { path: "/" });
               console.log("Token cookie cleared");
-              localStorage.removeItem("isAdmin");
+              localStorage.removeItem('isAdmin');
               console.log("Local Storage isAdmin Cleared");
-              navigate('/'); // redirect to home upon login
 
+              setUserIsAdmin(false);  // to ensure it is back to non admin explciitly
+              
 
-              setUserIsAdmin(false); // to ensure it is back to non admin explciitly
             }}
-          >
-            Logout
-          </button>
+          >Logout</button>
         ) : (
           <button onClick={() => setShowLogin(true)}>Login</button>
         )}

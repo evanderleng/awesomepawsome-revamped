@@ -13,14 +13,14 @@ function CartItem({ item, updateQuantity, toggleSelection, removeItem }) {
           <h3 className='item-title'>{item.title}</h3>
           <div className='item-controls'>
             <div className='quantity-control'>
-            <button onClick={() => updateQuantity(Math.max(1, item.quantity - 1))}>-</button>
-            <input type='text' value={item.quantity} readOnly />
-            <button onClick={() => updateQuantity(item.quantity + 1)}>+</button>
+              <button onClick={() => updateQuantity(item.id, Math.max(1, item.quantity - 1))}>-</button>
+              <input type='text' value={item.quantity} readOnly />
+              <button onClick={() => updateQuantity(item.id, item.quantity + 1)}>+</button>
             </div>
             <div className='item-price'>${item.price.toFixed(2)}</div>
           </div>
         </div>
-        <button className='remove-item' onClick={() => removeItem(item.id)}>DELETE</button>
+        <button className='remove-item' onClick={removeItem}>DELETE</button>
       </div>
     </div>
   );
