@@ -18,6 +18,11 @@ const sendResetPasswordEmail = async (req, res) => {
         const otpVerify = otp.verifyOTP(user.totpSecret, otpToken)
         if (otpVerify) {
             const token = crypto.randomBytes(20).toString('hex');
+            const tokenExpiry = Date.now() + 3600000; // 1 hour from now
+
+            user.resetPasswordToken = token;
+            user.resetPasswordExpires = tokenExpiry;
+            await user.save();
 
             const resetPasswordLink = `https://awesomepawsome.shop/reset-password?token=${token}`
 
@@ -35,7 +40,8 @@ const sendResetPasswordEmail = async (req, res) => {
                     subject: "Password Reset Request",                          // Subject line
                     html: emailContent,                                         // html body
                 }).then(info => {
-                    return res.status(200).json({ message: "Successfully sent!" });
+                    // return res.status(200).json({ message: "Successfully sent!" });
+                    return res.status(200).json({ message: "Successfully sent!", resetToken: token, resetTokenExpiry: new Date(tokenExpiry).toLocaleString()}); //TODO  for debugging, remove this when submitting
                 })
             }
             catch (err){
@@ -75,7 +81,7 @@ const send2faEmail_ResetPassword = async (req, res) => {
                 html: emailContent,                                         // html body
             }).then(info => {
                 // return res.status(200).json({ message: "Successfully sent 2FA token!" });
-                return res.status(200).json({ message: "Successfully sent 2FA token!", token: token}); //TODO  for debugging, remove this when submitting
+                return res.status(200).json({ message: "Successfully sent 2FA token!", otpToken: token}); //TODO  for debugging, remove this when submitting
             })
         }
         catch (err){
@@ -120,7 +126,7 @@ const send2faEmail_Login = async (req, res) => {
                 html: emailContent,
             });
             // return res.status(200).json({ message: "Successfully sent 2FA token!" });
-            return res.status(200).json({ message: "Successfully sent 2FA token!", token: token}); //TODO  for debugging, remove this when submitting
+            return res.status(200).json({ message: "Successfully sent 2FA token!", otpToken: token}); //TODO  for debugging, remove this when submitting
         } catch (err) {
             console.error(err); // TODO: remove this line when submitting
             return { status: 400, message: 'Unable to send 2FA token' };
@@ -132,14 +138,25 @@ const send2faEmail_Login = async (req, res) => {
     }
 }
 
-const sendPasswordResetConfirmationEmail = async (req, res) => {
-    // TODO: Password Reset Confirmation
+const sendPasswordResetConfirmationEmail = async (user) => {
     try {
+        const emailContent = `
+            <p>Dear ${user.username},</p>
+            <p>Your password has been successfully reset.</p>
+            <p>If you did not request this change, please contact our support team immediately.</p>
+            <p>Regards,<br>AwesomePawsome</p>
+        `;
 
+        await transporter.sendMail({
+            from: `"AwesomePawsome" <${process.env.GMAIL_USER_EMAIL}>`, // sender address
+            to: user.email, // receiver's email
+            subject: 'Password Reset Successful', // Subject line
+            html: emailContent, // html body
+        });
     }
     catch (err) {
         console.log(err) // TODO: remove this line when submitting
-        return res.status(500).json({ message: 'Internal Error'}); 
+        throw new Error("Unable to send reset password confirmation email") 
     }
 }
 
