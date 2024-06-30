@@ -144,3 +144,24 @@
 .individual-product-container .add-to-cart button:hover {
     background-color: #45a049;
 }
+
+/* Style for disabled button */
+.individual-product-container .add-to-cart button:disabled {
+    background-color: #cccccc;
+    color: #666666;
+    cursor: not-allowed;
+}
+
+
+.notification {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    background-color: #f36100;
+    color: white;
+    padding: 5px;
+    border-radius: 5px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+  }
+  

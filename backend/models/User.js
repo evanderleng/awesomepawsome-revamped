@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const petDetailsSchema = new mongoose.Schema({
-    petName: { type: String, default: "" },
+    petName: { type: String },
     petBreed: { 
         type: String, 
         enum: ["Labrador Retriever", "German Shepherd", "Golden Retriever", "French Bulldog", "Bulldog", "Poodle", "Beagle", "Rottweiler", "Yorkshire Terrier", "Boxer"],
@@ -27,6 +27,7 @@ const userSchema = new mongoose.Schema({
     avatar: {type: String},
     address: {type: String},
     name: {type: String},
+    totpSecret : {type: String},
     petDetails: petDetailsSchema 
 },
 {timestamps: true}
