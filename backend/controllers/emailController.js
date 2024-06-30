@@ -8,7 +8,7 @@ const otp = require("./2faController.js");
 let otpTokenStore = {};
 
 // const storedTokenData = otpTokenStore[email];
-        
+
 // // OTP Checks
 // if (storedTokenData.token !== token) {
 //     return res.status(400).json({ message: 'Invalid OTP token' });
@@ -41,14 +41,19 @@ const sendResetPasswordEmail = async (req, res) => {
                 <p>Love,<br>AwesomePawsome</p>
             `;
 
-            transporter.sendMail({
-                from: '"AwesomePawsome" <${process.env.GMAIL_USER_EMAIL}>', // name + sender address
-                to: email,                                                  // list of receivers
-                subject: "Password Reset Request",                          // Subject line
-                html: emailContent,                                         // html body
-            }).then(info => {
-                return res.status(200).json({ message: "Successfully sent!", contents: { info } });
-            })
+            try{
+                transporter.sendMail({
+                    from: '"AwesomePawsome" <${process.env.GMAIL_USER_EMAIL}>', // name + sender address
+                    to: email,                                                  // list of receivers
+                    subject: "Password Reset Request",                          // Subject line
+                    html: emailContent,                                         // html body
+                }).then(info => {
+                    return res.status(200).json({ message: "Successfully sent!" });
+                })
+            }
+            catch (err){
+                return res.status(400).json({message: "Unable to send"});
+            } 
         }
     }
     catch (err) {
@@ -69,9 +74,9 @@ const send2faEmail_ResetPassword = async (req, res) => {
 
         const token = otp.generateOTP(user.totpSecret);
 
-        otpTokenStore[email] = {token, "expires": Date.now() + 180000};
+        otpTokenStore[email] = { token, "expires": Date.now() + 180000 };
         console.log(otpTokenStore);
-        
+
         const emailContent = `
             <p>Dear ${user.username},</p>
             <p>A multi-factor authentication code has been requested. This token is valid for <b>3 minutes</b>.</p>
@@ -79,15 +84,20 @@ const send2faEmail_ResetPassword = async (req, res) => {
             <h1>${token}</h1>
             <p>Regards,<br>AwesomePawsome</p>
         `;
-
-        transporter.sendMail({
-            from: '"AwesomePawsome" <${process.env.GMAIL_USER_EMAIL}>', // name + sender address
-            to: email,                                                  // list of receivers
-            subject: "Reset Password - 2FA Token",                      // Subject line
-            html: emailContent,                                         // html body
-        }).then(info => {
-            return res.status(200).json({ message: "Successfully sent!", contents: { info } });
-        })
+        try{
+            transporter.sendMail({
+                from: '"AwesomePawsome" <${process.env.GMAIL_USER_EMAIL}>', // name + sender address
+                to: email,                                                  // list of receivers
+                subject: "Reset Password - 2FA Token",                      // Subject line
+                html: emailContent,                                         // html body
+            }).then(info => {
+                return res.status(200).json({ message: "Successfully sent!" });
+            })
+        }
+        catch (err){
+            return res.status(400).json({message: "Unable to send"});
+        }   
+        
     }
     catch (err) {
         console.log(err) // TODO: remove this line when submitting
