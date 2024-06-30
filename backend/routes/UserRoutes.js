@@ -16,6 +16,8 @@ router.route("/getProfile").get(authMiddleware.auth, userController.getProfile);
 router.post("/addUser", checkAddUserReq, checkValid, userController.addUser);
 router.post("/login", checkLoginReq, checkValid, userController.login);
 
+router.post("/login_2fa", checkLoginReq, checkValid, userController.login_2fa)
+
 router.post("/reset-password", checkResetPasswordTokenReq, checkValid, userController.resetPassword)
 
 module.exports = router;

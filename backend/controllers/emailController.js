@@ -41,7 +41,7 @@ const sendResetPasswordEmail = async (req, res) => {
                     html: emailContent,                                         // html body
                 }).then(info => {
                     // return res.status(200).json({ message: "Successfully sent!" });
-                    return res.status(200).json({ message: "Successfully sent!", resetToken: token}); //TODO  for debugging, remove this when submitting
+                    return res.status(200).json({ message: "Successfully sent!", resetToken: token, resetTokenExpiry: new Date(tokenExpiry).toLocaleString()}); //TODO  for debugging, remove this when submitting
                 })
             }
             catch (err){
