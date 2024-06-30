@@ -89,60 +89,6 @@ const login = async (req, res) => {
   }
 }
 
-// const login = async (req, res) => {
-//   //to add check if already logged in
-//   try {
-//     const { username, password } = req.body;
-
-//     let user = await User.findOne({ username });
-
-//     if (user) {
-//       if (bcrypt.compareSync(password, user.password)) {
-//         const token = jwt.sign({ _id: user._id }, process.env.TOKEN_SECRET, {
-//           algorithm: "HS512",
-//           expiresIn: "36000s",
-//         }); //maybe move to auth util
-
-//         res.setHeader(
-//           "Set-Cookie",
-//           cookie.serialize("token", token, {
-//             httpOnly: true,
-//             //secure: true, #to set to true after https is setup
-//             sameSite: true,
-//             maxAge: 60 * 60 * 24, //3 days
-//           }),
-//         );
-
-//         return res.status(200).json({
-//           message: "Login successful",
-//           username: user.username,
-//           _id: user._id,
-//           admin: user.admin,
-//           avatar: user.avatar,
-//           token: token,
-//         });
-//       }
-//     }
-//     req.ip;
-//     return res.status(401).json({ message: "Wrong username or password" });
-//   } catch (err) {
-//     return res.status(500).json({ message: err.message });
-//   }
-// };
-
-// const editProfile = async (req, res) => { //MUST FIX TO ADD SECURITY
-//     try{
-//         console.log(req.user)
-
-//         let changes = await User.updateOne({ _id: req.user }, {$set: [req.body]})
-
-//         //let hh = await User.updateOne({ _id: req.user }, {$set: {username: req.body.newUsername}})
-//         return res.status(200).json({message: "Profile change successful."})
-//     } catch (err) {
-//         return res.status(500).json({message: err.message});
-//     }
-// }
-
 const getProfile = async (req, res) => {
   try {
     let user = await User.findOne(
