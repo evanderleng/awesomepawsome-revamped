@@ -43,6 +43,48 @@ const addUser = async (req, res) => {
 
 const login = async (req, res) => {
   try{
+    const {username, password} = req.body;
+
+    let user = await User.findOne({ username });
+
+    if (!user){
+      return res.status(404).json({message: "User does not exist"});
+    }
+    if (!bcrypt.compareSync(password, user.password)) {
+      return res.status(401).json({message: "Invalid Credentials"});
+    }
+
+    const token = jwt.sign({ _id: user._id }, process.env.TOKEN_SECRET, {
+      algorithm: "HS512",
+      expiresIn: "36000s",
+    }); //maybe move to auth util
+
+    res.setHeader(
+      "Set-Cookie",
+      cookie.serialize("token", token, {
+        httpOnly: true,
+        secure: true, // set to true when https is running
+        sameSite: true,
+        maxAge: 60 * 60 * 24, //3 days
+      }),
+    );
+
+    return res.status(200).json({
+      message: "Login successful",
+      username: user.username,
+      _id: user._id,
+      admin: user.admin,
+      avatar: user.avatar,
+      token: token,
+    });
+  }
+  catch (err) {
+    return res.status(500).json({message: "Internal Error"});
+  }
+}
+
+const login_2fa = async (req, res) => {
+  try{
     const {username, password, otpToken} = req.body;
 
     let user = await User.findOne({ username });
@@ -196,4 +238,4 @@ const editProfile = async (req, res) => {
     });
 };
 
-module.exports = { addUser, login, editProfile, editPet, getProfile };
+module.exports = { addUser, login, login_2fa, editProfile, editPet, getProfile };
