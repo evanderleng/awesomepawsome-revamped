@@ -2,20 +2,23 @@ import React, { useContext, useState } from "react";
 import "./LoginPopup.css";
 import { assets } from "../../assets/assets";
 import { StoreContext } from "../../context/StoreContext";
-import Cookies from 'js-cookie';
-
+import Cookies from "js-cookie";
 
 const LoginPopup = ({ setShowLogin }) => {
-
-  // state to check if it is sign up 
   const [currState, setCurrState] = useState("Login");
 
   // state to set the isLogin state, obtained from StoredContext
-  const { isLogin, setIsLogin, userId, setUserId, userIsAdmin, setUserIsAdmin } = useContext(StoreContext);
+  const {
+    isLogin,
+    setIsLogin,
+    userId,
+    setUserId,
+    userIsAdmin,
+    setUserIsAdmin,
+  } = useContext(StoreContext);
 
   // state to set the error message to display if have
-  const [errorMsg, setErrorMsg] = useState('');
-
+  const [errorMsg, setErrorMsg] = useState("");
 
   // to handle create account submission
   const handleCreateAccount = async (e) => {
@@ -54,7 +57,7 @@ const LoginPopup = ({ setShowLogin }) => {
       }
     } catch (error) {
       console.error("Error:", error);
-      setErrorMsg(error.message)
+      setErrorMsg(error.message);
     }
   };
 
@@ -92,24 +95,23 @@ const LoginPopup = ({ setShowLogin }) => {
         // Store the token in a cookie
         // secure: true means cookie is only sent over HTTPS
         // sameSite: strict means the cookie is not sent with cross-site requests
-        Cookies.set('authToken', receivedToken, { path: '/', secure: true, sameSite: 'Strict' });
+        Cookies.set("authToken", receivedToken, {
+          path: "/",
+          secure: true,
+          sameSite: "Strict",
+        });
         // Optionally, trigger a UI update or redirect
-        console.log('Token stored in cookies:', receivedToken);
+        console.log("Token stored in cookies:", receivedToken);
 
         setShowLogin(false); // set state to false to remove the popup
         setIsLogin(true); // set state to true to show that user is logged in
         setUserIsAdmin(result.admin); // set state to show if it is admin or not
 
-
         //
-        localStorage.setItem('isAdmin', result.admin ? true : false);
-
+        localStorage.setItem("isAdmin", result.admin ? true : false);
 
         console.log("User ID: ", result._id);
         console.log("Is Admin?: ", result.admin);
-
-
-
       } else {
         const errorData = await response.json();
         throw new Error(errorData.message || "Failed to Login.");
@@ -187,11 +189,9 @@ const LoginPopup = ({ setShowLogin }) => {
       {errorMsg && (
         <div className="error-popup">
           <p>{errorMsg}</p>
-          <button onClick={() => setErrorMessage('')}>Close</button>
+          <button onClick={() => setErrorMessage("")}>Close</button>
         </div>
       )}
-      
-
     </div>
   );
 };
