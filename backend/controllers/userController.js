@@ -241,15 +241,15 @@ const editProfile = async (req, res) => {
 
 const resetPassword = async (req, res) => {
 	try {
-		const { token, newPassword } = req.body;
+		const { resetToken, newPassword } = req.body;
 
 		let user = await User.findOne({
-			resetPasswordToken: token,
+			resetPasswordToken: resetToken,
 			resetPasswordExpires: { $gt: Date.now() }
 		})
 
 		if (!user) {
-			return res.status(400).json({ message: "Invalid or Expired Token" })
+			return res.status(401).json({ message: "Invalid or Expired Token" })
 		}
 
 		const hash = bcrypt.hashSync(newPassword, bcrypt.genSaltSync());

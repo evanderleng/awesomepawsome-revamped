@@ -1,10 +1,3 @@
-
-
-/api/user/login
-POST body required: username, password, otpToken
-returns: message, jwt token httpOnly cookie 
-returns 404, 401, 400, 200, 500
-
 /api/user/addUser
 POST body required: username, password, email
 returns: message
@@ -20,23 +13,89 @@ GET
 returns: [ json(product_id, username, rating, comment(optional), createdAt, updatedAt) ]
 returns 200, 500
 
-// Email sending
-/api/email/send2faEmail_ResetPassword           // use after user entered email to generate 2fa
+-------------------- Reset Password --------------------
+/*
+    Pre Req Steps:
+    - User clicks on Reset Password button, and is brought to page to enter email
+    - User posts email to server
+*/
+1. /api/email/send2faEmail_ResetPassword        // use after user enters email and submits
 POST: {email: xxx}
 returns: message
 returns 400, 200, 500
 
-/api/email/sendResetPasswordEmail               //use after user enters 2fa
+// Step 1 explanation:
+    - system validates if user with specified email exists 
+    - system generates otp and sends to user's email
+
+/*
+    Next Steps:
+    - system brings user to page to enter 2FA token
+    - user posts 2fa token
+*/
+
+2. /api/email/sendResetPasswordEmail            // use after user enters otp sent to email, and clicks submit
 POST: {email : xxx, otpToken: xxx}
 returns: message
 returns 400, 200, 500
 
-/api/email/send2faEmail_Login                   //use when user submit login info
+// Step 2 explanation:
+    - system validates 2fa token
+    - system generates reset token and sends reset password link with generated token to user's email
+
+/*
+    Next Steps:
+    - User clicks on reset password link, and enters new password 
+        - both reset password token and new password are sent to server, where password of user account is then changed
+*/
+
+3. /api/user/reset-password                     //use after user clicks on reset password link sent to user's email and enters new password
+POST: {resetToken: xxx, newPassword : xxx}
+returns: message
+returns 401, 400, 200, 500
+
+// Step 3 explanation
+    - system changes user password to new password
+
+-------------------- Login --------------------
+// old login method
+/api/user/login
+POST body required: username, password, otpToken
+returns: message, jwt token httpOnly cookie 
+returns 404, 401, 400, 200, 500
+
+// new login method
+/*
+    Pre Req Steps
+    - User clicks on Login button
+    - Login Popup appears
+    - User enters login info (username and password) and sends to server
+*/
+
+1. /api/email/send2faEmail_Login                   //use when user submit login info
 POST: {username : xxx, password : xxx}
 returns: message
 returns 404, 401, 400, 200, 500
 
+// Step 1 explanation
+    - system checks if user entered correct details
+    - system generates otp and sends to user's email
 
+/*
+    Next Steps
+    - system brings user to page to enter otp
+    - user enters otp (submits username + password + otp)
+*/
+
+2. /api/user/login_2fa                              // use after user enters otp on otp popup
+POST body required: username, password, otpToken
+returns: message, jwt token httpOnly cookie 
+returns 404, 401, 400, 200, 500
+
+// Step 2 explanation
+    - system verifies user creds
+    - system verifies otp
+    - logs user in, and returns user deets + jwt token
 
 -------------ALL below requires auth ( jwt token in header "Authorization: Bearer <token>"   )  (token is given via httponly cookie after login)------------------
 
