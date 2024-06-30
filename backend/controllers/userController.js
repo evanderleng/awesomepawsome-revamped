@@ -149,12 +149,16 @@ const editProfile = async (req, res) => {
                 updateData.avatar = cloudImgUrl;
             }
 
-            let userUsername = await User.findOne({ username });   
+            const actualUser = await User.findOne({ _id: req.user._id });
+            if (!actualUser) {
+                return res.status(500).json({ message: "Edit failed" });
+            }
+            const userUsername = await User.findOne({ username });   
             if (userUsername && userUsername._id!=req.user._id){ //if already exists existing username 
                 return res.status(400).json({message: "Username is already taken"})
             }
-            let userEmail = await User.findOne({ email });   
-            if (userEmail && userEmail.email!=req.user.email){ //if already exists existing email
+            const userEmail = await User.findOne({ email });   
+            if (userEmail && userEmail.email!=actualUser.email){ //if already exists existing email
                 return res.status(400).json({message: "Email has already registered with another account"})
             }
             const updateUser = await User.updateOne({ _id: req.user._id }, { $set: updateData });
