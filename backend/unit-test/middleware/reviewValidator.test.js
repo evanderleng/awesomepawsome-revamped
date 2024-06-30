@@ -2,35 +2,50 @@ const { checkAddReviewReq } = require('../../middleware/validators/reviewValidat
 const { validationResult } = require('express-validator');
 
 describe('checkAddReviewReq middleware', () => {
-  it('should validate comment length', () => {
-    const req = { body: { comment: 'A valid comment within limits' } };
+  it('should validate comment length', async () => {
+    const req = { body: { 
+      comment: 'A valid comment within limits', 
+      rating: '3',
+      product_id: '507f1f77bcf86cd799439011'
+    } };
     const next = jest.fn();
 
-    checkAddReviewReq[0].builder(req, {}, next);
+    await Promise.all(checkAddReviewReq.map(validator => validator.run(req)));
 
-    expect(validationResult(req).isEmpty()).toBe(true);
-    expect(next).toHaveBeenCalledTimes(1);
+    const result = validationResult(req);
+    expect(result.isEmpty()).toBe(true);
+    expect(next).toHaveBeenCalledTimes(0); // next won't be called because validators don't call next
   });
 
-  it('should reject invalid rating', () => {
-    const req = { body: { rating: '6' } };
+  it('should reject invalid rating', async () => {
+    const req = { body: { 
+      comment: 'A valid comment within limits', 
+      rating: '6',
+      product_id: '507f1f77bcf86cd799439011'
+    } };
     const next = jest.fn();
 
-    checkAddReviewReq[1].builder(req, {}, next);
+    await Promise.all(checkAddReviewReq.map(validator => validator.run(req)));
 
-    expect(validationResult(req).isEmpty()).toBe(false);
-    expect(validationResult(req).array()[0].msg).toEqual('Rating must be between 1-5');
-    expect(next).not.toHaveBeenCalled();
+    const result = validationResult(req);
+    expect(result.isEmpty()).toBe(false);
+    expect(result.array()[0].msg).toEqual('Rating must be between 1-5');
+    expect(next).toHaveBeenCalledTimes(0); // next won't be called because validators don't call next
   });
 
-  it('should reject invalid product_id', () => {
-    const req = { body: { product_id: 'invalid_id' } };
+  it('should reject invalid product_id', async () => {
+    const req = { body: { 
+      comment: 'A valid comment within limits', 
+      rating: '3',
+      product_id: 'invalid_id' 
+    } };
     const next = jest.fn();
 
-    checkAddReviewReq[2].builder(req, {}, next);
+    await Promise.all(checkAddReviewReq.map(validator => validator.run(req)));
 
-    expect(validationResult(req).isEmpty()).toBe(false);
-    expect(validationResult(req).array()[0].msg).toEqual('Not a valid ID');
-    expect(next).not.toHaveBeenCalled();
+    const result = validationResult(req);
+    expect(result.isEmpty()).toBe(false);
+    expect(result.array()[0].msg).toEqual('Not a valid ID');
+    expect(next).toHaveBeenCalledTimes(0); // next won't be called because validators don't call next
   });
 });
