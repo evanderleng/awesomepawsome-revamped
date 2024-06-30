@@ -1,23 +1,12 @@
 const crypto = require('crypto');
 const speakeasy = require('speakeasy');
+const bcrypt = require('bcryptjs');
 
 const transporter = require("../services/EmailService.js");
 const User = require('../models/User.js');
 const otp = require("./2faController.js");
 
 let otpTokenStore = {};
-
-// const storedTokenData = otpTokenStore[email];
-
-// // OTP Checks
-// if (storedTokenData.token !== token) {
-//     return res.status(400).json({ message: 'Invalid OTP token' });
-// }
-// if (Date.now() > storedTokenData.expires) {
-//     return res.status(400).json({ message: 'OTP token has expired' });
-// }
-
-// const otpVerify = otp.verifyOTP(user.totpSecret, storedTokenData.token)
 
 const sendResetPasswordEmail = async (req, res) => {
     try {
@@ -58,8 +47,7 @@ const sendResetPasswordEmail = async (req, res) => {
     }
     catch (err) {
         console.log(err) // TODO: remove this line when submitting
-        return res.status(500).json({ message: 'Internal Error', errors: { err } });
-        // return res.status(400).json({ message: 'Internal Error'}); // TODO: uncomment this and remove above when submitting
+        return res.status(500).json({ message: 'Internal Error'}); 
     }
 }
 
@@ -73,9 +61,6 @@ const send2faEmail_ResetPassword = async (req, res) => {
         }
 
         const token = otp.generateOTP(user.totpSecret);
-
-        otpTokenStore[email] = { token, "expires": Date.now() + 180000 };
-        console.log(otpTokenStore);
 
         const emailContent = `
             <p>Dear ${user.username},</p>
@@ -91,30 +76,60 @@ const send2faEmail_ResetPassword = async (req, res) => {
                 subject: "Reset Password - 2FA Token",                      // Subject line
                 html: emailContent,                                         // html body
             }).then(info => {
-                return res.status(200).json({ message: "Successfully sent!" });
+                return res.status(200).json({ message: "Successfully sent 2FA token!" });
             })
         }
         catch (err){
-            return res.status(400).json({message: "Unable to send"});
+            return res.status(400).json({message: "Unable to send 2FA token"});
         }   
         
     }
     catch (err) {
         console.log(err) // TODO: remove this line when submitting
-        return res.status(500).json({ message: 'Internal Error', errors: { err } });
-        // return res.status(400).json({ message: 'Internal Error'}); // TODO: uncomment this and remove above when submitting
+        return res.status(500).json({ message: 'Internal Error'}); 
     }
 }
 
 const send2faEmail_Login = async (req, res) => {
-    // TODO: 2FA
     try {
+        const {username, password} = req.body;
+        let user = await User.findOne({ username });
 
+        if (!user) {
+            return { status: 404, message: 'User not found' };
+        }
+
+        if (!bcrypt.compareSync(password, user.password)){
+            return res.status(401).json({message: "Invalid Credentials"})
+        }
+        
+        const token = otp.generateOTP(user.totpSecret);
+
+        const emailContent = `
+            <p>Dear ${user.username},</p>
+            <p>A multi-factor authentication code has been requested. This token is valid for <b>3 minutes</b>.</p>
+            <p>MFA Code: </p>
+            <h1>${token}</h1>
+            <p>Regards,<br>AwesomePawsome</p>
+        `;
+
+        try {
+            await transporter.sendMail({
+                from: `"AwesomePawsome" <${process.env.GMAIL_USER_EMAIL}>`,
+                to: user.email,
+                subject: "Login - 2FA Token",
+                html: emailContent,
+            });
+
+            return { status: 200, message: 'Successfully sent 2FA token!' };
+        } catch (err) {
+            console.error(err); // TODO: remove this line when submitting
+            return { status: 500, message: 'Unable to send 2FA token' };
+        }
     }
     catch (err) {
         console.log(err) // TODO: remove this line when submitting
-        return res.status(500).json({ message: 'Internal Error', errors: { err } });
-        // return res.status(400).json({ message: 'Internal Error'}); // TODO: uncomment this and remove above when submitting
+        return res.status(500).json({ message: 'Internal Error'}); 
     }
 }
 
@@ -125,8 +140,7 @@ const sendPasswordResetConfirmationEmail = async (req, res) => {
     }
     catch (err) {
         console.log(err) // TODO: remove this line when submitting
-        return res.status(500).json({ message: 'Internal Error', errors: { err } });
-        // return res.status(400).json({ message: 'Internal Error'}); // TODO: uncomment this and remove above when submitting
+        return res.status(500).json({ message: 'Internal Error'}); 
     }
 }
 
