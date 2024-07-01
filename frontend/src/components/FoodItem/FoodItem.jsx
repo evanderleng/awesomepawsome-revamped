@@ -1,38 +1,40 @@
-import React from 'react';
-import './FoodItem.css';
-import { Link } from 'react-router-dom';
-import AverageStarRating from './AverageStarRating';
-import useAverageRating from './UseAverageRating';
+import React, { useContext, useState } from 'react'
+import './FoodItem.css'
+import { assets } from '../../assets/assets'
+import { StoreContext } from '../../context/StoreContext'
+import { Link, useLocation } from 'react-router-dom';
 
-const FoodItem = ({id, brand, name, weight, price, description, ingredients, breedSize, imageURL}) => {
-    const { averageRating, ratingCount, error } = useAverageRating(id);
 
+const FoodItem = ({id, brand, name, weight, price, rating, ratingCount, description, ingredients, breedSize, imageURL}) => {
+    
+    const {cartItems, addToCart, removeFromCart} = useContext(StoreContext);
+    
+    
     return (
         <div className='food-item'>
             <div className='food-item-img-container'>
-                <img src={imageURL} alt="food-item" className="food-item-image" />
+                {/* direct to individual product page upon click 
+                    state will be what properties you wish to pass over to the other side, the other side must retrieve using location.state)
+                */}
+                {/* <Link to="/individualProductPage" state={{id, name, price, description, image}}>
+                <img className='food-item-image' src={image} alt=""></img></Link>    */}
+                {/* if there are no item count (itemCount = 0), display just the + sign, else display both + - and the item count */}
+                <img src={imageURL} alt="food-item-image" className="food-item-image" />
+
+
             </div>
             <div className='food-item-info'>
                 <div className='food-item-name-rating'>
                     <p className='food-item-name'>{name}</p>
-                    {error ? (
-                        <p className='error-message'>{error}</p>
-                    ) : (
-                        <div className='food-item-rating'>
-                            <AverageStarRating rating={averageRating} />
-                            <p className='food-item-rating-count'>({ratingCount} reviews)</p>
-                        </div>
-                    )}
+                    <img src={assets.rating_starts} alt=''/>
                 </div>
-                <p className='food-item-price'>${typeof price === 'number' ? price.toFixed(2) : '0.00'}</p>
-                <button className='button'>
-                    <Link to="/individualProductPage" state={{id, brand, name, weight, price, averageRating, ratingCount, description, ingredients, breedSize, imageURL}}>
-                        More Info
-                    </Link>
-                </button>
+                {/* <p className='food-item-desc'>{description}</p> */}
+                <p className='food-item-price'>${price}</p>
+                <button><Link to="/individualProductPage" state={{id, brand, name, weight, price, rating, ratingCount, description, ingredients, breedSize, imageURL}}>More Info</Link></button>
             </div>
+        
         </div>
-    );
-};
+    )
+}
 
-export default FoodItem;
+export default FoodItem
