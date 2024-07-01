@@ -24,7 +24,9 @@ const sendResetPasswordEmail = async (req, res) => {
             user.resetPasswordExpires = tokenExpiry;
             await user.save();
 
-            const resetPasswordLink = `https://127.0.0.1/resetPasswordPage?token=${token}`
+            // TODO remove localhost links when submitting
+            // const resetPasswordLink = `http://127.0.0.1/resetPasswordPage?token=${token}`    // if frontend is running on webserver port 80
+            const resetPasswordLink = `http://127.0.0.1:5173/resetPasswordPage?token=${token}`  // if your frontend is running on default vite port
             // const resetPasswordLink = `https://awesomepawsome/resetPasswordPage?token=${token}`
 
             const emailContent = `
