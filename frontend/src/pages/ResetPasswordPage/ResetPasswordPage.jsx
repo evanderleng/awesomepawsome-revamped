@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import './ResetPasswordPage.css';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import './ResetPasswordPage.css';
 
 const ResetPasswordPage = () => {
   const [password, setPassword] = useState('');
@@ -96,7 +96,7 @@ const ResetPasswordPage = () => {
       console.error("Error:", error);
       setErrorMessage('An error occurred. Please try again.');
     }
-  };
+  }
 
   return (
     <div className='reset-password-container'>
@@ -133,6 +133,13 @@ const ResetPasswordPage = () => {
         {passwordResetSuccess && <p className='success-message'>Password reset successfully! Redirecting to main page in {countdown} seconds...</p>}
         <button type='submit' className='submit-button'>Reset Password</button>
       </form>
+      <script>
+        {`
+          const urlParams = new URLSearchParams(window.location.search);
+          const token = urlParams.get('token');
+          document.getElementById('token').value = token;
+        `}
+      </script>
     </div>
   );
 };
