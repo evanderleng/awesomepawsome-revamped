@@ -4,12 +4,13 @@ services:
     build:
       context: ./frontend
     ports:
-      - ${FRONTEND_PORT}:${FRONTEND_PORT}
+      - "80:80"
+      - "443:443"
+    restart: always
   db:
     container_name: ${DB_HOST}
     build:
       context: ./db
-    image: mongo
     expose:
       - ${DB_PORT}
     volumes:
