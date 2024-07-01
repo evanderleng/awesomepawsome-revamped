@@ -21,6 +21,15 @@ services:
       context: ./backend
     expose:
       - ${BACKEND_PORT}
+  jenkins:
+    container_name: ${JENKINS_HOST}
+    expose:
+      - ${JENKINS_PORT}
+    ports:
+      - "8080:8080"
+      - "50000:50000"
+    volumes:
+      - jenkins_data:/var/jenkins_home
 
 volumes:
   db_data:
