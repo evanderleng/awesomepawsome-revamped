@@ -25,7 +25,10 @@ services:
     expose:
       - ${BACKEND_PORT}
   jenkins:
+    image: jenkins/jenkins
     container_name: ${JENKINS_HOST}
+    privileged: true
+    user: root
     expose:
       - ${JENKINS_PORT}
     ports:
@@ -33,6 +36,9 @@ services:
       - "50000:50000"
     volumes:
       - jenkins_data:/var/jenkins_home
+      - jenkins-docker-certs:/certs/client
 
 volumes:
   db_data:
+  jenkins_data:
+  jenkins_-docker-certs:
