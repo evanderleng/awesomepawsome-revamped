@@ -151,14 +151,15 @@ const getProfile = async (req, res) => {
 		user.username = escape(user.username);
 		user.email = escape(user.email);
 		user.createdAt = escape(user.createdAt);
-		if (user.address) { user.address = escape(user.address);}
-		if (user.avatar) {user.avatar = escape(user.avatar); }
-		if (user.petDetails){
-			if (user.petDetails.petName) {user.petDetails.petName = escape(user.petDetails.petName);}
-			if (user.petDetails.petBreed) {user.petDetails.petBreed = escape(user.petDetails.petBreed);}
-			if (user.petDetails.petAge) {user.petDetails.petAge = escape(user.petDetails.petAge);}
-			if (user.petDetails.petSize) {user.petDetails.petSize = escape(user.petDetails.petSize);}
-		}
+		user.address = escape(user.address);
+		user.avatar = escape(user.avatar);
+
+		if (user.petDetails) {
+		user.petDetails.petName = escape(user.petDetails.petName);
+		user.petDetails.petBreed = escape(user.petDetails.petBreed);
+		user.petDetails.petAge = escape(user.petDetails.petAge);
+		user.petDetails.petSize = escape(user.petDetails.petSize);
+	}
 
 		// Consider handling other fields if needed
 		// For example, you could escape pet details or handle them conditionally
