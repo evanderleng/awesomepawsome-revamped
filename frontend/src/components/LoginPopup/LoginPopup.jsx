@@ -179,11 +179,14 @@ const LoginPopup = ({ setShowLogin }) => {
         ) : (
           <button type="submit">Login</button>
         )}
-
-        <div className="login-popup-condition">
-          <input type="checkbox" required />
-          <p>By continuing, I agree to the terms of use & privacy policy.</p>
-        </div>
+        {currState === "Login" ? (
+            <></>
+          ) : (
+          <div className="login-popup-condition">
+            <input type="checkbox" required />
+            <p>By continuing, I agree to the terms of use & privacy policy.</p>
+          </div>
+        )}
         {currState === "Login" ? (
           <p>
             Create a new account?{" "}
