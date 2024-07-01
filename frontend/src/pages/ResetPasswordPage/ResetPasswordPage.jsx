@@ -130,16 +130,15 @@ const ResetPasswordPage = () => {
         </div>
         {errorMessage && <p className='error-message'>{errorMessage}</p>}
         {successMessage && <p className='success-message'>{successMessage}</p>}
-        {passwordResetSuccess && <p className='success-message'>Password reset successfully! Redirecting to main page in {countdown} seconds...</p>}
-        <button type='submit' className='submit-button'>Reset Password</button>
+        {passwordResetSuccess ? (
+          <>
+            <p className='success-message'>Password reset successfully! Redirecting to main page in {countdown} seconds...</p>
+            <button type='button' className='submit-button' onClick={() => navigate('/')}>Return to Home</button>
+          </>
+        ) : (
+          <button type='submit' className='submit-button'>Reset Password</button>
+        )}
       </form>
-      <script>
-        {`
-          const urlParams = new URLSearchParams(window.location.search);
-          const token = urlParams.get('token');
-          document.getElementById('token').value = token;
-        `}
-      </script>
     </div>
   );
 };
