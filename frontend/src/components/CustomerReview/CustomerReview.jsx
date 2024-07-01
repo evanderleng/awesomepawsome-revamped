@@ -1,5 +1,7 @@
 import React from 'react'
 import './CustomerReview.css'
+import StarRating from './StarRating'
+
 
 const CustomerReview = ({key, rating, createdAt, comment, username, avatar}) => {
 
@@ -31,7 +33,7 @@ const CustomerReview = ({key, rating, createdAt, comment, username, avatar}) => 
         <div className="comment-date">
         </div>
         <div className="customer-rating">
-            <p>{rating} / 10</p>
+            <StarRating rating={rating} />
         </div>
     </div>
   )
