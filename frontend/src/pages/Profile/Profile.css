@@ -256,7 +256,6 @@ select:focus {
 
 
 /* Subscriptions.css */
-
 /* Container */
 .subscriptions {
   margin-bottom: 20px;
@@ -267,17 +266,28 @@ select:focus {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 10px;
+  margin-bottom: 5px;
 }
 
+/* Order ID */
+.subscriptions h3 {
+  font-size: 1rem; /* Adjust size as needed */
+  margin-bottom: 5px;
+  color:#626262;
+  margin-bottom: 10px;
+  margin-top: 30px;
+  font-weight: 100;
+}
 
 /* Table Styles */
 .subscription-table {
   width: 100%;
   border-collapse: collapse;
+  margin-top: 10px;
 }
 
-.subscription-table th, .subscription-table td {
+.subscription-table th,
+.subscription-table td {
   padding: 12px;
   text-align: left;
   border-bottom: 1px solid #ddd;
@@ -292,59 +302,18 @@ select:focus {
   background-color: #f1f1f1;
 }
 
+/* Product Image */
+.subscription-table img {
+  width: 80px; /* Adjust image size */
+  height: auto;
+  object-fit: cover;
+  border-radius: 4px; /* Optional: Rounded corners */
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1); /* Optional: Add shadow */
+}
+
 /* No Subscription Message */
 .no-subscription {
   color: #777;
   font-size: 1rem;
   margin-top: 10px;
-}
-
-/* Status Styles */
-.status {
-  text-transform: capitalize;
-}
-
-.status.pending {
-  color: #ffa500; /* Orange for pending */
-}
-
-.status.active {
-  color: #28a745; /* Green for active */
-}
-
-.status.trial {
-  color: #007bff; /* Blue for trial */
-}
-
-/* Responsive */
-@media (max-width: 768px) {
-  .subscription-table, .subscription-table th, .subscription-table td {
-    display: block;
-    width: 100%;
-  }
-
-  .subscription-table th {
-    background-color: transparent;
-    position: relative;
-  }
-
-  .subscription-table tr {
-    margin-bottom: 10px;
-  }
-
-  .subscription-table td {
-    padding-left: 50%;
-    text-align: right;
-  }
-
-  .subscription-table td:before {
-    content: attr(data-label);
-    position: absolute;
-    left: 0;
-    width: 45%;
-    padding-left: 10px;
-    text-align: left;
-    font-weight: bold;
-    background-color: #f7f7f7;
-  }
 }
