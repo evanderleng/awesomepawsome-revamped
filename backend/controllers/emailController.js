@@ -17,14 +17,15 @@ const sendResetPasswordEmail = async (req, res) => {
         }
         const otpVerify = otp.verifyOTP(user.totpSecret, otpToken)
         if (otpVerify) {
-            const token = crypto.randomBytes(20).toString('hex');
+            const token = crypto.randomBytes(20).toString('hex'); // generate reset token here
             const tokenExpiry = Date.now() + 3600000; // 1 hour from now
 
             user.resetPasswordToken = token;
             user.resetPasswordExpires = tokenExpiry;
             await user.save();
 
-            const resetPasswordLink = `https://awesomepawsome.shop/reset-password?token=${token}`
+            const resetPasswordLink = `https://127.0.0.1/resetPasswordPage?token=${token}`
+            // const resetPasswordLink = `https://awesomepawsome/resetPasswordPage?token=${token}`
 
             const emailContent = `
                 <p>Dear ${user.username},</p>
@@ -39,9 +40,15 @@ const sendResetPasswordEmail = async (req, res) => {
                     to: email,                                                  // list of receivers
                     subject: "Password Reset Request",                          // Subject line
                     html: emailContent,                                         // html body
-                }).then(info => {
-                    // return res.status(200).json({ message: "Successfully sent!" });
-                    return res.status(200).json({ message: "Successfully sent!", resetToken: token, resetTokenExpiry: new Date(tokenExpiry).toLocaleString()}); //TODO  for debugging, remove this when submitting
+                }).then(info => { // info here is email status info from gmail
+                    return res.status(200).json({                               //TODO  for debugging, remove this when submitting
+                        message: "Successfully sent!", 
+                        resetPasswordLink: resetPasswordLink, 
+                        resetToken: token, 
+                        resetTokenExpiry: new Date(tokenExpiry).toLocaleString()
+                    }); 
+
+                    // return res.status(200).json({ message: "Successfully sent!" }); // TODO actual, uncomment when submitting
                 })
             }
             catch (err){
@@ -80,7 +87,7 @@ const send2faEmail_ResetPassword = async (req, res) => {
                 subject: "Reset Password - 2FA Token",                      // Subject line
                 html: emailContent,                                         // html body
             }).then(info => {
-                // return res.status(200).json({ message: "Successfully sent 2FA token!" });
+                // return res.status(200).json({ message: "Successfully sent 2FA token!" });        // TODO actual, uncomment when submitting
                 return res.status(200).json({ message: "Successfully sent 2FA token!", otpToken: token}); //TODO  for debugging, remove this when submitting
             })
         }
