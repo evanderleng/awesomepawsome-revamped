@@ -39,14 +39,8 @@ const addUser = async (req, res) => {
 			email,
 			admin: false,
 			avatar: "https://res.cloudinary.com/dg7xhtwnl/image/upload/v1719492487/avatars/default.jpg",
-			totpSecret: speakeasy.generateSecret().base32,
-			petDetails: { // Initialize petDetails with default values
-				petName: "",
-				petBreed: "",
-				petAge: 0,
-				petSize: ""
-			}
-		});
+			totpSecret: speakeasy.generateSecret().base32
+		})
 		return res.status(201).json({ message: "Successfully added!" })
 	} catch (err) {
 		return res.status(500).json({ message: err.message });
