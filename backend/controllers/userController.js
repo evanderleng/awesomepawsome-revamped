@@ -14,7 +14,7 @@ const otp = require("./2faController.js");
 
 const addUser = async (req, res) => {
 	try {
-		const { username, password, email } = req.body;
+		let { username, password, email } = req.body;
 
 		username = escape(username);
 		email = escape(email);
