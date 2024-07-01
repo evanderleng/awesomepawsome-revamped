@@ -14,6 +14,10 @@ const otp = require("./2faController.js");
 const addUser = async (req, res) => {
 	try {
 		const { username, password, email } = req.body;
+
+		username = escape(username);
+		email = escape(email);
+
 		let user = await User.findOne({ $or: [{ username }, { email }] });
 		if (user) {
 			//if already exists existing username or email
@@ -159,12 +163,14 @@ const getProfile = async (req, res) => {
 		user.username = escape(user.username);
 		user.email = escape(user.email);
 		user.createdAt = escape(user.createdAt);
-		user.address = escape(user.address);
-		user.avatar = escape(user.avatar);
-		user.petDetails.petName = escape(user.petDetails.petName);
-		user.petDetails.petBreed = escape(user.petDetails.petBreed);
-		user.petDetails.petAge = escape(user.petDetails.petAge);
-		user.petDetails.petSize = escape(user.petDetails.petSize);
+		if (user.address) { user.address = escape(user.address);}
+		if (user.avatar) {user.avatar = escape(user.avatar); }
+		if (user.petDetails){
+			if (user.petDetails.petName) {user.petDetails.petName = escape(user.petDetails.petName);}
+			if (user.petDetails.petBreed) {user.petDetails.petBreed = escape(user.petDetails.petBreed);}
+			if (user.petDetails.petAge) {user.petDetails.petAge = escape(user.petDetails.petAge);}
+			if (user.petDetails.petSize) {user.petDetails.petName = escape(user.petDetails.petSize);}
+		}
 
 		// Consider handling other fields if needed
 		// For example, you could escape pet details or handle them conditionally
@@ -178,7 +184,12 @@ const getProfile = async (req, res) => {
 
 const editPet = async (req, res) => {
 	try {
-		const { petName, petBreed, petAge, petSize } = req.body.petDetails;
+		let { petName, petBreed, petAge, petSize } = req.body.petDetails;
+
+		if (petName) {petName = escape(petName);}
+		if (petBreed) {petBreed = escape(petBreed);}
+		if (petAge) {petAge = escape(petAge);}
+		if (petSize) {petSize = escape(petSize);}
 
 		const updateUser = await User.updateOne(
 			{ _id: req.user._id },
