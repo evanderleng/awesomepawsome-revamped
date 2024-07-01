@@ -169,7 +169,7 @@ const getProfile = async (req, res) => {
 			if (user.petDetails.petName) {user.petDetails.petName = escape(user.petDetails.petName);}
 			if (user.petDetails.petBreed) {user.petDetails.petBreed = escape(user.petDetails.petBreed);}
 			if (user.petDetails.petAge) {user.petDetails.petAge = escape(user.petDetails.petAge);}
-			if (user.petDetails.petSize) {user.petDetails.petName = escape(user.petDetails.petSize);}
+			if (user.petDetails.petSize) {user.petDetails.petSize = escape(user.petDetails.petSize);}
 		}
 
 		// Consider handling other fields if needed
