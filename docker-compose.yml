@@ -1,0 +1,25 @@
+services:
+  frontend:
+    container_name: ${FRONTEND_HOST}
+    build:
+      context: ./frontend
+    ports:
+      - ${FRONTEND_PORT}:${FRONTEND_PORT}
+  db:
+    container_name: ${DB_HOST}
+    build:
+      context: ./db
+    image: mongo
+    expose:
+      - ${DB_PORT}
+    volumes:
+      - db_data:/data/db
+  backend:
+    container_name: ${BACKEND_HOST}
+    build:
+      context: ./backend
+    expose:
+      - ${BACKEND_PORT}
+
+volumes:
+  db_data:
