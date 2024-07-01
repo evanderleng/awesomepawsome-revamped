@@ -1,0 +1,23 @@
+.customer-rating {
+    display: flex;
+    align-items: center;
+}
+
+.customer-rating p {
+    display: flex;
+    align-items: center;
+    margin: 0;
+}
+
+.star {
+    font-size: 1.2em;
+    margin-left: 4px;
+}
+
+.star.filled {
+    color: gold;
+}
+
+.star.empty {
+    color: #ccc;
+}
