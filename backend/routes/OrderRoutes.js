@@ -32,7 +32,4 @@ router
   .route("/:orderID/confirm")
   .post(authMiddleware.auth, orderController.confirmOrder);
 
-
-  router.route("/confirmed").get(authMiddleware.auth, orderController.confirmedOrders);
-
 module.exports = router;

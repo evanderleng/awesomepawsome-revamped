@@ -90,20 +90,16 @@ async function handleResponse(response) {
     throw new Error(errorMessage);
   }
 }
+
 const confirmOrder = async (req, res) => {
   try {
     const userID = req.user._id;
     const { orderList } = req.body;
 
-    console.log('Saving order for user:', userID);  // Add logging
-    console.log('Order list:', orderList);  // Add logging
-
     const order = await Order.create({
       user_id: userID,
       order_list: JSON.parse(orderList),
     });
-
-    console.log('Order saved:', order);  // Add logging
 
     return res.status(201).json({
       order_id: order._id,
@@ -115,22 +111,4 @@ const confirmOrder = async (req, res) => {
   }
 };
 
-
-
-const confirmedOrders = async (req, res) => {
-  try {
-    
-    const userID = req.user._id;
-    console.log('Fetching orders for user:', userID);  // Add logging
-
-    const orders = await Order.find({ user_id: userID });
-    console.log('Fetched orders:', orders);  // Add logging
-
-    return res.status(200).json(orders);
-  } catch (err) {
-    return res.status(500).json({ message: err.message });
-  }
-};
-
-
-module.exports = { createOrder, captureOrder, confirmOrder, confirmedOrders };
+module.exports = { createOrder, captureOrder, confirmOrder };

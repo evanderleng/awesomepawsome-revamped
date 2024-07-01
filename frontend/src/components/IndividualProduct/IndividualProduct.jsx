@@ -2,8 +2,6 @@ import React, { useContext, useState, useEffect } from "react";
 import "./IndividualProduct.css";
 import axiosInstance from "../../../axiosConfig";
 import { StoreContext } from "../../context/StoreContext";
-// import AverageStarRating from './AverageStarRating'; // Assuming AverageStarRating component exists
-// import useAverageRating from './UseAverageRating'; // Assuming useAverageRating hook is defined
 
 const IndividualProduct = ({
   id,
@@ -107,10 +105,10 @@ const IndividualProduct = ({
             <h3>Weight</h3>
             <p>{weight}</p>
           </div>
-          {/* <div className="product-rating">
+          <div className="product-rating">
             <h3>Rating</h3>
             <p>{rating}</p>
-          </div> */}
+          </div>
           <div className="product-breed-size">
             <h3>Breed Size</h3>
             <p>{breedSize}</p>
