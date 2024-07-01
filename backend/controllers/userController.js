@@ -4,7 +4,8 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const cookie = require('cookie');
 const escape = require('escape-html');
-const speakeasy = require('speakeasy') // for totp generation
+const speakeasy = require('speakeasy') // for totp generationvar 
+const { csrf_generator, csrf_secret } = require('../util/csrf')
 
 const { uploadToLocal, uploadAvatar } = require("../middleware/imageMiddleware.js")
 const { sendPasswordResetConfirmationEmail } = require("./emailController.js")
@@ -50,6 +51,11 @@ const login = async (req, res) => {
 	try {
 		const { username, password } = req.body;
 
+		const csrf_secret = csrf_generator.secretSync()
+		const csrf_token = csrf_generator.create(csrf_secret)
+
+		req.session.csrf_secret = csrf_secret
+
 		let user = await User.findOne({ username });
 
 		if (!user) {
@@ -57,34 +63,26 @@ const login = async (req, res) => {
 		}
 		if (!bcrypt.compareSync(password, user.password)) {
 			return res.status(401).json({ message: "Invalid Credentials" });
+		} else {
+
+			const token = jwt.sign({ _id: user._id }, process.env.TOKEN_SECRET, {
+				algorithm: "HS512",
+				expiresIn: "36000s",
+			});
+
+			return res.status(200).json({
+				message: "Login successful",
+				username: user.username,
+				_id: user._id,
+				admin: user.admin,
+				avatar: user.avatar,
+				token: token,
+				csrf_token: csrf_token
+			});
 		}
-
-		const token = jwt.sign({ _id: user._id }, process.env.TOKEN_SECRET, {
-			algorithm: "HS512",
-			expiresIn: "36000s",
-		}); //maybe move to auth util
-
-		res.setHeader(
-			"Set-Cookie",
-			cookie.serialize("token", token, {
-				httpOnly: true,
-				secure: true, // set to true when https is running
-				sameSite: true,
-				maxAge: 60 * 60 * 24, //3 days
-			}),
-		);
-
-		return res.status(200).json({
-			message: "Login successful",
-			username: user.username,
-			_id: user._id,
-			admin: user.admin,
-			avatar: user.avatar,
-			token: token,
-		});
 	}
 	catch (err) {
-		return res.status(500).json({ message: "Internal Error" });
+		return res.status(500).json({ message: "Internal error" });
 	}
 }
 
@@ -110,17 +108,7 @@ const login_2fa = async (req, res) => {
 		const token = jwt.sign({ _id: user._id }, process.env.TOKEN_SECRET, {
 			algorithm: "HS512",
 			expiresIn: "36000s",
-		}); //maybe move to auth util
-
-		res.setHeader(
-			"Set-Cookie",
-			cookie.serialize("token", token, {
-				httpOnly: true,
-				secure: true, // set to true when https is running
-				sameSite: true,
-				maxAge: 60 * 60 * 24, //3 days
-			}),
-		);
+		});
 
 		return res.status(200).json({
 			message: "Login successful",
