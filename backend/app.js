@@ -24,10 +24,14 @@ connDB();
 const app = express();
 
 if (process.env.NODE_ENV == "development") {
-  app.use(cors());
+  app.use(cors({
+    credentials: true,
+    origin: true
+  }));
   console.log("development mode detected. CORS disabled.");
 } else {
   app.use(helmet({
+    accessControlAllowOrigin: true, //untested
     accessControlAllowCredentials: true //untested
   }))
   console.log("production mode detected. CORS enabled.");
