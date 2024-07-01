@@ -1,12 +1,39 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './ResetPasswordPage.css';
+import { useNavigate } from 'react-router-dom';
 
 const ResetPasswordPage = () => {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-  const [passwordResetSucess, setPasswordResetSucess] = useState('');
+  const [passwordResetSuccess, setPasswordResetSuccess] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
+  const [token, setToken] = useState('');
+  const [countdown, setCountdown] = useState(10); // Initialize countdown
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const tokenFromUrl = urlParams.get('token');
+    setToken(tokenFromUrl);
+  }, []);
+
+  useEffect(() => {
+    let timer;
+    if (passwordResetSuccess) {
+      timer = setInterval(() => {
+        setCountdown((prevCountdown) => {
+          if (prevCountdown === 1) {
+            clearInterval(timer);
+            navigate('/'); // Redirect to the main page
+          }
+          return prevCountdown - 1;
+        });
+      }, 1000);
+    }
+
+    return () => clearInterval(timer); // Cleanup the timer on component unmount
+  }, [passwordResetSuccess, navigate]);
 
   const handleVarChecks = (token, password, confirmPassword) => {
     if (!token) {
@@ -22,18 +49,20 @@ const ResetPasswordPage = () => {
     }
 
     setErrorMessage('');
-    setSuccessMessage('Passwords match. Form can be submitted.');
+    setSuccessMessage('');
+    console.log('Passwords match. Form can be submitted.');
     return true;
   };
-  const handleBackendSubmit = async(e) => {
+
+  const handleBackendSubmit = async (e) => {
     e.preventDefault();
 
     // Directly get form data from event target (the form itself)
     const formData = new FormData(e.target);
 
-    const token = formData.get("token")
-    const newPassword = formData.get("password")
-    const confirmPassword = formData.get("confirmPassword")
+    const token = formData.get("token");
+    const newPassword = formData.get("password");
+    const confirmPassword = formData.get("confirmPassword");
 
     if (!handleVarChecks(token, password, confirmPassword)) {
       return;
@@ -47,30 +76,27 @@ const ResetPasswordPage = () => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          token: token,
+          resetToken: token,
           newPassword: newPassword
         }),
       });
 
-       // if response ok , do the following
-       if (response.ok) {
+      if (response.ok) {
         const result = await response.json();
-        console.log("Message:", result.message); // debugging
-        setPasswordResetSucess(true);
-
+        console.log("Message:", result.message);
+        setPasswordResetSuccess(true);
       } else {
         const errorData = await response.json();
         console.log("Error:", errorData.message);
-        setPasswordResetSucess(false);
-        setErrorMsg(errorData.message);
+        setPasswordResetSuccess(false);
+        setErrorMessage(errorData.message);
         alert(errorData.message);
       }
-    }
-    catch {
+    } catch (error) {
       console.error("Error:", error);
       setErrorMessage('An error occurred. Please try again.');
     }
-  }
+  };
 
   return (
     <div className='reset-password-container'>
@@ -78,13 +104,14 @@ const ResetPasswordPage = () => {
         <h3>Set New Password</h3>
         <p>Please enter your new password below.</p>
       </div>
-      <form onSubmit={handleSubmit} className='reset-password-form'>
-        <input type="hidden" name="token" id="token" value=""></input>
+      <form onSubmit={handleBackendSubmit} className='reset-password-form'>
+        <input type="hidden" name="token" id="token" value={token} />
         <div className='form-group'>
           <label htmlFor='password'>New Password</label>
           <input
             type='password'
             id='password'
+            name='password'
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
@@ -95,6 +122,7 @@ const ResetPasswordPage = () => {
           <input
             type='password'
             id='confirmPassword'
+            name='confirmPassword'
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
             required
@@ -102,15 +130,9 @@ const ResetPasswordPage = () => {
         </div>
         {errorMessage && <p className='error-message'>{errorMessage}</p>}
         {successMessage && <p className='success-message'>{successMessage}</p>}
+        {passwordResetSuccess && <p className='success-message'>Password reset successfully! Redirecting to main page in {countdown} seconds...</p>}
         <button type='submit' className='submit-button'>Reset Password</button>
       </form>
-      <script>
-        {`
-          const urlParams = new URLSearchParams(window.location.search);
-          const token = urlParams.get('token');
-          document.getElementById('token').value = token;
-        `}
-      </script>
     </div>
   );
 };
