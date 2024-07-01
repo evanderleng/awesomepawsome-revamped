@@ -30,15 +30,15 @@ services:
     privileged: true
     user: root
     expose:
-      - ${JENKINS_PORT}
-    ports:
-      - "8080:8080"
-      - "50000:50000"
+      - ${JENKINS_SERVER_PORT}
+      - ${JENKINS_AGENT_PORT}
     volumes:
-      - jenkins_data:/var/jenkins_home
+      - jenkins-data:/var/jenkins_home
       - jenkins-docker-certs:/certs/client
 
 volumes:
   db_data:
-  jenkins_data:
-  jenkins_-docker-certs:
+  jenkins-data:
+    external: true
+  jenkins-docker-certs:
+    external: true
