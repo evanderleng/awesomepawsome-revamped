@@ -18,6 +18,6 @@ router.post("/login", checkLoginReq, checkValid, userController.login);
 
 router.post("/login_2fa", checkLoginReq, checkValid, userController.login_2fa)
 
-router.post("/reset-password", checkResetPasswordTokenReq, checkValid, userController.resetPassword)
+router.post("/resetPassword", checkResetPasswordTokenReq, checkValid, userController.resetPassword)
 
 module.exports = router;
