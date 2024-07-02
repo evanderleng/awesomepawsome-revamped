@@ -142,8 +142,18 @@ returns: message
 returns 400, 201, 500
 
 
-todo:
-mongo access control
-centralised validation regex
-change db bigint to number
-_tests
+======== TODO ===========
+- mongo access control
+
+- edit admin add product
+    -> name of breedSize change to petSize
+    -> additional field called petAge
+
+
+- create API for recommend me page 
+    -> based on the user pet's petSize and petAge 
+    -> do a match and find first record 
+    -> Return: entire product table of that matched product in JSON response
+
+
+    
