@@ -33,6 +33,7 @@ services:
       - ${JENKINS_SERVER_PORT}
       - ${JENKINS_AGENT_PORT}
     volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
       - jenkins-data:/var/jenkins_home
       - jenkins-docker-certs:/certs/client
 
