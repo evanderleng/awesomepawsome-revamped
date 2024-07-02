@@ -11,8 +11,6 @@ const IndividualProduct = ({
   name,
   weight,
   price,
-  rating,
-  ratingCount,
   description,
   ingredients,
   breedSize,
@@ -27,19 +25,19 @@ const IndividualProduct = ({
     const fetchCartData = async () => {
       try {
         const cartResponse = await axiosInstance.get(
-          "http://127.0.0.1:4000/api/cart/getCart",
+          "http://127.0.0.1:4000/api/cart/getCart"
         );
         console.log("Fetched cart data:", cartResponse.data); // Debug: log the fetched data
 
         const hasCartResponse = await axiosInstance.get(
-          "http://127.0.0.1:4000/api/cart/hasCart",
+          "http://127.0.0.1:4000/api/cart/hasCart"
         );
 
         const hasCart = hasCartResponse.data.cart;
         if (hasCart) {
           // Check if the current product is in the cart
           const productInCart = cartResponse.data.some(
-            (item) => item.product_id === id,
+            (item) => item.product_id === id
           );
           setInCart(productInCart);
         }
@@ -73,7 +71,7 @@ const IndividualProduct = ({
       } catch (error) {
         console.error(
           "Error updating cart:",
-          error.response ? error.response.data : error.message,
+          error.response ? error.response.data : error.message
         );
       }
     };
@@ -107,10 +105,6 @@ const IndividualProduct = ({
             <h3>Weight</h3>
             <p>{weight}</p>
           </div>
-          {/* <div className="product-rating">
-            <h3>Rating</h3>
-            <p>{rating}</p>
-          </div> */}
           <div className="product-breed-size">
             <h3>Breed Size</h3>
             <p>{breedSize}</p>
@@ -126,6 +120,16 @@ const IndividualProduct = ({
               </button>
             )}
           </div>
+
+          {/* form for adding to cart (hidden input) */}
+          <form action="" className="add-to-cart-form" onSubmit={addToCart}>
+            <input type="hidden" name='csrf_token' />
+            {isLogin && (
+              <button disabled={inCart}>
+                {inCart ? "Added To Cart" : "Add To Cart"}
+              </button>
+            )}
+          </form>
         </div>
       </div>
     </div>
