@@ -24,22 +24,6 @@ services:
       context: ./backend
     expose:
       - ${BACKEND_PORT}
-  jenkins:
-    image: jenkins/jenkins
-    container_name: ${JENKINS_HOST}
-    privileged: true
-    user: root
-    expose:
-      - ${JENKINS_SERVER_PORT}
-      - ${JENKINS_AGENT_PORT}
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-      - jenkins-data:/var/jenkins_home
-      - jenkins-docker-certs:/certs/client
 
 volumes:
   db_data:
-  jenkins-data:
-    external: true
-  jenkins-docker-certs:
-    external: true
