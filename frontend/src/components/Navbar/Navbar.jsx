@@ -16,6 +16,38 @@ const Navbar = ({ setShowLogin }) => {
   const navigate = useNavigate();
 
 
+  // to get the current location of the page, for the navbar to set
+  const location = useLocation();
+
+
+  // function to set the active menu based on the current path
+  const getActiveMenu = (path) => {
+    switch (path) {
+      case "/":
+        return "home";
+      case "/productPage":
+        return "product";
+      case "/recommendMePage":
+        return "recommend me";
+      case "/profile":
+        return "profile";
+      case "/adminDashboard":
+        return "admin dashboard";
+      case "/cart":
+        return "cart";
+      default:
+        return "";
+    }
+  };
+
+
+  // Update the menu state whenever the location changes
+  useEffect(() => {
+    setMenu(getActiveMenu(location.pathname));
+  }, [location.pathname]);
+
+
+
   // state isLogin (boolean), method setIsLogin to set state.
   // from StoredContext, which means every part of the app can share this state
   const { isLogin, setIsLogin, userIsAdmin, setUserIsAdmin } =
