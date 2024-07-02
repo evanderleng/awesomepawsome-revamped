@@ -44,24 +44,39 @@
 }
 
 /* Styling for the button */
-.submit-button {
+.submit-button, .create-user-button{
     padding: 10px;
-    background-color: #8fc8ba;
-    /* Button background color */
-    color: #fff;
-    /* Button text color */
+    color: #fff; /* Button text color */
     border: none;
     border-radius: 4px;
     font-size: 16px;
     cursor: pointer;
-    transition: background-color 0.3s ease;
-    /* Smooth transition */
+    transition: background-color 0.3s ease; /* Smooth transition */
+    margin-right: 10px; /* Set Margin */
+    flex: 1 1 0;
+}
+
+.submit-button {
+    background-color: #16bd93; /* Button background color */
 }
 
 .submit-button:hover {
     background-color: #0056b3;
     /* Darker blue on hover */
 }
+
+.create-user-button {
+    background-color: #2cc1cc; /* Button background color */
+}
+.create-user-button:hover {
+    background-color: #0056b3;
+}
+
+.button-container {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+  }
 
 /* Styling the placeholder text */
 .check-email-form input::placeholder {
@@ -90,6 +105,20 @@
     .check-email-title p {
         font-size: 14px;
     }
+}
+
+/* Error and success message styling */
+.error-message {
+    color: #ff4d4d; /* Red text */
+    font-size: 14px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    text-align: center;
+}
+.success-message {
+    color: #4caf50; /* Green text */
+    font-size: 14px;
+    margin-top: 10px;
 }
 
 
