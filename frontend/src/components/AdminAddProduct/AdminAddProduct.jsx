@@ -38,8 +38,21 @@ const AdminAddProduct = () => {
             <input type="text" name='description' placeholder='description'/>
             <h3>Ingredients</h3>
             <input type="text" name='ingredients' placeholder='ingredients'/>
-            <h3>Breed Size</h3>
-            <input type="text" name='breedSize' placeholder='breed size'/>
+            <h3>Pet Size</h3>
+            <select name='petSize'>
+              <option value="">Select pet size</option>
+              <option value="small">Small</option>
+              <option value="medium">Medium</option>
+              <option value="large">Large</option>
+            </select>
+            <h3>Pet Age Group</h3>
+            <select name="petAge">
+              <option value="">Select age group</option> 
+              <option value="puppy">Puppy</option>
+              <option value="junior">Junior</option>
+              <option value="adult">Adult</option>
+              <option value="senior">Senior</option>
+            </select>
             <h3>Image</h3>
             <input type="file" name='product_image'/>
             <button>Add Product</button>
