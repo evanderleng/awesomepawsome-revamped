@@ -14,7 +14,7 @@ pipeline {
             }
         }
         //Temp disable it, testing other tusff. This take few min to process
-        stage('Dependency Check') {
+        /*stage('Dependency Check') {
             steps {
                 dependencyCheck additionalArguments: ''' 
                             --format HTML --format XML
@@ -22,7 +22,7 @@ pipeline {
                 
                 dependencyCheckPublisher pattern: 'dependency-check-report.xml'
             }
-        }
+        }*/
         stage('Testing Phase') {
             steps {
                 dir('backend') {
