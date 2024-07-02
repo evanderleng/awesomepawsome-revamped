@@ -16,46 +16,49 @@ const sendResetPasswordEmail = async (req, res) => {
             return res.status(404).json({ message: 'User not found' });
         }
         const otpVerify = otp.verifyOTP(user.totpSecret, otpToken)
-        if (otpVerify) {
-            const token = crypto.randomBytes(20).toString('hex'); // generate reset token here
-            const tokenExpiry = Date.now() + 3600000; // 1 hour from now
+        
+        if (!otpVerify){
+            return res.status(400).json({ message: 'Invalid token' });
+        }
 
-            user.resetPasswordToken = token;
-            user.resetPasswordExpires = tokenExpiry;
-            await user.save();
+        const token = crypto.randomBytes(20).toString('hex'); // generate reset token here
+        const tokenExpiry = Date.now() + 3600000; // 1 hour from now
 
-            // TODO remove localhost links when submitting
-            // const resetPasswordLink = `http://localhost/resetPasswordPage?token=${token}`    // if frontend is running on webserver port 80
-            const resetPasswordLink = `http://localhost:5173/resetPasswordPage?token=${token}`  // if your frontend is running on default vite port
-            // const resetPasswordLink = `https://awesomepawsome/resetPasswordPage?token=${token}`
+        user.resetPasswordToken = token;
+        user.resetPasswordExpires = tokenExpiry;
+        await user.save();
 
-            const emailContent = `
-                <p>Dear ${user.username},</p>
-                <p>Click here to reset your password:</p>
-                <p><a href="${resetPasswordLink}">Reset Password</a></p>
-                <p>Love,<br>AwesomePawsome</p>
-            `;
+        // TODO remove localhost links when submitting
+        // const resetPasswordLink = `http://localhost/resetPasswordPage?token=${token}`    // if frontend is running on webserver port 80
+        const resetPasswordLink = `http://localhost:5173/resetPasswordPage?token=${token}`  // if your frontend is running on default vite port
+        // const resetPasswordLink = `https://awesomepawsome/resetPasswordPage?token=${token}`
 
-            try{
-                transporter.sendMail({
-                    from: '"AwesomePawsome" <${process.env.GMAIL_USER_EMAIL}>', // name + sender address
-                    to: email,                                                  // list of receivers
-                    subject: "Password Reset Request",                          // Subject line
-                    html: emailContent,                                         // html body
-                }).then(info => { // info here is email status info from gmail
-                    return res.status(200).json({                               //TODO  for debugging, remove this when submitting
-                        message: "Successfully sent!", 
-                        resetPasswordLink: resetPasswordLink, 
-                        resetToken: token, 
-                        resetTokenExpiry: new Date(tokenExpiry).toLocaleString()
-                    }); 
+        const emailContent = `
+            <p>Dear ${user.username},</p>
+            <p>Click here to reset your password:</p>
+            <p><a href="${resetPasswordLink}">Reset Password</a></p>
+            <p>Love,<br>AwesomePawsome</p>
+        `;
 
-                    // return res.status(200).json({ message: "Successfully sent!" }); // TODO actual, uncomment when submitting
-                })
-            }
-            catch (err){
-                return res.status(400).json({message: "Unable to send"});
-            } 
+        try{
+            transporter.sendMail({
+                from: '"AwesomePawsome" <${process.env.GMAIL_USER_EMAIL}>', // name + sender address
+                to: email,                                                  // list of receivers
+                subject: "Password Reset Request",                          // Subject line
+                html: emailContent,                                         // html body
+            }).then(info => { // info here is email status info from gmail
+                return res.status(200).json({                               //TODO  for debugging, remove this when submitting
+                    message: "Successfully sent!", 
+                    resetPasswordLink: resetPasswordLink, 
+                    resetToken: token, 
+                    resetTokenExpiry: new Date(tokenExpiry).toLocaleString()
+                }); 
+
+                // return res.status(200).json({ message: "Successfully sent!" }); // TODO actual, uncomment when submitting
+            })
+        }
+        catch (err){
+            return res.status(400).json({message: "Unable to send"});
         }
     }
     catch (err) {

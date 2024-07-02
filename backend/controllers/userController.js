@@ -93,7 +93,7 @@ const login_2fa = async (req, res) => {
 		let user = await User.findOne({ username });
 
 		if (!user) {
-			return res.status(404).json({ message: "User does not exist" });
+			return res.status(404).json({ message: "User not found" });
 		}
 		if (!bcrypt.compareSync(password, user.password)) {
 			return res.status(401).json({ message: "Invalid Credentials" });
