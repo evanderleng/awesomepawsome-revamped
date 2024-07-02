@@ -49,33 +49,37 @@ const IndividualProduct = ({
     fetchCartData();
   }, [id]);
 
-  const addToCart = () => {
-    const handleAddToCart = async () => {
-      try {
-        const cartData = {
+  const addToCart = async (event) => {
+    event.preventDefault(); // Prevent the default form submission
+    try {
+      const csrfToken = sessionStorage.getItem("csrfToken"); // Retrieve the token from sessionStorage
+
+      const cartData = {
           product_id: id,
           quantity: "1",
-        };
+          csrf_token: csrfToken // Include the CSRF token in the request body
+      };
 
-        const response = await axiosInstance.post("/cart/updateCart", cartData);
-        console.log("Cart updated successfully:", response.data);
+      const response = await axiosInstance.post(
+        "/cart/updateCart",
+        cartData,
+      );
+      console.log("Cart updated successfully:", response.data);
 
-        // Show notification
-        setNotification("Item added to cart successfully!");
-        setInCart(true);
+      // Show notification
+      setNotification("Item added to cart successfully!");
+      setInCart(true);
 
-        // Hide notification after 3 seconds
-        setTimeout(() => {
-          setNotification("");
-        }, 3000);
-      } catch (error) {
-        console.error(
-          "Error updating cart:",
-          error.response ? error.response.data : error.message
-        );
-      }
-    };
-    handleAddToCart();
+      // Hide notification after 3 seconds
+      setTimeout(() => {
+        setNotification("");
+      }, 3000);
+    } catch (error) {
+      console.error(
+        "Error updating cart:",
+        error.response ? error.response.data : error.message
+      );
+    }
   };
 
   return (
@@ -113,23 +117,16 @@ const IndividualProduct = ({
             <h3>Subscription Price</h3>
             <p>${price} / Month</p>
           </div>
-          <div className="add-to-cart">
-            {isLogin && (
-              <button onClick={addToCart} disabled={inCart}>
+          {/* Add to Cart Form */}
+          {isLogin && (
+            <form className="add-to-cart" onSubmit={addToCart}>
+              {/* Hidden CSRF token input, value has been auto assigned as CSRF token value */}
+              <input type="hidden" name="csrfToken" />
+              <button type="submit" disabled={inCart}>
                 {inCart ? "Added To Cart" : "Add To Cart"}
               </button>
-            )}
-          </div>
-
-          {/* form for adding to cart (hidden input) */}
-          <form action="" className="add-to-cart-form" onSubmit={addToCart}>
-            <input type="hidden" name='csrf_token' />
-            {isLogin && (
-              <button disabled={inCart}>
-                {inCart ? "Added To Cart" : "Add To Cart"}
-              </button>
-            )}
-          </form>
+            </form>
+          )}
         </div>
       </div>
     </div>
