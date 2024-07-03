@@ -142,6 +142,22 @@ returns: message
 returns 400, 201, 500
 
 
+/api/user/hasProduct?product_id=xxx
+header: "Authorization: Bearer {token}" 
+GET
+returns: {hasProduct: true} OR {hasProduct: false}
+returns 200, 500
+
+
+/api/user/hasReview?product_id=xxx
+header: "Authorization: Bearer {token}" 
+GET
+returns: {hasReview: true} OR {hasReview: false}
+returns 200, 500
+
+
+
+
 ======== TODO ===========
 - mongo access control
 
