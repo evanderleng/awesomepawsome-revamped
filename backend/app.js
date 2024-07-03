@@ -27,7 +27,7 @@ const app = express();
 if (process.env.NODE_ENV == "development") {
   app.use(cors({
     credentials: true,
-    origin: true
+    origin: 'http://127.0.0.1:5173'
   }));
   console.log("development mode detected. CORS disabled.");
 } else {
