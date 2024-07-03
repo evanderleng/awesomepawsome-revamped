@@ -39,7 +39,7 @@ pipeline {
         // Rebuild container images and deploy servers
         stage('Deployment Phase') {
             environment {
-                JWT_TOKEN_SECRET = credentialsl('jwt-secret')
+                JWT_TOKEN_SECRET = credentials('jwt-secret')
                 PAYPAL_CLIENT_ID = credentials('paypal-client-id')
                 PAYPAL_CLIENT_SECRET = credentials('paypal-client-secret')
                 CLOUDINARY_CLOUD_NAME = credentials('cloudinary-cloud-name')
