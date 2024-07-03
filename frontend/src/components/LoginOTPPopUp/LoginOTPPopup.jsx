@@ -98,6 +98,7 @@ const {
         setIsLogin(true);
         setShowLogin(false);
         setUserIsAdmin(result.admin); // set state to show if it is admin or not
+        localStorage.setItem("isAdmin", result.admin ? true : false);
         navigate('/');  // navigate to homepage if you're somewhere else
       } else {
         alert("Wrong OTP");
