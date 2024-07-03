@@ -71,7 +71,7 @@ const login = async (req, res) => {
 			return res.status(401).json({ message: "Invalid Credentials" });
 		} else {
 
-			const token = jwt.sign({ _id: user._id }, process.env.TOKEN_SECRET, {
+			const jwt_token = jwt.sign({ _id: user._id }, process.env.TOKEN_SECRET, {
 				algorithm: "HS512",
 				expiresIn: "36000s",
 			});
@@ -82,51 +82,13 @@ const login = async (req, res) => {
 				_id: user._id,
 				admin: user.admin,
 				avatar: user.avatar,
-				token: token,
+				jwt_token: jwt_token,
 				csrf_token: csrf_token
 			});
 		}
 	}
 	catch (err) {
 		return res.status(500).json({ message: "Internal error" });
-	}
-}
-
-const login_2fa = async (req, res) => {
-	try {
-		const { username, password, otpToken } = req.body;
-
-		let user = await User.findOne({ username });
-
-		if (!user) {
-			return res.status(404).json({ message: "User not found" });
-		}
-		if (!bcrypt.compareSync(password, user.password)) {
-			return res.status(401).json({ message: "Invalid Credentials" });
-		}
-
-		const otpVerify = otp.verifyOTP(user.totpSecret, otpToken);
-
-		if (!otpVerify) {
-			return res.status(400).json({ message: "Invalid Token" });
-		}
-
-		const token = jwt.sign({ _id: user._id }, process.env.TOKEN_SECRET, {
-			algorithm: "HS512",
-			expiresIn: "36000s",
-		});
-
-		return res.status(200).json({
-			message: "Login successful",
-			username: user.username,
-			_id: user._id,
-			admin: user.admin,
-			avatar: user.avatar,
-			token: token,
-		});
-	}
-	catch (err) {
-		return res.status(500).json({ message: "Internal Error" });
 	}
 }
 
@@ -280,4 +242,4 @@ const resetPassword = async (req, res) => {
 	}
 }
 
-module.exports = { addUser, login, login_2fa, editProfile, editPet, getProfile, resetPassword };
+module.exports = { addUser, login, editProfile, editPet, getProfile, resetPassword };
