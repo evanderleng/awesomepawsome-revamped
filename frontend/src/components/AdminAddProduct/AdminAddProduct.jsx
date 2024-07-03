@@ -39,14 +39,14 @@ const AdminAddProduct = () => {
             <h3>Ingredients</h3>
             <input type="text" name='ingredients' placeholder='ingredients'/>
             <h3>Pet Size</h3>
-            <select name='petSize'>
+            <select name='breedSize'>
               <option value="">Select pet size</option>
               <option value="small">Small</option>
               <option value="medium">Medium</option>
               <option value="large">Large</option>
             </select>
             <h3>Pet Age Group</h3>
-            <select name="petAge">
+            <select name="ageGroup">
               <option value="">Select age group</option> 
               <option value="puppy">Puppy</option>
               <option value="junior">Junior</option>
