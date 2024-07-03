@@ -8,6 +8,12 @@ pipeline {
     stages {
         stage('Dependency Check') {
             steps {
+                dir('frontend') {
+                    sh 'npm install'
+                }
+                dir('backend') {
+                    sh 'npm install'
+                }
                 dependencyCheck additionalArguments: '''
                             --format HTML --format XML -n
                             ''', odcInstallation: 'Dependency Check'
@@ -18,7 +24,6 @@ pipeline {
         stage('Unit Testing Phase') {
             steps {
                 dir('backend') {
-                    sh 'npm install'
                     sh 'npm run test'
                 }
             }
