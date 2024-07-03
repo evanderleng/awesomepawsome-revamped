@@ -11,6 +11,13 @@ services:
     restart: always
   db:
     container_name: ${DB_HOST}
+    environment:
+      - JWT_TOKEN_SECRET=${JWT_TOKEN_SECRET}
+      - PAYPAL_CLIENT_ID=${PAYPAL_CLIENT_ID}
+      - PAYPAL_CLIENT_SECRET=${PAYPAL_CLIENT_SECRET}
+      - CLOUDINARY_CLOUD_NAME=${CLOUDINARY_CLOUD_NAME}
+      - CLOUDINARY_API_KEY=${CLOUDINARY_API_KEY}
+      - CLOUDINARY_API_SECRET=${CLOUDINARY_API_SECRET}
     build:
       dockerfile: ./db/Dockerfile
     expose:

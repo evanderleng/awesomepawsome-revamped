@@ -38,6 +38,14 @@ pipeline {
         }
         // Rebuild container images and deploy servers
         stage('Deployment Phase') {
+            environment {
+                JWT_TOKEN_SECRET = credentialsl('jwt-secret')
+                PAYPAL_CLIENT_ID = credentials('paypal-client-id')
+                PAYPAL_CLIENT_SECRET = credentials('paypal-client-secret')
+                CLOUDINARY_CLOUD_NAME = credentials('cloudinary-cloud-name')
+                CLOUDINARY_API_KEY = credentials('cloudinary-api-key')
+                CLOUDINARY_API_SECRET = credentials('cloudinary-api-secret')
+            }
             steps {
                 sh 'docker compose up --build -d'
             }
