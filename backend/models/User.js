@@ -4,17 +4,17 @@ const petDetailsSchema = new mongoose.Schema({
     petName: { type: String },
     petBreed: { 
         type: String, 
-        enum: ["Labrador Retriever", "German Shepherd", "Golden Retriever", "French Bulldog", "Bulldog", "Poodle", "Beagle", "Rottweiler", "Yorkshire Terrier", "Boxer"],
+        enum: ["labrador retriever", "german shepherd", "golden retriever", "french bulldog", "bulldog", "poodle", "beagle", "rottweiler", "yorkshire terrier", "boxer"],
         default: ""
     },
     petAge: { 
         type: String, 
-        enum: ["Puppy", "Junior", "Adult", "Senior"],
+        enum: ["puppy", "junior", "adult"],
         default: ""
     },
     petSize: { 
         type: String, 
-        enum: ["Small", "Medium", "Large", "Giant"],
+        enum: ["small", "medium", "large", "giant"],
         default: ""
     }
 });

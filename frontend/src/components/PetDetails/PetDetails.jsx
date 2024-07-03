@@ -5,15 +5,15 @@ import axiosInstance from '../../../axiosConfig'
 
 
   const breedOptions = [
-    "Labrador Retriever", "German Shepherd", "Golden Retriever", "French Bulldog", "Bulldog", "Poodle", "Beagle", "Rottweiler", "Yorkshire Terrier", "Boxer"
+    "labrador retriever", "german shepherd", "golden retriever", "french bulldog", "bulldog", "poodle", "beagle", "rottweiler", "yorkshire terrier", "boxer"
   ];
 
   const ageOptions = [
-      "Puppy", "Junior", "Adult", "Senior"
+      "puppy", "junior", "adult", "senior"
   ];
 
   const sizeOptions = [
-      "Small", "Medium", "Large", "Giant"
+      "small", "medium", "large",
   ];
 
   const PetDetails = () => {
