@@ -22,7 +22,7 @@ router.post("/login", checkLoginReq, checkValid, userController.login); //dev lo
 //router.post("/login_2fa", checkLoginReq, checkValid, userController.login_2fa)
 
 router.route("/hasProduct").get(authMiddleware.auth, userController.hasProduct);
-router.route("/hasProduct").get(authMiddleware.auth, userController.hasReview); //to add validationsonfookqsnwbxjb
+router.route("/hasReview").get(authMiddleware.auth, userController.hasReview); //to add validationsonfookqsnwbxjb
 
 router.post("/resetPassword", checkResetPasswordTokenReq, checkValid, userController.resetPassword)
 
