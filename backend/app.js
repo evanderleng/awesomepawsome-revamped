@@ -40,21 +40,27 @@ if (process.env.NODE_ENV == "development") {
 
 app.use(express.json());
 app.use(mongoSanitize());
-app.use(session({
-  secret: 'weak_key',
-  resave: false,
-  saveUninitialized: false,
-  store: MongoStore.create({
-    //mongoUrl: 'mongodb://user12345:foobar@localhost/test-app?authSource=admin&w=1',
-    mongoUrl: process.env.MONGOSTORE_URI,
-    ttl: 1 * 24 * 60 * 60, // 1 day
-    //mongoOptions: advancedOptions // See below for details
-  }),
-  cookie: { 
-    maxAge: 1000 * 60 *60, //1hr
-    httpOnly: true
-  }
-}));
+
+// app.use(session({   //remove after confirming that db csrf is working
+//   secret: 'weak_key',
+//   resave: false,
+//   saveUninitialized: false,
+//   rolling: true,
+//   store: MongoStore.create({
+//     //mongoUrl: 'mongodb://user12345:foobar@localhost/test-app?authSource=admin&w=1',
+//     mongoUrl: process.env.MONGOSTORE_URI,
+//     ttl: 1 * 24 * 60 * 60, // 1 day
+//     //mongoOptions: advancedOptions // See below for details
+//   }),
+//   cookie: { 
+//     // expires: 1000 * 60 * 60, //1hr
+//     expires: 1000 * 15, //1hr
+//     maxAge: 1000 * 15,
+//     httpOnly: true
+//   }
+// }));
+
+app.set('trust proxy', 1); // Trust first proxy, for NGINX
 
 //testing frontend backend connection works, delete before submission
 app.get("/api/test", (req, res) => {

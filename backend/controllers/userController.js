@@ -56,8 +56,6 @@ const login = async (req, res) => {
 		const csrf_secret = csrf_generator.secretSync()
 		const csrf_token = csrf_generator.create(csrf_secret)
 
-		req.session.csrf_secret = csrf_secret
-
 		let user = await User.findOne({ username });
 
 		if (!user) {
@@ -66,6 +64,12 @@ const login = async (req, res) => {
 		if (!bcrypt.compareSync(password, user.password)) {
 			return res.status(401).json({ message: "Invalid Credentials" });
 		} else {
+
+			//insert csrf secret into db
+			const updateUser = await User.updateOne(
+				{ username },
+				{ $set: { csrf_secret } }
+			);
 
 			const jwt_token = jwt.sign({ _id: user._id }, process.env.TOKEN_SECRET, {
 				algorithm: "HS512",
