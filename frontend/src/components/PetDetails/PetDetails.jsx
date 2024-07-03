@@ -55,7 +55,8 @@ import axiosInstance from '../../../axiosConfig'
         delete petDetails[key]
       }
     }
-    axiosInstance.post(url, { petDetails: petDetails })
+    const csrfToken = sessionStorage.getItem("csrfToken"); // Retrieve the token from sessionStorage
+    axiosInstance.post(url, { petDetails: petDetails, csrf_token: csrfToken})
         .then(response => {
             console.log('Pet details saved successfully:', response.data);
             setEditMode(false);  // Only exit edit mode if the save is successful
