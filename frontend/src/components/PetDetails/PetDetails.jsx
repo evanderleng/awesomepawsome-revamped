@@ -82,7 +82,7 @@ import axiosInstance from '../../../axiosConfig'
          </label>
          <label>
              Breed:
-             <input type="text" name="petBreed" list="breed" onChange={handleChange} placeholder="Please Select or Type"></input>
+             <input type="text" name="petBreed" value={petDetails.petBreed} list="breed" onChange={handleChange} placeholder="Please Select or Type"></input>
              <datalist id="breed">
                  <option disabled selected value="">- Please Select -</option>
                  {breedOptions.map(breed => (

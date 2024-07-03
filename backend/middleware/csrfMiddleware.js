@@ -26,5 +26,4 @@ const checkCSRF = async (req, res, next) => {
 }
 
 
-
 module.exports = { checkCSRF }

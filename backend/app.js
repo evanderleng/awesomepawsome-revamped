@@ -5,6 +5,7 @@ const helmet = require("helmet");
 const cors = require("cors");
 const connDB = require("./db");
 const session = require('express-session');
+const MongoStore = require('connect-mongo');
 
 const UserRouter = require("./routes/UserRoutes.js")
 const ProductRouter = require("./routes/ProductRoutes.js")
@@ -43,6 +44,12 @@ app.use(session({
   secret: 'weak_key',
   resave: false,
   saveUninitialized: false,
+  store: MongoStore.create({
+    //mongoUrl: 'mongodb://user12345:foobar@localhost/test-app?authSource=admin&w=1',
+    mongoUrl: process.env.MONGOSTORE_URI,
+    ttl: 1 * 24 * 60 * 60, // 1 day
+    //mongoOptions: advancedOptions // See below for details
+  }),
   cookie: { 
     maxAge: 1000 * 60 *60, //1hr
     httpOnly: true
