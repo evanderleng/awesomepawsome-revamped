@@ -5,4 +5,4 @@ COPY ./config/nginx/sites-available /etc/nginx/sites-available
 COPY ./config/nginx/sites-enabled /etc/nginx/sites-enabled
 RUN rm /etc/nginx/conf.d/default.conf
 WORKDIR /var/www/awesomepawsome
-COPY ./frontend/* .
+COPY ./frontend/ .
