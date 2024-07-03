@@ -25,7 +25,7 @@ pipeline {
         // Rebuild container images and deploy servers
         stage('Deployment Phase') {
             steps {
-                sh 'docker compose up --build'
+                sh 'docker compose up --build -d'
             }
         }
     }
