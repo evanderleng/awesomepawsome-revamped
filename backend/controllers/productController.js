@@ -42,7 +42,7 @@ const addProduct = async (req, res) => {
         return res.status(500).json({ message: err.message });
       }
 
-      const { brand, name, weight, price, description, ingedients, breedSize, ageGroup } = req.body;
+      const { brand, name, weight, price, description, ingredients, breedSize, ageGroup } = req.body;
       if (req.file) {
         cloudImgUrl = await uploadProduct(req.file, name);
       } else {
@@ -50,7 +50,7 @@ const addProduct = async (req, res) => {
       }
 
       const product = await Product.create({
-        brand, name, weight, price, description, ingedients, breedSize, ageGroup, imageURL: cloudImgUrl
+        brand, name, weight, price, description, ingredients, breedSize, ageGroup, imageURL: cloudImgUrl
       });
 
       if (product) {
