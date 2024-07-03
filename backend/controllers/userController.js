@@ -143,7 +143,7 @@ const editPet = async (req, res) => {
 	try {
 		let { petName, petBreed, petAge, petSize } = req.body.petDetails;
 
-		if (petName) {petName = escape(petName);}
+		if (petName) {petName = escape(petName);} else {petName = ""}
 		if (petBreed) {petBreed = escape(petBreed);}
 		if (petAge) {petAge = escape(petAge);}
 		if (petSize) {petSize = escape(petSize);}

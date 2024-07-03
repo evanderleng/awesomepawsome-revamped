@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const { checkCSRF } = require('../middleware/csrfMiddleware.js');
 
 
 const authMiddleware = require('../middleware/authMiddleware.js')
@@ -10,12 +11,13 @@ const userController = require("../controllers/userController.js");
 
 
 //router.route("/editPet").post(authMiddleware.auth, checkEditPetReq, checkValid, userController.editPet);
-router.route("/editPet").post(authMiddleware.auth, userController.editPet);
+router.route("/editPet").post(authMiddleware.auth, checkCSRF, userController.editPet); //yet to add validation
 router.route("/editProfile").post(authMiddleware.auth, userController.editProfile);
 router.route("/getProfile").get(authMiddleware.auth, userController.getProfile);
 
 router.post("/addUser", checkAddUserReq, checkValid, userController.addUser);
-router.post("/login", checkLoginReq, checkValid, checkOTP, userController.login);
+//router.post("/login", checkLoginReq, checkValid, checkOTP, userController.login);
+router.post("/login", checkLoginReq, checkValid, userController.login); //dev login, no OTP needed. email WILL still be sent
 
 //router.post("/login_2fa", checkLoginReq, checkValid, userController.login_2fa)
 
