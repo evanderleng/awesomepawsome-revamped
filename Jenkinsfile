@@ -9,6 +9,7 @@ pipeline {
         stage('Unit Testing Phase') {
             steps {
                 dir('backend') {
+                    sh 'npm install'
                     sh 'npm run test'
                 }
             }
@@ -21,6 +22,7 @@ pipeline {
                 }
             }
         }
+        // Rebuild container images and deploy servers
         stage('Deployment Phase') {
             steps {
                 sh 'docker compose up --build'
