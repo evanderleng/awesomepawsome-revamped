@@ -6,6 +6,8 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const cookie = require('cookie');
 const escape = require('escape-html');
+const multer = require('multer');
+const { checkCSRF } = require('../middleware/csrfMiddleware.js');
 const speakeasy = require('speakeasy') // for totp generationvar 
 const { csrf_generator, csrf_secret } = require('../util/csrf')
 
@@ -207,42 +209,47 @@ const hasReview = async (req, res) => {
 };
 
 const editProfile = async (req, res) => {
-	const upload = uploadToLocal.single('avatar');
+	const upload = await uploadToLocal.single('avatar');
 	upload(req, res, async function (err) {
 		if (err) {
-			return res.status(500).json({ message: "File upload failed: " + err.message });
+			return res.status(500).json({ message: err.message });
 		}
-		try {
-			const { username, email, address } = req.body;
-			const updateData = { username, email, address };
+		checkCSRF(req, res, async function (err) {
+			try{
+				const { username, email, address } = req.body;
+				const updateData = { username, email, address };
 
-			if (req.file) {
-				const cloudImgUrl = await uploadAvatar(req.file, req.user.username);
-				updateData.avatar = cloudImgUrl;
-			}
+				if (req.file) {
+					const cloudImgUrl = await uploadAvatar(req.file, req.user.username);
+					updateData.avatar = cloudImgUrl;
+				}
 
-			const actualUser = await User.findOne({ _id: req.user._id });
-			if (!actualUser) {
-				return res.status(500).json({ message: "Edit failed" });
+				const actualUser = await User.findOne({ _id: req.user._id });
+				if (!actualUser) {
+					return res.status(500).json({ message: "Edit failed" });
+				}
+				const userUsername = await User.findOne({ username });
+				if (userUsername && userUsername._id != req.user._id) { //if already exists existing username 
+					return res.status(400).json({ message: "Username is already taken" })
+				}
+				const userEmail = await User.findOne({ email });
+				if (userEmail && userEmail.email != actualUser.email) { //if already exists existing email
+					return res.status(400).json({ message: "Email has already registered with another account" })
+				}
+				const updateUser = await User.updateOne({ _id: req.user._id }, { $set: updateData });
+				if (updateUser) {
+					return res.status(200).json({ message: "Edit Success" });
+				} else {
+					return res.status(500).json({ message: "Edit Failed" });
+				}
+			} catch (err) {
+				if (err instanceof multer.MulterError){
+					return res.status(500).json({ message: "Only png, jpg, jpeg are accepted. Filesize limited to 3MB"});
+				} else {
+					return res.status(500).json({ message: "Only png, jpg, jpeg are accepted. Filesize limited to 3MB"});
+				}
 			}
-			const userUsername = await User.findOne({ username });
-			if (userUsername && userUsername._id != req.user._id) { //if already exists existing username 
-				return res.status(400).json({ message: "Username is already taken" })
-			}
-			const userEmail = await User.findOne({ email });
-			if (userEmail && userEmail.email != actualUser.email) { //if already exists existing email
-				return res.status(400).json({ message: "Email has already registered with another account" })
-			}
-			const updateUser = await User.updateOne({ _id: req.user._id }, { $set: updateData });
-			if (updateUser) {
-				return res.status(200).json({ message: "Edit Success" });
-			} else {
-				return res.status(500).json({ message: "Edit Failed" });
-			}
-		} catch (dbError) {
-			console.error('Database error during profile update:', dbError);
-			return res.status(500).json({ message: "Database error: " + dbError.message });
-		}
+		});
 	});
 };
 
