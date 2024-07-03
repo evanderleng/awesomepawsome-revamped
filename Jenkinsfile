@@ -6,54 +6,29 @@ pipeline {
     }
 
     stages {
-        stage('Build') { 
+        stage('Unit Testing Phase') {
             steps {
                 dir('backend') {
-                    sh 'npm install'
+                    sh 'npm run test'
                 }
             }
         }
-        //Temp disable it, testing other tusff. This take few min to process
-        stage('Dependency Check') {
-            steps {
-                dependencyCheck additionalArguments: ''' 
-                            --format HTML --format XML
-                            ''', odcInstallation: 'Dependency Check'
-                
-                dependencyCheckPublisher pattern: 'dependency-check-report.xml'
-            }
-        }
-        stage('Testing Phase') {
-            steps {
-                dir('backend') {
-                    sh 'npm test'
-                }
-            }
-        }
-
-        /*stage('Build Backend') {
-            steps {
-                dir('backend') {
-                    // Install npm dependencies
-                    sh 'npm install'
-
-                    // Start the backend server
-                    sh 'npm start'
-                }
-            }
-        }*/
-
-        stage('Deploy Frontend') {
+        // Build static files to deploy to frontend server
+        stage('Build Phase') {
             steps {
                 dir('frontend') {
                     sh 'npm run build'
-                    sh 'cp -r ./* /var/www/awesomepawsome'
                 }
+            }
+        }
+        stage('Deployment Phase') {
+            steps {
+                sh 'docker compose up --build'
             }
         }
     }
 
-     post {
+    post {
         always {
             cleanWs()
         }
