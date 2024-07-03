@@ -27,6 +27,7 @@ const userSchema = new mongoose.Schema({
     avatar: {type: String},
     address: {type: String},
     name: {type: String},
+    csrf_secret: {type: String},
     totpSecret : {type: String},
     resetPasswordToken: {type: String},
     resetPasswordExpires: {type: Date},

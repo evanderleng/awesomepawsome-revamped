@@ -45,9 +45,9 @@ const checkEditProfileReq = [ //untested, to test and integrate
 
 const checkEditPetReq = [ //partially tested...
 	check('petDetails.petName', petNameMsg).matches(petNameRegex).optional(),
+	check('petDetails.petBreed', petBreedMsg).matches(petBreedRegex).optional(),
 	check('petDetails.petAge', petAgeMsg).matches(petAgeRegex).optional(),
-	check('petDetails.petSize', petSizeMsg).matches(petSizeRegex).optional(),
-	check('petDetails.petName', petBreedMsg).matches(petBreedRegex).optional()
+	check('petDetails.petSize', petSizeMsg).matches(petSizeRegex).optional()
 ]
 
 module.exports = { checkAddUserReq, checkLoginReq, checkResetPasswordTokenReq, checkEditProfileReq, checkEditPetReq };
