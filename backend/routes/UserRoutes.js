@@ -10,8 +10,8 @@ const { checkOTP } = require('../middleware/otpMiddleware.js')
 const userController = require("../controllers/userController.js");
 
 
-//router.route("/editPet").post(authMiddleware.auth, checkEditPetReq, checkValid, userController.editPet);
-router.route("/editPet").post(authMiddleware.auth, checkCSRF, userController.editPet); //yet to add validation
+router.route("/editPet").post(authMiddleware.auth, checkCSRF, checkEditPetReq, checkValid, userController.editPet);
+//router.route("/editPet").post(authMiddleware.auth, checkCSRF, userController.editPet); //yet to add validation
 router.route("/editProfile").post(authMiddleware.auth, userController.editProfile);
 router.route("/getProfile").get(authMiddleware.auth, userController.getProfile);
 
