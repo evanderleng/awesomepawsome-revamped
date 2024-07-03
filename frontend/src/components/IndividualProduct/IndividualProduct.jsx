@@ -117,15 +117,12 @@ const IndividualProduct = ({
             <h3>Subscription Price</h3>
             <p>${price} / Month</p>
           </div>
-          {/* Add to Cart Form */}
           {isLogin && (
-            <form className="add-to-cart" onSubmit={addToCart}>
-              {/* Hidden CSRF token input, value has been auto assigned as CSRF token value */}
-              <input type="hidden" name="csrfToken" />
-              <button type="submit" disabled={inCart}>
+            <div className="add-to-cart">
+              <button onClick={addToCart} disabled={inCart}>
                 {inCart ? "Added To Cart" : "Add To Cart"}
               </button>
-            </form>
+            </div>
           )}
         </div>
       </div>

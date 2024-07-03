@@ -61,9 +61,11 @@ const Cart = () => {
 
   const handleAddToCart = async (product_id, quantity) => {
     try {
+      const csrfToken = sessionStorage.getItem("csrfToken"); // Retrieve the token from sessionStorage
       const cartData = {
         product_id: product_id,
         quantity: quantity,
+        csrf_token: csrfToken // Include the CSRF token in the request body
       };
 
       // Log the payload before sending
