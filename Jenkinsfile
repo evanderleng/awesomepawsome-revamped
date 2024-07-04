@@ -16,6 +16,7 @@ pipeline {
                 }
                 dependencyCheck additionalArguments: '''
                             --format HTML --format XML -n
+                '''
             }
         }
         stage('Unit Testing Phase') {
