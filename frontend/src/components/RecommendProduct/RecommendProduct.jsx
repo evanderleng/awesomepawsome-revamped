@@ -1,10 +1,46 @@
-import React from "react";
-import './RecommendProduct.css'
-import dog_food from '../../assets/dog_food_3.png'
+import React, { useEffect } from "react";
+import './RecommendProduct.css';
+import dog_food from '../../assets/dog_food_3.png';
 import { Link, useLocation } from 'react-router-dom';
+import axios from 'axios';
 
 
 const RecommendProduct = ({petIsRegistered, isLogin}) => {
+
+
+  useEffect(() => {
+    // Function to make the POST request
+    const makePostRequest = async () => {
+      try {
+        // Make the POST request without any data payload
+        const res = await axios.post('http://127.0.0.1:4000/api/product/getRecommended', {
+          headers: {
+            'Content-Type': 'application/json', // Optional since no payload is sent
+          },
+        });
+
+        response = res.data;
+        console.log("Response from Recommend API: ", response);
+
+      } catch (err) {
+        // Handle the error
+        // setError(err.response ? err.response.data : 'Error: Network Error');
+        // setResponse(null);
+        console.log("Error from Recommend API: ",err);
+      }
+    };
+
+     // Call the function
+     makePostRequest();
+    }, []); // Empty dependency array ensures this runs only on mount
+  
+
+
+
+
+
+
+
   if (petIsRegistered && isLogin){
     return (
     <div className="recommend-product-container">

@@ -17,7 +17,7 @@ const IndividualProductPage = () => {
     ratingCount,
     description,
     ingredients,
-    breedSize,
+    petSize,
     imageURL,
   } = location.state || {}; // Destructure name and price from location.state
 
@@ -66,7 +66,7 @@ const IndividualProductPage = () => {
         ratingCount={ratingCount}
         description={description}
         ingredients={ingredients}
-        breedSize={breedSize}
+        petSize={petSize}
         imageURL={imageURL}
       />
 
