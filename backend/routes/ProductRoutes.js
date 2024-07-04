@@ -6,6 +6,7 @@ const {checkAddProductReq} = require('../middleware/validators/productValidator.
 const {checkValid} = require('../middleware/validators/validatorMiddleware.js')
 const productController = require("../controllers/productController.js");
 
+router.route("/getRecommended").get(authMiddleware.auth, productController.getRecommended);
 router.route("/getProduct").get(productController.getProduct);
 router.route("/:productId").get(productController.getProductById);
 router.route("/addProduct").post(authMiddleware.authAdmin, productController.addProduct);
