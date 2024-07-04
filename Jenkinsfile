@@ -47,7 +47,6 @@ pipeline {
                 sh 'docker compose up --build -d'
             }
         }
-    }
 
     post {
         always {
