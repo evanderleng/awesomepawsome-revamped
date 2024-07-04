@@ -7,16 +7,15 @@ pipeline {
 
     stages {
         stage('Dependency Check') {
-            steps {
-                dir('frontend') {
-                    sh 'npm install'
-                }
-                dir('backend') {
-                    sh 'npm install'
-                }
-                dependencyCheck additionalArguments: '''
-                            --format HTML --format XML -n
-                '''
+            dir('frontend') {
+                sh 'npm install'
+            }
+            dir('backend') {
+                sh 'npm install'
+            }
+            dependencyCheck additionalArguments: '''
+                        --format HTML --format XML -n
+            '''
             }
         }
         stage('Unit Testing Phase') {
