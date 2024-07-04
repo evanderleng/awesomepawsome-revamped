@@ -36,7 +36,7 @@ const getRecommended = async (req, res) => {
   try {
     const user_id = req.user._id
 
-    const user = await User.findById(user_id);
+    const user = await User.findOne( { _id: user_id } );
 
     const product = await Product.findOne( { 
       $or: [{petSize: user.petDetails.petSize}, {petAge: user.petDetails.petAge}] 
