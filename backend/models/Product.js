@@ -9,7 +9,8 @@ const productSchema = new mongoose.Schema({
     ratingCount: {type: Number, default: 0},
     description: {type: String},
     ingredients:{type: String},
-    breedSize:{type: String},
+    petSize:{type: String},
+    petAge:{type: String},
     ageGroup:{type: String},
     imageURL:{type: String}
 },
