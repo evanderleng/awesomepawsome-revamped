@@ -4,6 +4,7 @@ import { assets } from "../../assets/assets";
 import { StoreContext } from "../../context/StoreContext";
 import Cookies from 'js-cookie';
 import { Link, useLocation, useNavigate } from "react-router-dom";
+import LoginOTPPopup from "../LoginOTPPopUp/LoginOTPPopup";
 
 
 
@@ -13,6 +14,21 @@ const LoginPopup = ({ setShowLogin }) => {
   const navigate = useNavigate();
 
   const [currState, setCurrState] = useState("Login");
+
+  // state to show popup for OTP 
+  const [showOTPPopup, setShowOTPPopup] = useState(false);
+
+
+  // state to store username and password typed
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+    
+
+  // function to close popup setShowOTPPop to false, pass into component
+  const closePopUp = () => {
+    setShowOTPPopup(false)
+  }
+
 
   // state to set the isLogin state, obtained from StoredContext
   const {
@@ -79,8 +95,12 @@ const LoginPopup = ({ setShowLogin }) => {
     const name = formData.get("name");
     const password = formData.get("password");
 
+    // set them to the state in case need to pass over
+    setUsername(name);
+    setPassword(password);
+
     try {
-      const response = await fetch("http://127.0.0.1:4000/api/user/login", {
+      const response = await fetch("http://127.0.0.1:4000/api/email/send2faEmail_Login", {
         method: "POST",
         headers: {
           Accept: "application/json",
@@ -92,40 +112,64 @@ const LoginPopup = ({ setShowLogin }) => {
         }),
       });
 
-      // if response ok (login successful), do the following
-      if (response.ok) {
-        console.log("User Logged In");
+      // if reponse ok (user exists), do the following
+      if(response.ok){
+        console.log("User Exists, OTP has been sent")
         const result = await response.json();
-        console.log("User Logged In:", result); // debugging
-
-        const receivedToken = result.token;
-
-        // Store the token in a cookie
-        // secure: true means cookie is only sent over HTTPS
-        // sameSite: strict means the cookie is not sent with cross-site requests
-        Cookies.set("authToken", receivedToken, {
-          path: "/",
-          secure: true,
-          sameSite: "Strict",
-        });
-        // Optionally, trigger a UI update or redirect
-        console.log("Token stored in cookies:", receivedToken);
-
-        setShowLogin(false); // set state to false to remove the popup
-        setIsLogin(true); // set state to true to show that user is logged in
-        setUserIsAdmin(result.admin); // set state to show if it is admin or not
-        navigate('/'); // redirect to home upon login
-
-
-        //
-        localStorage.setItem("isAdmin", result.admin ? true : false);
-
-        console.log("User ID: ", result._id);
-        console.log("Is Admin?: ", result.admin);
-      } else {
-        const errorData = await response.json();
-        throw new Error(errorData.message || "Failed to Login.");
+        console.log("Message Shown:", result.message); // debugging
+        setShowOTPPopup(true);
       }
+
+      else{
+        console.log("Invalid Username / Password");
+        alert("Invalid Username / Password");
+      }
+
+
+
+
+
+
+
+
+
+
+      // ================================== OLD LOGIN SYSTEM ========================================
+
+      // // if response ok (login successful), do the following
+      // if (response.ok) {
+      //   console.log("User Logged In");
+      //   const result = await response.json();
+      //   console.log("User Logged In:", result); // debugging
+
+      //   const receivedToken = result.token;
+
+      //   // Store the token in a cookie
+      //   // secure: true means cookie is only sent over HTTPS
+      //   // sameSite: strict means the cookie is not sent with cross-site requests
+      //   Cookies.set("authToken", receivedToken, {
+      //     path: "/",
+      //     secure: true,
+      //     sameSite: "Strict",
+      //   });
+      //   // Optionally, trigger a UI update or redirect
+      //   console.log("Token stored in cookies:", receivedToken);
+
+      //   setShowLogin(false); // set state to false to remove the popup
+      //   setIsLogin(true); // set state to true to show that user is logged in
+      //   setUserIsAdmin(result.admin); // set state to show if it is admin or not
+      //   navigate('/'); // redirect to home upon login
+
+
+      //   //
+      //   localStorage.setItem("isAdmin", result.admin ? true : false);
+
+      //   console.log("User ID: ", result._id);
+      //   console.log("Is Admin?: ", result.admin);
+      // } else {
+      //   const errorData = await response.json();
+      //   throw new Error(errorData.message || "Failed to Login.");
+      // }
     } catch (error) {
       console.error("Error:", error);
       setErrorMsg(error.message);
@@ -179,11 +223,14 @@ const LoginPopup = ({ setShowLogin }) => {
         ) : (
           <button type="submit">Login</button>
         )}
-
-        <div className="login-popup-condition">
-          <input type="checkbox" required />
-          <p>By continuing, I agree to the terms of use & privacy policy.</p>
-        </div>
+        {currState === "Login" ? (
+            <></>
+          ) : (
+          <div className="login-popup-condition">
+            <input type="checkbox" required />
+            <p>By continuing, I agree to the terms of use & privacy policy.</p>
+          </div>
+        )}
         {currState === "Login" ? (
           <p>
             Create a new account?{" "}
@@ -211,6 +258,12 @@ const LoginPopup = ({ setShowLogin }) => {
           <button onClick={() => setErrorMsg("")}>Close</button>
         </div>
       )}
+
+
+      {/* call OTP PopUp depending on state */}
+      {showOTPPopup && <LoginOTPPopup setShowLogin={setShowLogin} closePopUp={closePopUp} username={username} password={password}/>}
+
+
     </div>
   );
 };

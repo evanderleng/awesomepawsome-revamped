@@ -2,7 +2,7 @@ const jwt = require('jsonwebtoken')
 const User = require('../models/User.js');
 
 const auth = async (req, res, next) => {
-    if (req.headers.authorization){ //to add regex (global regex js page?)
+    if (req.headers.authorization && req.headers.authorization.startsWith("Bearer")){ 
         try{
             const token = req.headers.authorization.split(' ')[1]
 

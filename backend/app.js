@@ -4,6 +4,7 @@ const mongoSanitize = require("express-mongo-sanitize");
 const helmet = require("helmet");
 const cors = require("cors");
 const connDB = require("./db");
+const session = require('express-session');
 
 const UserRouter = require("./routes/UserRoutes.js")
 const ProductRouter = require("./routes/ProductRoutes.js")
@@ -23,15 +24,30 @@ connDB();
 const app = express();
 
 if (process.env.NODE_ENV == "development") {
-  app.use(cors());
+  app.use(cors({
+    credentials: true,
+    origin: true
+  }));
   console.log("development mode detected. CORS disabled.");
 } else {
-  //app.use(helmet())
+  app.use(helmet({
+    accessControlAllowOrigin: true, //untested
+    accessControlAllowCredentials: true //untested
+  }))
   console.log("production mode detected. CORS enabled.");
 }
 
 app.use(express.json());
 app.use(mongoSanitize());
+app.use(session({
+  secret: 'weak_key',
+  resave: false,
+  saveUninitialized: false,
+  cookie: { 
+    maxAge: 1000 * 60 *60, //1hr
+    httpOnly: true
+  }
+}));
 
 //testing frontend backend connection works, delete before submission
 app.get("/api/test", (req, res) => {

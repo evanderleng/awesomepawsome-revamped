@@ -28,7 +28,7 @@ const checkLoginReq = [
 ]
 
 const checkResetPasswordTokenReq = [
-	check('token', resetPasswordTokenMessage).matches(resetPasswordTokenRegex).notEmpty()
+	check('resetToken', resetPasswordTokenMessage).matches(resetPasswordTokenRegex).notEmpty()
 ]
 
 const checkEditProfileReq = [ //untested, to test and integrate
