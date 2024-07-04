@@ -55,6 +55,7 @@ const AdminAddProduct = () => {
             </select>
             <h3>Image</h3>
             <input type="file" name='product_image'/>
+            <input type="hidden" name="csrf_token" value={sessionStorage.getItem("csrfToken")}></input>
             <button>Add Product</button>
         </form>
     </div>
