@@ -7,6 +7,8 @@ import axios from "axios";
 
 const IndividualProductPage = () => {
   const location = useLocation();
+  console.log('Location:', location); // Add this line to check the location object
+
   const {
     id,
     brand,
@@ -25,10 +27,10 @@ const IndividualProductPage = () => {
   const [reviews, setReviews] = useState([]);
 
   // debugging purpose
-  // console.log("id brought over: ", id);
-  // console.log("name brought over: ", name);
-  // console.log("price brought over: ", price);
-  // console.log("description brought over: ", description);
+  console.log("id brought over: ", id);
+  console.log("name brought over: ", name);
+  console.log("price brought over: ", price);
+  console.log("description brought over: ", description);
 
   // API Call to get list of reviews for specific product
   useEffect(() => {

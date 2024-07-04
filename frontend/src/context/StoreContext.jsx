@@ -7,7 +7,7 @@ export const StoreContext = createContext(null);
 const StoreContextProvider = (props) => {
   const [isLogin, setIsLogin] = useState(false); // state variable to see if user is logged in or not
 
-  const [petIsRegistered, setPetIsRegistered] = useState(false); // state variable to see if user has registered their pets
+  const [petIsRegistered, setPetIsRegistered] = useState(true); // state variable to see if user has registered their pets
 
   const [userId, setUserId] = useState(""); // state variable to store their userId upon logging in
 
