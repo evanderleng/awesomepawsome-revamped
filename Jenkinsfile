@@ -7,7 +7,7 @@ pipeline {
 
     stages {
         stage('Dependency Check') {
-            steps{
+            steps {
                 dir('frontend') {
                     sh 'npm install'
                 }
@@ -16,8 +16,9 @@ pipeline {
                 }
                 dependencyCheck additionalArguments: '''
                             --format HTML --format XML -n
-                '''
-                }
+                            ''', odcInstallation: 'Dependency Check'
+
+                dependencyCheckPublisher pattern: 'dependency-check-report.xml'
             }
         }
         stage('Unit Testing Phase') {
@@ -49,6 +50,7 @@ pipeline {
                 sh 'docker compose up --build -d'
             }
         }
+    }
 
     post {
         always {
