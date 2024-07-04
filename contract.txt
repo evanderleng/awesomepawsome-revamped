@@ -142,8 +142,34 @@ returns: message
 returns 400, 201, 500
 
 
-todo:
-mongo access control
-centralised validation regex
-change db bigint to number
-_tests
+/api/user/hasProduct?product_id=xxx
+header: "Authorization: Bearer {token}" 
+GET
+returns: {hasProduct: true} OR {hasProduct: false}
+returns 200, 500
+
+
+/api/user/hasReview?product_id=xxx
+header: "Authorization: Bearer {token}" 
+GET
+returns: {hasReview: true} OR {hasReview: false}
+returns 200, 500
+
+
+
+
+======== TODO ===========
+- mongo access control
+
+- edit admin add product
+    -> name of breedSize change to petSize
+    -> additional field called petAge
+
+
+- create API for recommend me page 
+    -> based on the user pet's petSize and petAge 
+    -> do a match and find first record 
+    -> Return: entire product table of that matched product in JSON response
+
+
+    

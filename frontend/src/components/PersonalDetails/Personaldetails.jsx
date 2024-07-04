@@ -93,6 +93,7 @@ const PersonalDetails = ({ personalDetails, setPersonalDetails }) => {
             Avatar:
             <input type="file" name='avatar'/>
           </label>
+          <input type="hidden" name="csrf_token" value={sessionStorage.getItem("csrfToken")}></input>
           <button type="submit">Save</button> 
         </form>
       ) : (

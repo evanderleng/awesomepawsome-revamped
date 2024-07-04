@@ -20,7 +20,7 @@ function fileFilter (req, file, cb) {
     let extName = path.extname(file.originalname);
     let ext = extName.substring(1).toLowerCase();
     if (ext !== "png" && ext !== "jpg" && ext !== "jpeg") {
-        return cb(new Error("Only png, jpg, jpeg are accepted"));
+        return cb("Only png, jpg, jpeg are accepted", false);
     }
     cb(null, true);  
 }
@@ -33,10 +33,11 @@ function checktmp () {
 
 const uploadToLocal = multer({
     storage: storage,
-    limits: { //limit to 3MB
-        fileSize: 3 * 1000000,
-    },
-    fileFilter: fileFilter
+    fileFilter: fileFilter,
+    limits: { 
+        files: 1,
+        fileSize: 3 * 1000000,//limit to 3MB
+    }
 });
 
 const uploadProduct = async (file, image_name) => {
@@ -52,6 +53,7 @@ const uploadProduct = async (file, image_name) => {
 const uploadAvatar = async (file, image_name) => {
     try {
         const cloudinary = cloudinary_func();
+        console.log("img: "+image_name)
         const upload = await cloudinary.v2.uploader.upload(file.path, {folder:'avatars', resource_type: 'image', public_id: image_name, overwrite: true, height:500, width:500, crop:'thumb'});
         return upload.secure_url;
     } catch (error) {

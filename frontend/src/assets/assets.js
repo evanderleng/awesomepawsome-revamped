@@ -405,7 +405,7 @@ export const dog_breedSize_list = [
         image: medium_breed_dog
     },
     {
-        breedSize: "big",
+        breedSize: "large",
         image: big_breed_dog
     }
 

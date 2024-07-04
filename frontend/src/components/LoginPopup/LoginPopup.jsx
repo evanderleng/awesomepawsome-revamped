@@ -102,6 +102,7 @@ const LoginPopup = ({ setShowLogin }) => {
     try {
       const response = await fetch("http://127.0.0.1:4000/api/email/send2faEmail_Login", {
         method: "POST",
+        credentials : "include",
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
@@ -136,24 +137,29 @@ const LoginPopup = ({ setShowLogin }) => {
 
       // ================================== OLD LOGIN SYSTEM ========================================
 
-      // // if response ok (login successful), do the following
+      // if response ok (login successful), do the following
       // if (response.ok) {
       //   console.log("User Logged In");
       //   const result = await response.json();
       //   console.log("User Logged In:", result); // debugging
 
-      //   const receivedToken = result.token;
+      //   const receivedJWTToken = result.token;  // received JWT Token from response
+      //   const receivedCSRFToken = result.csrf_token; // received csrf token from response
 
       //   // Store the token in a cookie
       //   // secure: true means cookie is only sent over HTTPS
       //   // sameSite: strict means the cookie is not sent with cross-site requests
-      //   Cookies.set("authToken", receivedToken, {
+      //   Cookies.set("authToken", receivedJWTToken, {
       //     path: "/",
       //     secure: true,
       //     sameSite: "Strict",
       //   });
       //   // Optionally, trigger a UI update or redirect
-      //   console.log("Token stored in cookies:", receivedToken);
+      //   console.log("Token stored in cookies:", receivedJWTToken);
+
+
+
+      //   sessionStorage.setItem('csrfToken', receivedCSRFToken);
 
       //   setShowLogin(false); // set state to false to remove the popup
       //   setIsLogin(true); // set state to true to show that user is logged in

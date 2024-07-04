@@ -58,7 +58,7 @@ const {
 
     // Implement OTP Logic here
     try {
-      const response = await fetch("/api/user/login_2fa", {
+      const response = await fetch("/api/user/login", {
         method: "POST",
         headers: {
           Accept: "application/json",
@@ -78,23 +78,27 @@ const {
         console.log("Message:", result.message); // debugging
 
         // store JWT token into Cookie
-        const receivedToken = result.token;
+        const receivedJWTToken = result.jwt_token;  // received JWT Token from response
+        const receivedCSRFToken = result.csrf_token; // received csrf token from response
 
         // Store the token in a cookie
         // secure: true means cookie is only sent over HTTPS
         // sameSite: strict means the cookie is not sent with cross-site requests
-        Cookies.set("authToken", receivedToken, {
+        Cookies.set("authToken", receivedJWTToken, {
           path: "/",
           secure: true,
           sameSite: "Strict",
         });
         // Optionally, trigger a UI update or redirect
-        console.log("Token stored in cookies:", receivedToken);
+        console.log("Token stored in cookies:", receivedJWTToken);
 
+
+        sessionStorage.setItem('csrfToken', receivedCSRFToken);
 
         setIsLogin(true);
         setShowLogin(false);
         setUserIsAdmin(result.admin); // set state to show if it is admin or not
+        localStorage.setItem("isAdmin", result.admin ? true : false);
         navigate('/');  // navigate to homepage if you're somewhere else
       } else {
         alert("Wrong OTP");

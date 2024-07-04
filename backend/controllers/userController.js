@@ -1,9 +1,13 @@
 
 const User = require('../models/User.js');
+const Order = require('../models/Order.js');
+const Review = require('../models/Review.js');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const cookie = require('cookie');
 const escape = require('escape-html');
+const multer = require('multer');
+const { checkCSRF } = require('../middleware/csrfMiddleware.js');
 const speakeasy = require('speakeasy') // for totp generationvar 
 const { csrf_generator, csrf_secret } = require('../util/csrf')
 
@@ -40,7 +44,7 @@ const addUser = async (req, res) => {
 			admin: false,
 			avatar: "https://res.cloudinary.com/dg7xhtwnl/image/upload/v1719492487/avatars/default.jpg",
 			totpSecret: speakeasy.generateSecret().base32
-		})
+		});
 		return res.status(201).json({ message: "Successfully added!" })
 	} catch (err) {
 		return res.status(500).json({ message: err.message });
@@ -54,8 +58,6 @@ const login = async (req, res) => {
 		const csrf_secret = csrf_generator.secretSync()
 		const csrf_token = csrf_generator.create(csrf_secret)
 
-		req.session.csrf_secret = csrf_secret
-
 		let user = await User.findOne({ username });
 
 		if (!user) {
@@ -65,7 +67,13 @@ const login = async (req, res) => {
 			return res.status(401).json({ message: "Invalid Credentials" });
 		} else {
 
-			const token = jwt.sign({ _id: user._id }, process.env.TOKEN_SECRET, {
+			//insert csrf secret into db
+			const updateUser = await User.updateOne(
+				{ username },
+				{ $set: { csrf_secret } }
+			);
+
+			const jwt_token = jwt.sign({ _id: user._id }, process.env.TOKEN_SECRET, {
 				algorithm: "HS512",
 				expiresIn: "36000s",
 			});
@@ -76,51 +84,13 @@ const login = async (req, res) => {
 				_id: user._id,
 				admin: user.admin,
 				avatar: user.avatar,
-				token: token,
+				jwt_token: jwt_token,
 				csrf_token: csrf_token
 			});
 		}
 	}
 	catch (err) {
 		return res.status(500).json({ message: "Internal error" });
-	}
-}
-
-const login_2fa = async (req, res) => {
-	try {
-		const { username, password, otpToken } = req.body;
-
-		let user = await User.findOne({ username });
-
-		if (!user) {
-			return res.status(404).json({ message: "User does not exist" });
-		}
-		if (!bcrypt.compareSync(password, user.password)) {
-			return res.status(401).json({ message: "Invalid Credentials" });
-		}
-
-		const otpVerify = otp.verifyOTP(user.totpSecret, otpToken);
-
-		if (!otpVerify) {
-			return res.status(400).json({ message: "Invalid Token" });
-		}
-
-		const token = jwt.sign({ _id: user._id }, process.env.TOKEN_SECRET, {
-			algorithm: "HS512",
-			expiresIn: "36000s",
-		});
-
-		return res.status(200).json({
-			message: "Login successful",
-			username: user.username,
-			_id: user._id,
-			admin: user.admin,
-			avatar: user.avatar,
-			token: token,
-		});
-	}
-	catch (err) {
-		return res.status(500).json({ message: "Internal Error" });
 	}
 }
 
@@ -155,11 +125,11 @@ const getProfile = async (req, res) => {
 		user.avatar = escape(user.avatar);
 
 		if (user.petDetails) {
-		user.petDetails.petName = escape(user.petDetails.petName);
-		user.petDetails.petBreed = escape(user.petDetails.petBreed);
-		user.petDetails.petAge = escape(user.petDetails.petAge);
-		user.petDetails.petSize = escape(user.petDetails.petSize);
-	}
+			user.petDetails.petName = escape(user.petDetails.petName);
+			user.petDetails.petBreed = escape(user.petDetails.petBreed);
+			user.petDetails.petAge = escape(user.petDetails.petAge);
+			user.petDetails.petSize = escape(user.petDetails.petSize);
+		}
 
 		// Consider handling other fields if needed
 		// For example, you could escape pet details or handle them conditionally
@@ -175,7 +145,7 @@ const editPet = async (req, res) => {
 	try {
 		let { petName, petBreed, petAge, petSize } = req.body.petDetails;
 
-		if (petName) {petName = escape(petName);}
+		if (petName) {petName = escape(petName);} else {petName = ""}
 		if (petBreed) {petBreed = escape(petBreed);}
 		if (petAge) {petAge = escape(petAge);}
 		if (petSize) {petSize = escape(petSize);}
@@ -199,43 +169,87 @@ const editPet = async (req, res) => {
 	}
 };
 
+const hasProduct = async (req, res) => {
+	try {
+		const { product_id } = req.query
+
+		console.log(product_id)
+		const order = await Order.find({
+            user_id: req.user._id,
+			"order_list.product_id": product_id
+        });
+
+		if (order.length > 0){
+			return res.status(200).json({ hasProduct: true});
+		} else {
+			return res.status(200).json({ hasProduct: false });
+		}
+	} catch (err) {
+		return res.status(500).json({ message: err });
+	}
+};
+
+const hasReview = async (req, res) => {
+	try {
+		const { product_id } = req.query
+
+		const review = await Review.find({
+            user_id: req.user._id,
+			"product_id": product_id
+        });
+
+		if (review.length > 0){
+			return res.status(200).json({ hasReview: true});
+		} else {
+			return res.status(200).json({ hasReview: false });
+		}
+	} catch (err) {
+		return res.status(500).json({ message: err });
+	}
+};
+
 const editProfile = async (req, res) => {
-	const upload = uploadToLocal.single('avatar');
+	const upload = await uploadToLocal.single('avatar');
 	upload(req, res, async function (err) {
 		if (err) {
-			return res.status(500).json({ message: "File upload failed: " + err.message });
+			return res.status(500).json({ message: err.message });
 		}
-		try {
-			const { username, email, address } = req.body;
-			const updateData = { username, email, address };
+		checkCSRF(req, res, async function (err) {
+			try{
+				const { username, email, address } = req.body;
+				const updateData = { username, email, address };
 
-			if (req.file) {
-				const cloudImgUrl = await uploadAvatar(req.file, req.user.username);
-				updateData.avatar = cloudImgUrl;
-			}
+				if (req.file) {
+					const cloudImgUrl = await uploadAvatar(req.file, req.user.username);
+					updateData.avatar = cloudImgUrl;
+				}
 
-			const actualUser = await User.findOne({ _id: req.user._id });
-			if (!actualUser) {
-				return res.status(500).json({ message: "Edit failed" });
+				const actualUser = await User.findOne({ _id: req.user._id });
+				if (!actualUser) {
+					return res.status(500).json({ message: "Edit failed" });
+				}
+				const userUsername = await User.findOne({ username });
+				if (userUsername && userUsername._id != req.user._id) { //if already exists existing username 
+					return res.status(400).json({ message: "Username is already taken" })
+				}
+				const userEmail = await User.findOne({ email });
+				if (userEmail && userEmail.email != actualUser.email) { //if already exists existing email
+					return res.status(400).json({ message: "Email has already registered with another account" })
+				}
+				const updateUser = await User.updateOne({ _id: req.user._id }, { $set: updateData });
+				if (updateUser) {
+					return res.status(200).json({ message: "Edit Success" });
+				} else {
+					return res.status(500).json({ message: "Edit Failed" });
+				}
+			} catch (err) {
+				if (err instanceof multer.MulterError){
+					return res.status(500).json({ message: "Only png, jpg, jpeg are accepted. Filesize limited to 3MB"});
+				} else {
+					return res.status(500).json({ message: "Only png, jpg, jpeg are accepted. Filesize limited to 3MB"});
+				}
 			}
-			const userUsername = await User.findOne({ username });
-			if (userUsername && userUsername._id != req.user._id) { //if already exists existing username 
-				return res.status(400).json({ message: "Username is already taken" })
-			}
-			const userEmail = await User.findOne({ email });
-			if (userEmail && userEmail.email != actualUser.email) { //if already exists existing email
-				return res.status(400).json({ message: "Email has already registered with another account" })
-			}
-			const updateUser = await User.updateOne({ _id: req.user._id }, { $set: updateData });
-			if (updateUser) {
-				return res.status(200).json({ message: "Edit Success" });
-			} else {
-				return res.status(500).json({ message: "Edit Failed" });
-			}
-		} catch (dbError) {
-			console.error('Database error during profile update:', dbError);
-			return res.status(500).json({ message: "Database error: " + dbError.message });
-		}
+		});
 	});
 };
 
@@ -274,4 +288,4 @@ const resetPassword = async (req, res) => {
 	}
 }
 
-module.exports = { addUser, login, login_2fa, editProfile, editPet, getProfile, resetPassword };
+module.exports = { addUser, login, editProfile, editPet, getProfile, resetPassword, hasProduct, hasReview  };

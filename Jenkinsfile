@@ -16,9 +16,6 @@ pipeline {
                 }
                 dependencyCheck additionalArguments: '''
                             --format HTML --format XML -n
-                            ''', odcInstallation: 'Dependency Check'
-
-                dependencyCheckPublisher pattern: 'dependency-check-report.xml'
             }
         }
         stage('Unit Testing Phase') {

@@ -5,15 +5,15 @@ import axiosInstance from '../../../axiosConfig'
 
 
   const breedOptions = [
-    "Labrador Retriever", "German Shepherd", "Golden Retriever", "French Bulldog", "Bulldog", "Poodle", "Beagle", "Rottweiler", "Yorkshire Terrier", "Boxer"
+    "labrador retriever", "german shepherd", "golden retriever", "french bulldog", "bulldog", "poodle", "beagle", "rottweiler", "yorkshire terrier", "boxer"
   ];
 
   const ageOptions = [
-      "Puppy", "Junior", "Adult", "Senior"
+      "puppy", "junior", "adult", "senior"
   ];
 
   const sizeOptions = [
-      "Small", "Medium", "Large", "Giant"
+      "small", "medium", "large",
   ];
 
   const PetDetails = () => {
@@ -55,7 +55,8 @@ import axiosInstance from '../../../axiosConfig'
         delete petDetails[key]
       }
     }
-    axiosInstance.post(url, { petDetails: petDetails })
+    const csrfToken = sessionStorage.getItem("csrfToken"); // Retrieve the token from sessionStorage
+    axiosInstance.post(url, { petDetails: petDetails, csrf_token: csrfToken})
         .then(response => {
             console.log('Pet details saved successfully:', response.data);
             setEditMode(false);  // Only exit edit mode if the save is successful
@@ -81,12 +82,13 @@ import axiosInstance from '../../../axiosConfig'
          </label>
          <label>
              Breed:
-             <select name="petBreed" value={petDetails.petBreed} onChange={handleChange}>
+             <input type="text" name="petBreed" value={petDetails.petBreed} list="breed" onChange={handleChange} placeholder="Please Select or Type"></input>
+             <datalist id="breed">
                  <option disabled selected value="">- Please Select -</option>
                  {breedOptions.map(breed => (
                      <option key={breed} value={breed}>{breed}</option>
                  ))}
-             </select>
+             </datalist>
          </label>
          <label>
              Age:
