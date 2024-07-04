@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import "../../components/LoginPopup/LoginPopup.css";
 import OTPPopup from "../../components/OTPPopup/OTPPopup";
 import "./VerifyEmailPage.css";
+import LoadingIcon from "../../components/LoadingIcon/LoadingIcon";
 
 
 const VerifyEmailPage = () => {
@@ -20,7 +21,10 @@ const VerifyEmailPage = () => {
   // Check if user exists
   const [userExists, setUserExists] = useState(null);
 
-  // const [showLoginPopup, setShowLoginPopup] = useState(false);
+
+  // state to display loading icon
+  const [showLoadingIcon, setShowLoadingIcon] = useState(false);
+
 
   const navigate = useNavigate();
 
@@ -30,6 +34,8 @@ const VerifyEmailPage = () => {
 
   const handleEmailExistCheck = async (e) => {
     e.preventDefault();
+
+    setShowLoadingIcon(true);
 
     // Directly get form data from event target (the form itself)
     const formData = new FormData(e.target);
@@ -49,6 +55,8 @@ const VerifyEmailPage = () => {
             email: email,
           }),
         });
+        setShowLoadingIcon(false);
+
 
         if (response.status === 404) { //user account with email does not exist
           const errorMessage = "User with specified email does not exist. Click below to create new user";
@@ -131,7 +139,10 @@ const VerifyEmailPage = () => {
           <button onClick={() => setErrorMsg("")}>Close</button>
         </div>
       )} */}
-      
+
+      {/* loading icon pop up depending on state */}
+      {showLoadingIcon && <LoadingIcon/>}
+
     </>
   );
 };

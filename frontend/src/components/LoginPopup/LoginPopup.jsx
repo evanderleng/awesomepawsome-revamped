@@ -5,6 +5,7 @@ import { StoreContext } from "../../context/StoreContext";
 import Cookies from 'js-cookie';
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import LoginOTPPopup from "../LoginOTPPopUp/LoginOTPPopup";
+import LoadingIcon from "../LoadingIcon/LoadingIcon";
 
 
 
@@ -22,6 +23,9 @@ const LoginPopup = ({ setShowLogin }) => {
   // state to store username and password typed
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+
+  // state to display loading icon
+  const [showLoadingIcon, setShowLoadingIcon] = useState(false);
     
 
   // function to close popup setShowOTPPop to false, pass into component
@@ -87,6 +91,7 @@ const LoginPopup = ({ setShowLogin }) => {
 
   // function to handle login
   const handleLogin = async (e) => {
+    setShowLoadingIcon(true);
     e.preventDefault();
 
     // Directly get form data from event target (the form itself)
@@ -113,11 +118,13 @@ const LoginPopup = ({ setShowLogin }) => {
         }),
       });
 
+      
       // if reponse ok (user exists), do the following
       if(response.ok){
         console.log("User Exists, OTP has been sent")
         const result = await response.json();
         console.log("Message Shown:", result.message); // debugging
+        setShowLoadingIcon(false);
         setShowOTPPopup(true);
       }
 
@@ -269,6 +276,8 @@ const LoginPopup = ({ setShowLogin }) => {
       {/* call OTP PopUp depending on state */}
       {showOTPPopup && <LoginOTPPopup setShowLogin={setShowLogin} closePopUp={closePopUp} username={username} password={password}/>}
 
+      {/* loading icon pop up depending on state */}
+      {showLoadingIcon && <LoadingIcon/>}
 
     </div>
   );
