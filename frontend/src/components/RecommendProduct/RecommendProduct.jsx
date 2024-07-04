@@ -1,61 +1,148 @@
-import React from "react";
-import './RecommendProduct.css'
-import dog_food from '../../assets/dog_food_3.png'
-import { Link, useLocation } from 'react-router-dom';
+import React, { useContext, useEffect, useState } from "react";
+import "./RecommendProduct.css";
+import dog_food from "../../assets/dog_food_3.png";
+import { Link, useLocation } from "react-router-dom";
+import axios from "axios";
+import axiosInstance from "../../../axiosConfig";
+import { Reorder } from "@mui/icons-material";
+import { StoreContext } from "../../context/StoreContext";
 
+const RecommendProduct = ({ petIsRegistered , isLogin }) => {
+  // state to store recommended product object
+  const [recommendedProduct, setRecommendedProduct] = useState([]);
 
-const RecommendProduct = ({petIsRegistered, isLogin}) => {
-  if (petIsRegistered && isLogin){
+  // Stored Context 
+  const{ setPetIsRegistered } = useContext(StoreContext);
+
+  // properties of object to pass into state 
+  const id = recommendedProduct._id;
+  const brand = recommendedProduct.brand;
+  const name = recommendedProduct.name;
+  const weight = recommendedProduct.weight;
+  const price = recommendedProduct.price;
+  const description = recommendedProduct.description;
+  const ingredients = recommendedProduct.ingredients;
+  const petSize = recommendedProduct.petSize;
+  const imageURL = recommendedProduct.imageURL;
+
+  useEffect(() => {
+    // Function to make the POST request
+    const makePostRequest = async () => {
+      try {
+        // Make the GET request without any data payload
+        const response = await axiosInstance.get(
+          "http://127.0.0.1:4000/api/product/getRecommended"
+        );
+        
+        console.log("Response from Recommend API: ", response);
+        console.log("brand is", response.data.brand);
+
+        // set the recommendedProduct object
+        setRecommendedProduct(response.data);
+      } catch (err) {
+        // Handle the error
+        // setError(err.response ? err.response.data : 'Error: Network Error');
+        // setResponse(null);
+        setPetIsRegistered(false);
+        console.log("Error from Recommend API: ", err);
+      }
+    };
+
+    // Call the function
+    makePostRequest();
+  }, []); // Empty dependency array ensures this runs only on mount
+
+  /*brand
+
+createdAt
+
+description
+
+imageURL
+
+ingredients
+
+name
+
+petAge
+
+petSize
+
+price
+
+rating
+
+ratingCount
+
+updatedAt
+
+weight
+: 
+*/
+
+  if (petIsRegistered && isLogin) {
     return (
-    <div className="recommend-product-container">
-      <div className="recommend-header-title">
-        <h3>Based on your pet, we recommend...</h3>
+      <div className="recommend-product-container">
+        <div className="recommend-header-title">
+          <h3>Based on your pet, we recommend...</h3>
+        </div>
+        <div className="product-brand">
+          <h3>{recommendedProduct.brand}</h3>
+        </div>
+        <div className="product-name">
+          <p>{recommendedProduct.name}</p>
+        </div>
+        <div className="product-image">
+          <img src={recommendedProduct.imageURL} alt="" />
+        </div>
+        <button className="button">
+          <Link
+            to="/individualProductPage"
+            state={{
+              id,
+              brand,
+              name,
+              weight,
+              price,
+              description,
+              ingredients,
+              petSize,
+              imageURL,
+            }}
+          >
+            More Info
+          </Link>
+        </button>
       </div>
-      <div className="product-brand">
-        <h3>Royal Canin</h3>
-      </div>
-      <div className="product-name">
-        <p>Royal Canin for Small/Petit Dog</p>
-      </div>
-      <div className="product-image">
-        <img src={dog_food} alt=""/>
-      </div>
-      <div className="product-description">
-      <h3>Description</h3>
-            <p>Give your small dog the nourishment they deserve with Pedigree Small Dog Complete Nutrition. Crafted with high-quality ingredients and enriched with essential nutrients, this dog food is specially formulated to meet the unique dietary needs of small breed dogs.</p>
-            <h3>Ingredients</h3>
-            <p>Ground whole corn, meat and bone meal, corn gluten meal, animal fat (preserved with BHA/BHT), chicken by-product meal</p>
-      </div>
-      <div className="add-to-cart">
-        <button>Add To Cart</button>
-      </div>
-    </div>
+    );
+  } else if (!petIsRegistered && isLogin) {
+    return (
+      <>
+        <div className="pet-not-registered-container">
+          <h3>Sorry, your pet is not registered yet!</h3>
+          <p>
+            Do sign up your pet so we know what product to recommend based on
+            their age, breed size and weight as well!
+          </p>
+          <button>
+            <Link to="/profile">Register Your Pet Here!</Link>
+          </button>
+        </div>
+      </>
+    );
+  } else {
+    return (
+      <>
+        <div className="pet-not-registered-container">
+          <h3>Sorry, you are not logged in!</h3>
+          <p>
+            Do log in first and remember to register your pet if you would like
+            us to recommend you the package!
+          </p>
+        </div>
+      </>
     );
   }
-  else if(!petIsRegistered && isLogin){
-    return(
-      <>
-      <div className="pet-not-registered-container">
-       <h3>Sorry, your pet is not registered yet!</h3>
-       <p>Do sign up your pet so we know what product to recommend based on their age, breed size and weight as well!</p> 
-       <button><Link to="/profile">Register Your Pet Here!</Link></button>
- 
-      </div>
-      </>
-    )
-  }
-  else{
-    return(
-      <>
-      <div className="pet-not-registered-container">
-       <h3>Sorry, you are not logged in!</h3>
-       <p>Do log in first and remember to register your pet if you would like us to recommend you the package!</p> 
-      </div>
-      </>
-    )
-  }
-
-  }
-
+};
 
 export default RecommendProduct;

@@ -13,7 +13,7 @@ const IndividualProduct = ({
   price,
   description,
   ingredients,
-  breedSize,
+  petSize,
   imageURL,
 }) => {
   const { isLogin } = useContext(StoreContext);
@@ -110,8 +110,8 @@ const IndividualProduct = ({
             <p>{weight}</p>
           </div>
           <div className="product-breed-size">
-            <h3>Breed Size</h3>
-            <p>{breedSize}</p>
+            <h3>Pet Size</h3>
+            <p>{petSize}</p>
           </div>
           <div className="product-price">
             <h3>Subscription Price</h3>

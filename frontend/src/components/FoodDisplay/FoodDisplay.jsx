@@ -3,7 +3,7 @@ import  './FoodDisplay.css'
 import { StoreContext } from '../../context/StoreContext'
 import FoodItem from '../FoodItem/FoodItem'
 
-const FoodDisplay = ({breedSize, searchQuery}) => {
+const FoodDisplay = ({petSize, searchQuery}) => {
 
     // this lets you use the stored context that is shared across the app (Debugging Purpose, fake data)
     // const {dog_food_list} = useContext(StoreContext)
@@ -38,10 +38,10 @@ const FoodDisplay = ({breedSize, searchQuery}) => {
 
   // Filter products based on breed size and search query
   const filteredProducts = products.filter(product => {
-    const matchesBreedSize = breedSize === "All" || product.breedSize === breedSize;
+    const matchesPetSize = petSize === "All" || product.petSize === petSize;
     const matchesSearchQuery = searchQuery === "" || product.name.toLowerCase().includes(searchQuery.toLowerCase());
 
-    return matchesBreedSize && matchesSearchQuery;
+    return matchesPetSize && matchesSearchQuery;
   });
 
   return (
@@ -61,7 +61,7 @@ const FoodDisplay = ({breedSize, searchQuery}) => {
               price={product.price}
               rating={product.rating}
               ratingCount={product.ratingCount}
-              breedSize={product.breedSize}
+              petSize={product.petSize}
               description={product.description}
               ingredients={product.ingredients}
               imageURL = {product.imageURL}

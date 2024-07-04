@@ -4,8 +4,8 @@ import FilterBreed from "../../components/FilterBreed/FilterBreed";
 import FoodDisplay from "../../components/FoodDisplay/FoodDisplay";
 
 const ProductPage = () => {
-  //breedSize is the state, setbreedSize is the function that sets the state
-  const [breedSize, setBreedSize] = useState("All");
+  //petSize is the state, setPetSize is the function that sets the state
+  const [petSize, setPetSize] = useState("All");
 
   //state to store searched prodcuct
   const [searchQuery, setSearchQuery] = useState("");
@@ -25,10 +25,10 @@ const ProductPage = () => {
       </div>
 
       {/* you are passing both the state and the setter to FilterBreed */}
-      <FilterBreed breedSize={breedSize} setBreedSize={setBreedSize} />
+      <FilterBreed petSize={petSize} setPetSize={setPetSize} />
 
-      {/*you are passing state of breedSize to FoodDisplay component*/}
-      <FoodDisplay breedSize={breedSize} searchQuery={searchQuery}/>
+      {/*you are passing state of petSize to FoodDisplay component*/}
+      <FoodDisplay petSize={petSize} searchQuery={searchQuery}/>
     </div>
   );
 };
