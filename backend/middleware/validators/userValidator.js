@@ -22,7 +22,7 @@ const petBreedMsg = "Pet breed can only contain alphabets and spaces, and have a
 const petAgeRegex = /^Puppy$|^Junior$|^Adult$|^Senior$/g 
 const petAgeMsg = "Invalid Age!"
 
-const petSizeRegex = /^Small$|^Medium$|^Large$|^Giant$/g 
+const petSizeRegex = /^Small$|^Medium$|^Large$/g 
 const petSizeMsg = "Invalid Size!"
 
 const mongoidRegex = /^[\da-f]{24}$/g
