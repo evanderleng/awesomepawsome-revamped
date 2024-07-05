@@ -17,7 +17,7 @@ const handleSubmit = (e) => {
         
       })
       .catch(err => {
-        console.log(err)
+        // console.log(err)
         if (err.response.data.path){ //path exists, let user know which input is incorrect
           alert(err.response.data.path+": "+err.response.data.message);
         } else {
@@ -39,7 +39,7 @@ const AdminAddProduct = () => {
             <input type="text" name='brand' placeholder='brand'/>
             <h3>Item Name</h3>
             <input type="text" name='name' placeholder='name'/>
-            <h3>Weight</h3>
+            <h3>Weight (in kg)</h3>
             <input type="text" name='weight' placeholder='weight'/>
             <h3>Price</h3>
             <input type="text" name='price' placeholder='price'/>
