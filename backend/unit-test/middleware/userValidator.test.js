@@ -135,7 +135,7 @@ describe('Validation Security Test', () => {
 
       const errors = validationResult(req);
       expect(errors.isEmpty()).toBe(false);
-      expect(errors.array()[0].msg).toEqual("Pet name can only contain alphabets and have a maximum of 20 characters");
+      expect(errors.array()[0].msg).toEqual("Pet name can only contain alphabets and spaces, and have a maximum of 50 characters");
     });
 
     it('should fail validation for XSS attempt in petName', async () => {
@@ -151,7 +151,7 @@ describe('Validation Security Test', () => {
 
       const errors = validationResult(req);
       expect(errors.isEmpty()).toBe(false);
-      expect(errors.array()[0].msg).toEqual("Pet name can only contain alphabets and have a maximum of 20 characters");
+      expect(errors.array()[0].msg).toEqual("Pet name can only contain alphabets and spaces, and have a maximum of 50 characters");
     });
   });
 });
