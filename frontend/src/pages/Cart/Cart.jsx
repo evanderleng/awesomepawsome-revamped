@@ -71,7 +71,7 @@ const Cart = () => {
       // Log the payload before sending
       console.log("Sending payload:", cartData);
 
-      const response = await axiosInstance.post("/cart/updateCart", cartData);
+      const response = await axiosInstance.post("api/cart/updateCart", cartData);
       console.log("Cart updated successfully:", response.data); // Debug: log the success response
       fetchCartData(); // Re-fetch cart data to reflect changes
     } catch (error) {
@@ -184,7 +184,7 @@ const Cart = () => {
   };
 
   const confirmOrder = async (orderID) => {
-    const url = `/order/${orderID}/confirm`;
+    const url = `api/order/${orderID}/confirm`;
     const response = await axiosInstance.post(
       url,
       JSON.stringify({
