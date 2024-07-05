@@ -184,7 +184,7 @@ const Cart = () => {
   };
 
   const confirmOrder = async (orderID) => {
-    const url = `api/order/${orderID}/confirm`;
+    const url = `/api/order/${orderID}/confirm`;
     const response = await axiosInstance.post(
       url,
       JSON.stringify({
