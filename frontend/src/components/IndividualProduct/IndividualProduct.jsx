@@ -60,7 +60,7 @@ const IndividualProduct = ({
       };
 
       const response = await axiosInstance.post(
-        "/cart/updateCart",
+        "/api/cart/updateCart",
         cartData,
       );
       console.log("Cart updated successfully:", response.data);
