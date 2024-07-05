@@ -40,9 +40,9 @@ const AdminAddProduct = () => {
             <h3>Item Name</h3>
             <input type="text" name='name' placeholder='name'/>
             <h3>Weight (in kg)</h3>
-            <input type="text" name='weight' placeholder='weight'/>
+            <input type="number" name='weight' placeholder='weight in kg'/>
             <h3>Price</h3>
-            <input type="text" name='price' placeholder='price'/>
+            <input type="number" name='price' placeholder='price'/>
             <h3>Description</h3>
             <input type="text" name='description' placeholder='description'/>
             <h3>Ingredients</h3>

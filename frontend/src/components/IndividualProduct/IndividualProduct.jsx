@@ -107,7 +107,7 @@ const IndividualProduct = ({
           </div>
           <div className="product-weight">
             <h3>Weight</h3>
-            <p>{weight}</p>
+            <p>{weight}kg</p>
           </div>
           <div className="product-breed-size">
             <h3>Pet Size</h3>
