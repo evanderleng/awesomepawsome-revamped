@@ -23,6 +23,8 @@ const FoodDisplay = ({petSize, searchQuery}) => {
     }
         // parse the JSON data from the response
         const data = await response.json();
+
+        console.log("Data Fetched: ", data);
         
         // save the data into the state "products" to use 
         setProducts(data);
