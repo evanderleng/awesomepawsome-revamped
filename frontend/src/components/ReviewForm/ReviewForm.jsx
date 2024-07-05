@@ -13,7 +13,7 @@ const ReviewForm = ({ productId }) => {
 
   useEffect(() => {
     if (isLogin) {
-      const canReviewUrl = `/api/user/canReview/?product_id=${productId}`;
+      const canReviewUrl = `http://127.0.0.1:4000/api/user/canReview/?product_id=${productId}`;
       axiosInstance({
         method: "GET",
         url: canReviewUrl,
@@ -36,7 +36,7 @@ const ReviewForm = ({ productId }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const url = "/api/review/addReview";
+    const url = "http://127.0.0.1:4000/api/review/addReview";
     const csrfToken = sessionStorage.getItem("csrfToken"); // Retrieve the token from sessionStorage
     axiosInstance.post(url, { product_id: productId, rating, comment, csrf_token: csrfToken })
       .then(res => {

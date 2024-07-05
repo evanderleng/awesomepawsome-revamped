@@ -69,7 +69,7 @@ const ResetPasswordPage = () => {
     }
 
     try {
-      const response = await fetch("/api/user/resetPassword", {
+      const response = await fetch("http://127.0.0.1:4000/api/user/resetPassword", {
         method: "POST",
         headers: {
           Accept: "application/json",

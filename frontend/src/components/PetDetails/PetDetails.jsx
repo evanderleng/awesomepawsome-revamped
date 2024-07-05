@@ -27,7 +27,7 @@ import axiosInstance from '../../../axiosConfig'
 
 
     const fetchProfile = () => {
-      const url = "/api/user/getProfile";
+      const url = "http://127.0.0.1:4000/api/user/getProfile";
       axiosInstance.get(url)
         .then(res => {
           console.log('Data:', res.data);
@@ -50,7 +50,7 @@ import axiosInstance from '../../../axiosConfig'
 
   const handleSave = () => {
     // Ensure to structure the body as expected by your API
-    const url = "/api/user/editPet";
+    const url = "http://127.0.0.1:4000/api/user/editPet";
     for (const key in petDetails) {
       if (petDetails[key] == ""){
         delete petDetails[key]

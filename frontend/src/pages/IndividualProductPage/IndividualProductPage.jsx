@@ -35,7 +35,7 @@ const IndividualProductPage = () => {
 
   // API Call to get list of reviews for specific product
   useEffect(() => {
-    const url = `/api/review/getReview/?product_id=${id}`;
+    const url = `http://127.0.0.1:4000/api/review/getReview/?product_id=${id}`;
 
     // Make the GET request with axios
     axiosInstance({

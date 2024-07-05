@@ -92,7 +92,7 @@ const LoginPopup = ({ setShowLogin }) => {
     setUsername(name);
     setPassword(password);
 
-    axios.post("/api/email/send2faEmail_Login", 
+    axios.post("http://127.0.0.1:4000/api/email/send2faEmail_Login", 
       { username: name, password}
     )
     .then(response => {

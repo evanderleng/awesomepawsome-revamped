@@ -6,7 +6,7 @@ import './AdminAddProduct.css'
 const handleSubmit = (e) => {
   e.preventDefault();
   const formData = new FormData(e.target);
-  let url = "/api/product/addProduct";
+  let url = "http://127.0.0.1:4000/api/product/addProduct";
   axiosInstance.post(url, formData, {
     headers: {
       'content-type': 'multipart/form-data'

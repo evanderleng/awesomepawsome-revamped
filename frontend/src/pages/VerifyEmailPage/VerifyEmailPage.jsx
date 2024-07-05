@@ -45,7 +45,7 @@ const VerifyEmailPage = () => {
     console.log("userEmail is  ", userEmail)
 
     try {
-        const response = await fetch("/api/email/send2faEmail_ResetPassword", {
+        const response = await fetch("http://127.0.0.1:4000/api/email/send2faEmail_ResetPassword", {
           method: "POST",
           headers: {
             Accept: "application/json",
