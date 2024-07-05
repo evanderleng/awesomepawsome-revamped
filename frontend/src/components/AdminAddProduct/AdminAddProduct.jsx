@@ -13,8 +13,8 @@ const handleSubmit = (e) => {
     },
   })
       .then(res => {
-        console.log(res.data.message);
-        
+        // console.log(res.data);
+        alert(res.data.message);
       })
       .catch(err => {
         // console.log(err)

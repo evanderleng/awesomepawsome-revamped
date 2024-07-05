@@ -46,7 +46,7 @@ const checkEditProfileReq = [ //untested, to test and integrate
 	check('address').isLength({ min: 1, max: 100 })
 ]
 
-const checkEditPetReq = [ //partially tested...
+const checkEditPetReq = [
 	check('petDetails.petName', petNameMsg).matches(petNameRegex).optional(),
 	check('petDetails.petBreed', petBreedMsg).matches(petBreedRegex).optional(),
 	check('petDetails.petAge', petAgeMsg).matches(petAgeRegex).optional(),
