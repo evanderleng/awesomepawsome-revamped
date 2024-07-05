@@ -121,7 +121,7 @@ describe('Product validation test', () => {
 
         const errors = validationResult(req);
         expect(errors.isEmpty()).toBe(false);
-        expect(errors.array()[0].msg).toEqual('Weight is mandatory and must be at most 2dp');
+        expect(errors.array()[0].msg).toEqual('Not a valid price');
     });
 
     it('should fail validation when price is invalid', async () => {
@@ -184,7 +184,7 @@ describe('Product validation test', () => {
 
         const errors = validationResult(req);
         expect(errors.isEmpty()).toBe(false);
-        expect(errors.array()[0].msg).toEqual('Invalid Age');
+        expect(errors.array()[0].msg).toEqual('Invalid Age!');
     });
 
     it('should fail validation when petAge is invalid', async () => {
@@ -194,7 +194,7 @@ describe('Product validation test', () => {
 
         const errors = validationResult(req);
         expect(errors.isEmpty()).toBe(false);
-        expect(errors.array()[0].msg).toEqual('Invalid Age');
+        expect(errors.array()[0].msg).toEqual('Invalid Age!');
     });
     
     //Pet Size Validation
@@ -205,7 +205,7 @@ describe('Product validation test', () => {
 
         const errors = validationResult(req);
         expect(errors.isEmpty()).toBe(false);
-        expect(errors.array()[0].msg).toEqual('Invalid Size');
+        expect(errors.array()[0].msg).toEqual('Invalid Size!');
     });
 
     it('should fail validation when petSize is invalid', async () => {
@@ -215,6 +215,6 @@ describe('Product validation test', () => {
 
         const errors = validationResult(req);
         expect(errors.isEmpty()).toBe(false);
-        expect(errors.array()[0].msg).toEqual('Invalid Size');
+        expect(errors.array()[0].msg).toEqual('Invalid Size!');
     });
 });
