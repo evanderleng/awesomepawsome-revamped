@@ -25,19 +25,20 @@ import axiosInstance from '../../../axiosConfig'
     });
     const [editMode, setEditMode] = useState(false);
 
+
+    const fetchProfile = () => {
+      const url = "http://127.0.0.1:4000/api/user/getProfile";
+      axiosInstance.get(url)
+        .then(res => {
+          console.log('Data:', res.data);
+          if (res.data.petDetails) {
+            setPetDetails(res.data.petDetails);
+          }
+        })
+        .catch(err => console.error('Error:', err));
+    };
+
     useEffect(() => {
-      const fetchProfile = () => {
-        const url = "http://127.0.0.1:4000/api/user/getProfile";
-        axiosInstance.get(url)
-          .then(res => {
-            console.log('Data:', res.data);
-            if (res.data.petDetails) {
-              setPetDetails(res.data.petDetails);
-            }
-          })
-          .catch(err => console.error('Error:', err));
-      };
-    
       fetchProfile();
     }, []);
     
@@ -61,11 +62,15 @@ import axiosInstance from '../../../axiosConfig'
             console.log('Pet details saved successfully:', response.data);
             setEditMode(false);  // Only exit edit mode if the save is successful
         })
-        .catch(error => {
-            console.error('Error saving pet details:', error);
-            alert("Error: ", error);
-            
-        });
+        .catch(err => {
+          if (err.response.data.path){ //path exists, let user know which input is incorrect
+            alert(err.response.data.path+": "+err.response.data.message);
+          } else {
+            alert(err.response.data.message);
+          }
+          fetchProfile();
+          setEditMode(false)
+        })
 };
 
   return (

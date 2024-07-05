@@ -45,11 +45,17 @@ const PersonalDetails = ({ personalDetails, setPersonalDetails }) => {
       },
     })
     .then(res => {
-      console.log(res.data);
+      alert(res.data.message);
       fetchProfile();
     })
-    // .catch(err => console.log(err));
-    .catch(err => alert("Error: ", err));  // alert instead of console.log
+    .catch(err => {
+      if (err.response.data.path){ //path exists, let user know which input is incorrect
+        alert(err.response.data.path+": "+err.response.data.message);
+      } else {
+        alert(err.response.data.message);
+      }
+      fetchProfile();
+    })
   };
 
   return (
