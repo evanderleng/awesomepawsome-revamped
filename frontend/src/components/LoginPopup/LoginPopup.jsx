@@ -1,6 +1,7 @@
 import React, { useContext, useState } from "react";
 import "./LoginPopup.css";
 import { assets } from "../../assets/assets";
+import axios from "axios";
 import { StoreContext } from "../../context/StoreContext";
 import Cookies from 'js-cookie';
 import { Link, useLocation, useNavigate } from "react-router-dom";
@@ -60,34 +61,20 @@ const LoginPopup = ({ setShowLogin }) => {
     const password = formData.get("password");
     
 
-    try {
-      const response = await fetch("http://127.0.0.1:4000/api/user/addUser", {
-        method: "POST",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          username: name,
-          email: email,
-          password: password,
-        }),
-      });
-
-      if (response.ok) {
-        const result = await response.json();
-        console.log("User created:", result);
-        // Optionally close the popup or clear the form
-        setShowLogin(false);
+    axios.post("/api/user/addUser", 
+      { username: name, password, email}
+    )
+    .then(res => {
+      setShowLogin(false);
+      alert(res.data.message)
+    })
+    .catch(err => {
+      if (err.response.data.path){ //path exists, let user know which input is incorrect
+        alert(err.response.data.path+": "+err.response.data.message);
       } else {
-        const errorData = await response.json();
-        throw new Error(errorData.message || "Failed to create account.");
+        alert(err.response.data.message);
       }
-    } catch (error) {
-      if (error.message){ 
-        alert(error.message);
-      } 
-    }
+    })
   };
 
   // function to handle login
@@ -105,95 +92,22 @@ const LoginPopup = ({ setShowLogin }) => {
     setUsername(name);
     setPassword(password);
 
-    try {
-      const response = await fetch("http://127.0.0.1:4000/api/email/send2faEmail_Login", {
-        method: "POST",
-        credentials : "include",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          username: name,
-          password: password,
-        }),
-      });
-
-      
-      // if reponse ok (user exists), do the following
-      if(response.ok){
-        console.log("User Exists, OTP has been sent")
-        const result = await response.json();
-        console.log("Message Shown:", result.message); // debugging
-        setShowLoadingIcon(false);
-        setShowOTPPopup(true);
-      }
-
-      else{
-        console.log("Invalid Username / Password");
-        setShowLoadingIcon(false);
-        alert("Invalid Username / Password");
-      }
-
-
-
-
-
-
-
-
-
-
-      // ================================== OLD LOGIN SYSTEM ========================================
-
-      // if response ok (login successful), do the following
-      // if (response.ok) {
-      //   console.log("User Logged In");
-      //   const result = await response.json();
-      //   console.log("User Logged In:", result); // debugging
-
-      //   const receivedJWTToken = result.token;  // received JWT Token from response
-      //   const receivedCSRFToken = result.csrf_token; // received csrf token from response
-
-      //   // Store the token in a cookie
-      //   // secure: true means cookie is only sent over HTTPS
-      //   // sameSite: strict means the cookie is not sent with cross-site requests
-      //   Cookies.set("authToken", receivedJWTToken, {
-      //     path: "/",
-      //     secure: true,
-      //     sameSite: "Strict",
-      //   });
-      //   // Optionally, trigger a UI update or redirect
-      //   console.log("Token stored in cookies:", receivedJWTToken);
-
-
-
-      //   sessionStorage.setItem('csrfToken', receivedCSRFToken);
-
-      //   setShowLogin(false); // set state to false to remove the popup
-      //   setIsLogin(true); // set state to true to show that user is logged in
-      //   setUserIsAdmin(result.admin); // set state to show if it is admin or not
-      //   navigate('/'); // redirect to home upon login
-
-
-      //   //
-      //   localStorage.setItem("isAdmin", result.admin ? true : false);
-
-      //   console.log("User ID: ", result._id);
-      //   console.log("Is Admin?: ", result.admin);
-      // } else {
-      //   const errorData = await response.json();
-      //   throw new Error(errorData.message || "Failed to Login.");
-      // }
-    } catch (error) {
-      console.error("Error:", error);
-      if (error.response.data.path){ //path exists, let user know which input is incorrect
-        alert(error.response.data.path+": "+error.response.data.message);
+    axios.post("http://127.0.0.1:4000/api/email/send2faEmail_Login", 
+      { username: name, password}
+    )
+    .then(response => {
+      setShowLoadingIcon(false);
+      setShowOTPPopup(true);
+    })
+    .catch(err => {
+      if (err.response.data.path){ //path exists, let user know which input is incorrect
+        alert(err.response.data.path+": "+err.response.data.message);
       } else {
-        alert(error.response.data.message);
+        alert(err.response.data.message);
       }
+      setShowLoadingIcon(false);
+    })
     
-    }
   };
 
   // Determine which handler to use based on currState
@@ -230,7 +144,7 @@ const LoginPopup = ({ setShowLogin }) => {
               required
             />
           )}
-          <input type="text" name="name" placeholder="Your Username" required />
+          <input type="text" name="name" placeholder="Username" required />
           <input
             type="password"
             name="password"
