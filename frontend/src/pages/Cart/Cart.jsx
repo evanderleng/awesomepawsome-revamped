@@ -26,13 +26,13 @@ const Cart = () => {
     try {
       // check if cart exists before trying to fetch
       const hasCartResponse = await axiosInstance.get(
-        "http://127.0.0.1:4000/api/cart/hasCart",
+        "/api/cart/hasCart",
       );
 
       const hasCart = hasCartResponse.data.cart;
       if (hasCart) {
         const cartResponse = await axiosInstance.get(
-          "http://127.0.0.1:4000/api/cart/getCart",
+          "/api/cart/getCart",
         );
         console.log("Fetched cart data:", cartResponse.data); // Debug: log the fetched data
 
