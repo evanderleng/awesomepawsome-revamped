@@ -40,13 +40,12 @@ const IndividualProduct = ({
             (item) => item.product_id === id
           );
           setInCart(productInCart);
-        }
+        } 
       } catch (error) {
         console.error("Error fetching cart data:", error); // Debug: log the error
       }
     };
-
-    fetchCartData();
+    if (isLogin){fetchCartData();}
   }, [id]);
 
   const addToCart = async (event) => {
