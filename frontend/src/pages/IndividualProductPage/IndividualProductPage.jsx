@@ -3,7 +3,8 @@ import "./IndividualProductPage.css";
 import IndividualProduct from "../../components/IndividualProduct/IndividualProduct";
 import { useLocation, useParams } from "react-router-dom";
 import CustomerReview from "../../components/CustomerReview/CustomerReview";
-import axios from "axios";
+import ReviewForm from '../../components/ReviewForm/ReviewForm';
+import axiosInstance from "../../../axiosConfig";
 
 const IndividualProductPage = () => {
   const location = useLocation();
@@ -37,7 +38,7 @@ const IndividualProductPage = () => {
     const url = `http://127.0.0.1:4000/api/review/getReview/?product_id=${id}`;
 
     // Make the GET request with axios
-    axios({
+    axiosInstance({
       method: "get", // HTTP method
       url: url, // URL to send the request to
       headers: {
@@ -48,7 +49,9 @@ const IndividualProductPage = () => {
       // .then((response) => console.log(response.data)) // debugging
 
       .catch((error) => console.error("Error fetching reviews:", error));
+
   }, []);
+
 
   // Scroll to top on component mount
   useEffect(() => {
@@ -70,6 +73,10 @@ const IndividualProductPage = () => {
         ingredients={ingredients}
         petSize={petSize}
         imageURL={imageURL}
+      />
+
+      <ReviewForm
+        productId={id}
       />
 
       {/*Based on the reviews state (obtained from API call), call the customer review component and pass in props*/}

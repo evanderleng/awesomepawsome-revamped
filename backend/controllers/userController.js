@@ -7,6 +7,7 @@ const jwt = require('jsonwebtoken');
 const cookie = require('cookie');
 const escape = require('escape-html');
 const multer = require('multer');
+const mongoose = require('mongoose');
 const { checkCSRF } = require('../middleware/csrfMiddleware.js');
 const { checkEditProfileReq }  = require('../middleware/validators/userValidator.js');
 const speakeasy = require('speakeasy') // for totp generationvar 
@@ -170,42 +171,42 @@ const editPet = async (req, res) => {
 	}
 };
 
-const hasProduct = async (req, res) => {
+const canReview = async (req, res) => { //req param product_id
 	try {
 		const { product_id } = req.query
 
-		console.log(product_id)
+		let hasProduct = false
+		let hasReview = true //assume worst
+
 		const order = await Order.find({
             user_id: req.user._id,
-			"order_list.product_id": product_id
-        });
-
+			"order_list.product_id": new mongoose.Types.ObjectId(product_id)
+		})
 		if (order.length > 0){
-			return res.status(200).json({ hasProduct: true});
+			hasProduct = true
 		} else {
-			return res.status(200).json({ hasProduct: false });
+			hasProduct = false
 		}
-	} catch (err) {
-		return res.status(500).json({ message: err });
-	}
-};
-
-const hasReview = async (req, res) => {
-	try {
-		const { product_id } = req.query
 
 		const review = await Review.find({
             user_id: req.user._id,
-			"product_id": product_id
+			"product_id": new mongoose.Types.ObjectId(product_id)
         });
-
 		if (review.length > 0){
-			return res.status(200).json({ hasReview: true});
+			hasReview = true
 		} else {
-			return res.status(200).json({ hasReview: false });
+			hasReview = false
+		}
+
+		if (hasProduct == true && hasReview == false){
+			return res.status(200).json({ canReview: true });
+		} else if (hasProduct == false){
+			return res.status(200).json({ canReview: false, message: "Please purchase the product before leaving a review" });
+		} else if (hasReview == true){
+			return res.status(200).json({ canReview: false, message: "Already left a review for this product." });
 		}
 	} catch (err) {
-		return res.status(500).json({ message: err });
+		return res.status(500).json({ message: err.message });
 	}
 };
 
@@ -300,4 +301,4 @@ const resetPassword = async (req, res) => {
 	}
 }
 
-module.exports = { addUser, login, editProfile, editPet, getProfile, resetPassword, hasProduct, hasReview  };
+module.exports = { addUser, login, editProfile, editPet, getProfile, resetPassword, canReview  };

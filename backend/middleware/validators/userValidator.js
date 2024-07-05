@@ -53,9 +53,9 @@ const checkEditPetReq = [
 	check('petDetails.petSize', petSizeMsg).matches(petSizeRegex).optional()
 ]
 
-const checkHasReviewReq = [
+const checkCanReviewReq = [
 	check('product_id', mongoidMsg).matches(mongoidRegex).notEmpty()
 ]
 
 
-module.exports = { checkAddUserReq, checkLoginReq, checkResetPasswordTokenReq, checkEditProfileReq, checkEditPetReq, checkHasReviewReq };
+module.exports = { checkAddUserReq, checkLoginReq, checkResetPasswordTokenReq, checkEditProfileReq, checkEditPetReq, checkCanReviewReq };
