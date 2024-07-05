@@ -41,10 +41,10 @@ app.use(mongoSanitize());
 
 app.set('trust proxy', 1); // Trust first proxy, for NGINX
 
-//testing frontend backend connection works, delete before submission
-app.get("/api/test", (req, res) => {
-  res.json({ testing: "if you can read this, you have connected to backend" });
-});
+
+
+
+
 
 // logging purposes, delete before submission
 app.use((req, res, next) => {
