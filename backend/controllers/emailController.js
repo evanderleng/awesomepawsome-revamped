@@ -113,7 +113,7 @@ const send2faEmail_Login = async (req, res) => {
         let user = await User.findOne({ username });
 
         if (!user) {
-            return { status: 404, message: 'User not found' };
+            return res.status(401).json({message: "Invalid Credentials"})
         }
 
         if (!bcrypt.compareSync(password, user.password)){
@@ -138,10 +138,10 @@ const send2faEmail_Login = async (req, res) => {
                 html: emailContent,
             });
             // return res.status(200).json({ message: "Successfully sent 2FA token!" });
-            return res.status(200).json({ message: "Successfully sent 2FA token!", otpToken: token}); //TODO  for debugging, remove this when submitting
+            return res.status(200).json({ message: "Successfully sent 2FA token! "+ token}); //TODO  for debugging, remove this when submitting
         } catch (err) {
             console.error(err); // TODO: remove this line when submitting
-            return { status: 400, message: 'Unable to send 2FA token' };
+            return res.status(400).json({ message: 'Unable to send 2FA token'});
         }
     }
     catch (err) {
