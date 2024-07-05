@@ -4,12 +4,11 @@
   },
   "brand": "Purina",
   "name": "Bakers Recipe Using Superfoods (With Beef)",
-  "weight": "2.85kg",
+  "weight": 2,
   "price": 40,
   "rating": 0,
   "ratingCount": 0,
   "description": "Introducing NutriPaws Small Breed Dog Food—crafted to meet the unique nutritional needs of small dogs. Each bite-sized kibble is packed with high-quality proteins from chicken and fish, essential vitamins, and balanced fats, ensuring your petite pooch gets the energy and nutrients they need. With added Omega-3 and Omega-6 for a glossy coat, and prebiotics for a healthy gut, NutriPaws supports your small dog's overall well-being. Plus, our formula is free from artificial colors, flavors, and preservatives, making it the perfect choice for a healthy, happy pet.",
-  "breedSize": "small",
   "imageURL": "https://res.cloudinary.com/dg7xhtwnl/image/upload/v1719644869/products/Bakers%20Recipe%20Using%20Superfoods%20%28With%20Beef%29.jpg",
   "createdAt": {
     "$date": "2024-06-29T07:07:50.061Z"
@@ -18,8 +17,9 @@
     "$date": "2024-06-29T07:07:50.061Z"
   },
   "__v": 0,
-  "ageGroup": "junior",
-  "ingredients": "deboned chicken, chicken meal, brown rice, barley, oatmeal, peas, chicken fat preserved with mixed tocopherols, and fish meal."
+  "ingredients": "deboned chicken, chicken meal, brown rice, barley, oatmeal, peas, chicken fat preserved with mixed tocopherols, and fish meal.",
+  "petAge": "Junior",
+  "petSize": "Small"
 },
 {
   "_id": {
@@ -27,12 +27,11 @@
   },
   "brand": "Royal Canin",
   "name": "Royal Canin for Small Petit (Dry Food)",
-  "weight": "2.9kg",
+  "weight": 2,
   "price": 40,
   "rating": 0,
   "ratingCount": 0,
   "description": " Royal Canin dog food offers a range of scientifically formulated diets tailored to meet the specific nutritional needs of dogs at every life stage and breed. Utilizing a blend of high-quality ingredients, Royal Canin provides precise nutrition that supports overall health, energy levels, and vitality. Each recipe is crafted with a deep understanding of pet biology and nutritional science, ensuring that dogs receive balanced meals that promote optimal growth, digestive health, and skin and coat condition. From small breed puppies to senior large breeds, Royal Canin’s dedicated approach ensures that every dog gets the precise nutrition they need to thrive.",
-  "breedSize": "small",
   "imageURL": "https://res.cloudinary.com/dg7xhtwnl/image/upload/v1719674228/products/Royal%20Canin%20for%20Small%20Petit%20%28Dry%20Food%29.png",
   "createdAt": {
     "$date": "2024-06-29T15:17:09.178Z"
@@ -41,8 +40,9 @@
     "$date": "2024-06-29T15:17:09.178Z"
   },
   "__v": 0,
-  "ageGroup": "puppy",
-  "ingredients": "chicken, brewers rice, chicken meal, yellow peas, cracked pearled barley, whole grain sorghum, brown rice, and pork fat preserved with mixed tocopherols."
+  "ingredients": "chicken, brewers rice, chicken meal, yellow peas, cracked pearled barley, whole grain sorghum, brown rice, and pork fat preserved with mixed tocopherols.",
+  "petAge": "Puppy",
+  "petSize": "Small"
 },
 {
   "_id": {
@@ -50,13 +50,11 @@
   },
   "brand": "Hill's",
   "name": "Hill's Dry Food for Adult",
-  "weight": "4kg",
+  "weight": 4,
   "price": 40,
   "rating": 0,
   "ratingCount": 0,
   "description": "Hill's food is good",
-  "breedSize": "large",
-  "ageGroup": "adult",
   "imageURL": "https://res.cloudinary.com/dg7xhtwnl/image/upload/v1719985133/products/Hill%27s%20Dry%20Food%20for%20Adult.webp",
   "createdAt": {
     "$date": "2024-07-03T05:38:53.773Z"
@@ -64,7 +62,9 @@
   "updatedAt": {
     "$date": "2024-07-03T05:38:53.773Z"
   },
-  "__v": 0
+  "__v": 0,
+  "petAge": "Adult",
+  "petSize": "Large"
 },
 {
   "_id": {
@@ -72,14 +72,12 @@
   },
   "brand": "Burp!",
   "name": "Burp! Dry Food for Seniors",
-  "weight": "1.35kg",
+  "weight": 1,
   "price": 30,
   "rating": 0,
   "ratingCount": 0,
   "description": "made for senior dogs",
   "ingredients": "chicken meal, salmon, brown rice, sweet potatoes, and blueberries, healthy fats, fibers, and antioxidants",
-  "breedSize": "large",
-  "ageGroup": "senior",
   "imageURL": "https://res.cloudinary.com/dg7xhtwnl/image/upload/v1719986035/products/Burp%21%20Dry%20Food%20for%20Seniors.webp",
   "createdAt": {
     "$date": "2024-07-03T05:53:55.604Z"
@@ -87,7 +85,9 @@
   "updatedAt": {
     "$date": "2024-07-03T05:53:55.604Z"
   },
-  "__v": 0
+  "__v": 0,
+  "petAge": "Senior",
+  "petSize": "Large"
 },
 {
   "_id": {
@@ -101,8 +101,6 @@
   "ratingCount": 0,
   "description": "Bosch High Premium Mini Junior Dry Dog Food is formulated for small dog breeds (up to an adult weight of 15kg). It is required to feed a specially formulated puppy food containing balanced protein and mineral contents and having an adapted croquette shape and size",
   "ingredients": "chicken meal, salmon, brown rice, sweet potatoes, and blueberries, healthy fats, fibers, and antioxidants",
-  "breedSize": "medium",
-  "ageGroup": "junior",
   "imageURL": "https://res.cloudinary.com/dg7xhtwnl/image/upload/v1720064898/products/Bosch%20High%20Premium%20Food%20for%20Juniors.jpg",
   "createdAt": {
     "$date": "2024-07-04T03:48:19.490Z"
@@ -110,7 +108,9 @@
   "updatedAt": {
     "$date": "2024-07-04T03:48:19.490Z"
   },
-  "__v": 0
+  "__v": 0,
+  "petAge": "Junior",
+  "petSize": "Medium"
 },
 {
   "_id": {
@@ -118,14 +118,12 @@
   },
   "brand": "Vitapet",
   "name": "Vitapet Dry Junior Dog Food - Chicken",
-  "weight": "3.0kg",
+  "weight": 3,
   "price": 55,
   "rating": 0,
   "ratingCount": 0,
   "description": "Specially formulated for large breed sized puppies from weaning, as well as small-medium sized breeds from 6 months until 2 years of age.  For small-medium sized breed puppies we recommend feeding VitaPet Puppy Food from weaning until 6 months of age.  Your large breed puppy or adolescent small or medium pup needs a complete food solution that supports them through each stage of their doggie development. That’s why VitaPet has worked with our vets to create this dry dog food for junior puppies; deliciously balanced biscuits that has all the nutrients they need to grow, play, and ‘live their best lives’ through every junior stage.",
   "ingredients": "Chicken meal, oats, field peas, barley, chicken fat, chickpeas, faba beans, natural chicken flavour, essential vitamins, minerals & amino acids (see table), plant cellulose, fish oil, sweet potato, beet pulp, natural antioxidants, green-lipped mussel, Yucca schidigera extract",
-  "breedSize": "large",
-  "ageGroup": "junior",
   "imageURL": "https://res.cloudinary.com/dg7xhtwnl/image/upload/v1720065942/products/Vitapet%20Dry%20Junior%20Dog%20Food%20-%20Chicken.png",
   "createdAt": {
     "$date": "2024-07-04T04:05:43.140Z"
@@ -133,7 +131,9 @@
   "updatedAt": {
     "$date": "2024-07-04T04:05:43.140Z"
   },
-  "__v": 0
+  "__v": 0,
+  "petAge": "Junior",
+  "petSize": "Large"
 },
 {
   "_id": {
@@ -141,14 +141,12 @@
   },
   "brand": "Hill'",
   "name": "Hill's Science Diet Puppy Small Bites Dry Dog Food, 2kg",
-  "weight": "2.0kg",
+  "weight": 2,
   "price": 43,
   "rating": 0,
   "ratingCount": 0,
   "description": "Hill's Science Diet small bites puppy dry food is carefully formulated for the developmental needs of puppies, so they get the best start in life & grow to their full potential. Delicious chicken flavour in a small bite size for those that prefer variety. DHA from fish oil for healthy brain & eye development. High quality protein for building lean muscles. Balanced minerals for strong bones & teeth. Made with natural ingredients. Recommended for: Puppies up to 1 year old and pregnant or nursing dogs.",
   "ingredients": "Chicken, Rice, and Vegetable, Fish Oil",
-  "breedSize": "medium",
-  "ageGroup": "puppy",
   "imageURL": "https://res.cloudinary.com/dg7xhtwnl/image/upload/v1720067282/products/Hill%27s%20Science%20Diet%20Puppy%20Small%20Bites%20Dry%20Dog%20Food%2C%202kg.jpg",
   "createdAt": {
     "$date": "2024-07-04T04:29:31.377Z"
@@ -156,7 +154,9 @@
   "updatedAt": {
     "$date": "2024-07-04T04:29:31.377Z"
   },
-  "__v": 0
+  "__v": 0,
+  "petAge": "Puppy",
+  "petSize": "Medium"
 },
 {
   "_id": {
@@ -164,14 +164,12 @@
   },
   "brand": "Eukanuba",
   "name": "Eukanuba Dry Food for Senior",
-  "weight": "2.0kg",
+  "weight": 2,
   "price": 41,
   "rating": 0,
   "ratingCount": 0,
   "description": " small bites puppy dry food is carefully formulated for the developmental needs of puppies, so they get the best start in life & grow to their full potential. Delicious chicken flavour in a small bite size for those that prefer variety. DHA from fish oil for healthy brain & eye development. High quality protein for building lean muscles. Balanced minerals for strong bones & teeth. Made with natural ingredients. Recommended for: Puppies up to 1 year old and pregnant or nursing dogs.",
   "ingredients": "Chicken, Rice, and Vegetable, Fish Oil",
-  "breedSize": "small",
-  "ageGroup": "senior",
   "imageURL": "https://res.cloudinary.com/dg7xhtwnl/image/upload/v1720067805/products/Eukanuba%20Dry%20Food%20for%20Senior.jpg",
   "createdAt": {
     "$date": "2024-07-04T04:36:46.353Z"
@@ -179,7 +177,9 @@
   "updatedAt": {
     "$date": "2024-07-04T04:36:46.353Z"
   },
-  "__v": 0
+  "__v": 0,
+  "petAge": "Senior",
+  "petSize": "Small"
 },
 {
   "_id": {
@@ -187,14 +187,12 @@
   },
   "brand": "Heritage Ranch",
   "name": "Heritage Ranch Senior Salmon and Brown Rice Recipe",
-  "weight": "4.0kg",
+  "weight": 4,
   "price": 39,
   "rating": 0,
   "ratingCount": 0,
   "description": "Heritage Ranch ensures top quality food, with DHA to support cognitive functions",
   "ingredients": "Salmon, Brown Rice",
-  "breedSize": "medium",
-  "ageGroup": "senior",
   "imageURL": "https://res.cloudinary.com/dg7xhtwnl/image/upload/v1720074682/products/Heritage%20Ranch%20Senior%20Salmon%20and%20Brown%20Rice%20Recipe.jpg",
   "createdAt": {
     "$date": "2024-07-04T06:31:24.120Z"
@@ -202,7 +200,9 @@
   "updatedAt": {
     "$date": "2024-07-04T06:31:24.120Z"
   },
-  "__v": 0
+  "__v": 0,
+  "petAge": "Senior",
+  "petSize": "Medium"
 },
 {
   "_id": {
@@ -210,14 +210,12 @@
   },
   "brand": "SmartHeart",
   "name": "SmartHeart Roast Beef Flavour for Adults",
-  "weight": "2.60kg",
+  "weight": 2,
   "price": 55,
   "rating": 0,
   "ratingCount": 0,
   "description": "SmartHeart ensures top quality product",
   "ingredients": "beef, vegetable",
-  "breedSize": "medium",
-  "ageGroup": "adult",
   "imageURL": "https://res.cloudinary.com/dg7xhtwnl/image/upload/v1720075076/products/SmartHeart%20Roast%20Beef%20Flavour%20for%20Adults.jpg",
   "createdAt": {
     "$date": "2024-07-04T06:37:56.854Z"
@@ -225,7 +223,9 @@
   "updatedAt": {
     "$date": "2024-07-04T06:37:56.854Z"
   },
-  "__v": 0
+  "__v": 0,
+  "petAge": "Adult",
+  "petSize": "Medium"
 },
 {
   "_id": {
@@ -233,14 +233,12 @@
   },
   "brand": "Texas Pets",
   "name": "Texas Pets Adult Complete Chicken and Beef Flavor",
-  "weight": "22kg",
+  "weight": 22,
   "price": 70,
   "rating": 0,
   "ratingCount": 0,
   "description": "Texas Pets ensures top quality for all pets",
   "ingredients": "Chicken, Beef",
-  "breedSize": "small",
-  "ageGroup": "adult",
   "imageURL": "https://res.cloudinary.com/dg7xhtwnl/image/upload/v1720075371/products/Texas%20Pets%20Adult%20Complete%20Chicken%20and%20Beef%20Flavor.jpg",
   "createdAt": {
     "$date": "2024-07-04T06:42:52.246Z"
@@ -248,7 +246,9 @@
   "updatedAt": {
     "$date": "2024-07-04T06:42:52.246Z"
   },
-  "__v": 0
+  "__v": 0,
+  "petAge": "Adult",
+  "petSize": "Small"
 },
 {
   "_id": {
@@ -256,20 +256,43 @@
   },
   "brand": "Pedigree",
   "name": "Pedigree Chopped Ground Dinner",
-  "weight": "375g",
   "price": 8,
   "rating": 0,
   "ratingCount": 0,
   "description": "Pedigree ensures top quality products to all puppies ",
   "ingredients": "Chicken, Beef",
-  "breedSize": "large",
-  "ageGroup": "puppy",
   "imageURL": "https://res.cloudinary.com/dg7xhtwnl/image/upload/v1720075558/products/Pedigree%20Chopped%20Ground%20Dinner.jpg",
   "createdAt": {
     "$date": "2024-07-04T06:45:58.683Z"
   },
   "updatedAt": {
     "$date": "2024-07-04T06:45:58.683Z"
+  },
+  "__v": 0,
+  "petAge": "Puppy",
+  "petSize": "Large",
+  "weight": 300
+},
+{
+  "_id": {
+    "$oid": "6687b9abf88b5a640c38bce5"
+  },
+  "brand": "Test Product",
+  "name": "Test Name",
+  "weight": 12,
+  "price": 12,
+  "rating": 0,
+  "ratingCount": 0,
+  "description": "Test Description",
+  "ingredients": "Test Ingredients",
+  "petSize": "Medium",
+  "petAge": "Puppy",
+  "imageURL": "https://res.cloudinary.com/dg7xhtwnl/image/upload/v1720170923/products/Test%20Name.jpg",
+  "createdAt": {
+    "$date": "2024-07-05T09:15:23.821Z"
+  },
+  "updatedAt": {
+    "$date": "2024-07-05T09:15:23.821Z"
   },
   "__v": 0
 }]
