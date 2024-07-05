@@ -6,10 +6,10 @@ const brandMsg = "Brand must only contain alphanumeric characters and spaces and
 const nameRegex = /^[A-Za-z\d ]{1,50}$/g   //alphanumeric + underscore only, 1-50 characters
 const nameMsg = "Name must only contain alphanumeric characters and spaces and be below 1-50 characters"
 
-const weightRegex = /^\d+(?:\.\d{1,2})?$/g 
+const weightRegex = /^(?!^0+\d+(?:\.\d*)?)\d+(?:\.\d{1,2})?$/g //lookahead regex prevents leading zeros for integers AND decimal values, 1-2dp allowed
 const weightMsg = "Weight is mandatory and must be at most 2dp"
 
-const priceRegex = /^\d+(?:\.\d{2})?$/g //    /^(?!0+\d+\.\d+)\d+(?:\.\d{2})?$/g   //lookahead regex to prevent leading zeros (untested)
+const priceRegex = /^(?!^0+\d+(?:\.\d*)?)\d+(?:\.\d{2})?$/g //lookahead regex prevents leading zeros for integers AND decimal values
 const priceMsg = "Not a valid price"
 
 const descriptionRegex = /^[A-Za-z\d ,.]{1,50}$/g   //alphanumeric + underscore only, 1-50 characters  //description can use this too
