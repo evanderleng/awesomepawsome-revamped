@@ -6,8 +6,8 @@ import { dog_petSize_list } from '../../assets/assets'
 const FilterBreed = ({petSize, setPetSize}) => {
   return(
     <div className='filter-breed' id='filter-breed'>
-        <h1>Explore our menu</h1>
-        <p className='filter-breed-text'>Choose from a diverse menu featuring a delectablea array of dishes crafted with love</p>
+        <h1>Choose Your Breed Size</h1>
+        <p className='filter-breed-text'>Indulge your furry friend with a diverse menu of delectable dog foods, each crafted with love and care to keep tails wagging.</p>
         <div className='filter-breed-list'>
             {dog_petSize_list.map((item, index)=>{
                 return(
