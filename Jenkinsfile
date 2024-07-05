@@ -45,6 +45,9 @@ pipeline {
                 CLOUDINARY_CLOUD_NAME = credentials('cloudinary-cloud-name')
                 CLOUDINARY_API_KEY = credentials('cloudinary-api-key')
                 CLOUDINARY_API_SECRET = credentials('cloudinary-api-secret')
+                GMAIL_USER_EMAIL = credentials('smtp-user-email')
+                GMAIL_USER_PW = credentials('smtp-user-pw')
+                GMAIL_APP_PW = credentials('smtp-app-pw')
             }
             steps {
                 sh 'docker compose down'
