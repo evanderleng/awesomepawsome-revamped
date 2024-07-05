@@ -6,54 +6,53 @@ pipeline {
     }
 
     stages {
-        stage('Build') { 
+        stage('Dependency Check') {
             steps {
+                dir('frontend') {
+                    sh 'npm install'
+                }
                 dir('backend') {
                     sh 'npm install'
                 }
-            }
-        }
-        //Temp disable it, testing other tusff. This take few min to process
-        /*stage('Dependency Check') {
-            steps {
-                dependencyCheck additionalArguments: ''' 
-                            --format HTML --format XML
+                dependencyCheck additionalArguments: '''
+                            --format HTML --format XML -n
                             ''', odcInstallation: 'Dependency Check'
-                
+
                 dependencyCheckPublisher pattern: 'dependency-check-report.xml'
             }
-        }*/
-        stage('Testing Phase') {
+        }
+        stage('Unit Testing Phase') {
             steps {
                 dir('backend') {
-                    sh 'npm test'
+                    sh 'npm run test'
                 }
             }
         }
-
-        /*stage('Build Backend') {
-            steps {
-                dir('backend') {
-                    // Install npm dependencies
-                    sh 'npm install'
-
-                    // Start the backend server
-                    sh 'npm start'
-                }
-            }
-        }*/
-
-        stage('Deploy Frontend') {
+        // Build static files to deploy to frontend server
+        stage('Build Phase') {
             steps {
                 dir('frontend') {
                     sh 'npm run build'
-                    sh 'cp -r ./* /var/www/awesomepawsome'
                 }
+            }
+        }
+        // Rebuild container images and deploy servers
+        stage('Deployment Phase') {
+            environment {
+                JWT_TOKEN_SECRET = credentials('jwt-secret')
+                PAYPAL_CLIENT_ID = credentials('paypal-client-id')
+                PAYPAL_CLIENT_SECRET = credentials('paypal-client-secret')
+                CLOUDINARY_CLOUD_NAME = credentials('cloudinary-cloud-name')
+                CLOUDINARY_API_KEY = credentials('cloudinary-api-key')
+                CLOUDINARY_API_SECRET = credentials('cloudinary-api-secret')
+            }
+            steps {
+                sh 'docker compose up --build -d'
             }
         }
     }
 
-     post {
+    post {
         always {
             cleanWs()
         }
