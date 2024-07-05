@@ -25,7 +25,7 @@ const petSizeMsg = "Invalid Size!"
 const checkAddUserReq = [
 	check('username', usernameMsg).matches(usernameRegex).notEmpty(),
 	check('password', passwordMsg).matches(passwordRegex).notEmpty(),
-	check('email', "Email is required").notEmpty().isEmail()
+	check('email', "Email is required").notEmpty().isEmail().isLength({ min: 1, max: 100 })
 ]
 
 const checkLoginReq = [

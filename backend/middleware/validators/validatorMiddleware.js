@@ -7,8 +7,11 @@ const checkValid = async (req, res, next) => {
 		const errors = validationResult(req)
 	
 		if ( !errors.isEmpty() ) {
-			return res.status(400).json( {errors: errors.array()} );
+
+			console.log(errors.array())
+			return res.status(400).json( {message: errors.array()[0].msg, path: errors.array()[0].path} );
 		} else {
+			console.log("passed regex validation")
 			next()
 		}
 	} catch (err){
@@ -16,5 +19,6 @@ const checkValid = async (req, res, next) => {
 		return res.status(400).json({message: "Bad request body"})
 	}
 }
+
   
 module.exports = {checkValid};

@@ -64,34 +64,53 @@ const addProduct = async (req, res) => {
             console.log(err);
             return res.status(500).json({ message: err.message });
         }
+    
         checkCSRF(req, res, async function (err) {
-            req.body.lol = checkAddProductReq
-            checkValid(req, res, async function (err) {
-                try {
-                    const { brand, name, weight, price, description, ingredients, breedSize, ageGroup } = req.body;
 
-                    let checkProduct = await Product.findOne({ name });
-                    if (checkProduct) {
-                        return res.status(400).json({ message: "Product name is already taken." });
-                    } 
-
-                    if (req.file) {
-                        cloudImgUrl = await uploadProduct(req.file, name);
-                    } else {
-                        return res.status(500).json({ message: "Error with uploading file" });
-                    }
-
-                    const product = await Product.create({
-                        brand, name, weight, price, description, ingredients, breedSize, ageGroup, imageURL: cloudImgUrl
+            for (const validation of checkAddProductReq) { //integrated validation
+                const errors = await validation.run(req);
+                if (!errors.isEmpty()) {
+                    return res.status(400).json({
+                        message: errors.array()[0].msg, 
+                        path: errors.array()[0].path
                     });
-
-                    if (product) {
-                        return res.status(200).json({ message: "Success" });
-                    }
-                } catch (err) {
-                    return res.status(500).json({ message: err.message });
                 }
-            });
+            }
+
+            try {
+                const { brand, name, weight, price, description, ingredients, petSize, petAge } = req.body;
+
+                let checkProduct = await Product.findOne({ name });
+                if (checkProduct) {
+                    return res.status(400).json({ message: "Product name is already taken." });
+                } 
+
+                if (req.file) {
+                    cloudImgUrl = await uploadProduct(req.file, name);
+                } else {
+                    return res.status(500).json({ message: "Please upload a valid image file" });
+                }
+
+                const product = await Product.create({
+                    brand,
+                    name,
+                    weight,
+                    price,
+                    rating: 0,
+                    ratingCount:0,
+                    description,
+                    ingredients, 
+                    petSize,
+                    petAge,
+                    imageURL: cloudImgUrl
+                });
+
+                if (product) {
+                    return res.status(200).json({ message: "Success" });
+                }
+            } catch (err) {
+                return res.status(500).json({ message: err.message });
+            }
         });
     });
 

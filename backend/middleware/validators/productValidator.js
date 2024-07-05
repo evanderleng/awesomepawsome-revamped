@@ -10,9 +10,12 @@ const weightMsg = "Not a valid weight"
 const checkAddProductReq = [
 	check('brand').notEmpty(),
 	check('name').notEmpty(),
+	check('weight').notEmpty(),
 	check('price', priceMsg).matches(priceRegex).notEmpty(),
+	check('description').notEmpty(),
 	check('ingredients').notEmpty(),
-	check('breedSize').notEmpty()
+	check('petAge').notEmpty(),
+	check('petSize').notEmpty()
 ]
 
 
