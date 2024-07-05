@@ -25,7 +25,7 @@ const AdminAddProduct = () => {
         <div className="add-product-title">
             <h1>Add a Product</h1>
         </div>
-        <form enctype="multipart/form-data" onSubmit={handleSubmit} className="add-product-form">
+        <form encType="multipart/form-data" onSubmit={handleSubmit} className="add-product-form">
             <h3>Brand</h3>
             <input type="text" name='brand' placeholder='brand'/>
             <h3>Item Name</h3>
@@ -39,19 +39,19 @@ const AdminAddProduct = () => {
             <h3>Ingredients</h3>
             <input type="text" name='ingredients' placeholder='ingredients'/>
             <h3>Pet Size</h3>
-            <select name='breedSize'>
+            <select name='petSize'>
               <option value="">Select pet size</option>
-              <option value="small">Small</option>
-              <option value="medium">Medium</option>
-              <option value="large">Large</option>
+              <option value="Small">Small</option>
+              <option value="Medium">Medium</option>
+              <option value="Large">Large</option>
             </select>
             <h3>Pet Age Group</h3>
-            <select name="ageGroup">
+            <select name="petAge">
               <option value="">Select age group</option> 
-              <option value="puppy">Puppy</option>
-              <option value="junior">Junior</option>
-              <option value="adult">Adult</option>
-              <option value="senior">Senior</option>
+              <option value="Puppy">Puppy</option>
+              <option value="Junior">Junior</option>
+              <option value="Adult">Adult</option>
+              <option value="Senior">Senior</option>
             </select>
             <h3>Image</h3>
             <input type="file" name='product_image'/>

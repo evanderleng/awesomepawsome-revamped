@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const productSchema = new mongoose.Schema({
     brand: {type: String, required: true},
     name: {type: String, required: true, unique:true},
-    weight: {type: String},
+    weight: {type: Number},
     price: {type: Number, required: true},
     rating: {type: Number, default: 0},
     ratingCount: {type: Number, default: 0},
