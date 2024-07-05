@@ -84,8 +84,9 @@ const LoginPopup = ({ setShowLogin }) => {
         throw new Error(errorData.message || "Failed to create account.");
       }
     } catch (error) {
-      console.error("Error:", error);
-      setErrorMsg(error.message);
+      if (error.message){ 
+        alert(error.message);
+      } 
     }
   };
 
@@ -130,6 +131,7 @@ const LoginPopup = ({ setShowLogin }) => {
 
       else{
         console.log("Invalid Username / Password");
+        setShowLoadingIcon(false);
         alert("Invalid Username / Password");
       }
 
@@ -185,7 +187,12 @@ const LoginPopup = ({ setShowLogin }) => {
       // }
     } catch (error) {
       console.error("Error:", error);
-      setErrorMsg(error.message);
+      if (error.response.data.path){ //path exists, let user know which input is incorrect
+        alert(error.response.data.path+": "+error.response.data.message);
+      } else {
+        alert(error.response.data.message);
+      }
+    
     }
   };
 

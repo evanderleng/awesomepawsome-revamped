@@ -1,0 +1,37 @@
+services:
+  frontend:
+    container_name: ${FRONTEND_HOST}
+    build:
+      dockerfile: ./frontend/Dockerfile
+    ports:
+      - "8080:80"
+      - "4443:443"
+    volumes:
+      - /etc/letsencrypt:/etc/letsencrypt:ro
+    restart: always
+  db:
+    container_name: ${DB_HOST}
+    build:
+      dockerfile: ./db/Dockerfile
+    expose:
+      - ${DB_PORT}
+    volumes:
+      - db_data:/data/db
+    restart: always
+  backend:
+    container_name: ${BACKEND_HOST}
+    environment:
+      - JWT_TOKEN_SECRET=${JWT_TOKEN_SECRET}
+      - PAYPAL_CLIENT_ID=${PAYPAL_CLIENT_ID}
+      - PAYPAL_CLIENT_SECRET=${PAYPAL_CLIENT_SECRET}
+      - CLOUDINARY_CLOUD_NAME=${CLOUDINARY_CLOUD_NAME}
+      - CLOUDINARY_API_KEY=${CLOUDINARY_API_KEY}
+      - CLOUDINARY_API_SECRET=${CLOUDINARY_API_SECRET}
+    build:
+      dockerfile: ./backend/Dockerfile
+    expose:
+      - ${BACKEND_PORT}
+    restart: always
+
+volumes:
+  db_data:

@@ -18,7 +18,9 @@ const PersonalDetails = ({ personalDetails, setPersonalDetails }) => {
           avatar: res.data.avatar 
         });
       })
-      .catch(err => console.log(err));
+      // .catch(err => console.log(err));
+      .catch(err => alert("Error: ", err));
+
 };
 
   // Fetch profile on component mount
@@ -46,7 +48,8 @@ const PersonalDetails = ({ personalDetails, setPersonalDetails }) => {
       console.log(res.data);
       fetchProfile();
     })
-    .catch(err => console.log(err));
+    // .catch(err => console.log(err));
+    .catch(err => alert("Error: ", err));  // alert instead of console.log
   };
 
   return (

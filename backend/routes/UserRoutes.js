@@ -14,8 +14,10 @@ router.route("/editProfile").post(authMiddleware.auth, userController.editProfil
 router.route("/getProfile").get(authMiddleware.auth, userController.getProfile);
 
 router.post("/addUser", checkAddUserReq, checkValid, userController.addUser);
+
 router.route("/login").post(checkOTPLoginReq, checkValid, checkOTP, userController.login);
 // router.post("/login", checkLoginReq, checkValid, userController.login); //dev login, no OTP needed. email WILL still be sent
+
 
 
 router.route("/canReview").get(authMiddleware.auth, checkCanReviewReq, userController.canReview);
