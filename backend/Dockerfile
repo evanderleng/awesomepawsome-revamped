@@ -1,5 +1,5 @@
 FROM node:latest
-WORKDIR /usr/app/src
+WORKDIR /usr/app/awesomepawsome
 COPY ./backend/package.json .
 RUN npm install
 COPY ./backend/ .
