@@ -8,6 +8,7 @@ const cookie = require('cookie');
 const escape = require('escape-html');
 const multer = require('multer');
 const { checkCSRF } = require('../middleware/csrfMiddleware.js');
+const { checkEditProfileReq }  = require('../middleware/validators/userValidator.js');
 const speakeasy = require('speakeasy') // for totp generationvar 
 const { csrf_generator, csrf_secret } = require('../util/csrf')
 
@@ -215,6 +216,17 @@ const editProfile = async (req, res) => {
 			return res.status(500).json({ message: err.message });
 		}
 		checkCSRF(req, res, async function (err) {
+
+			for (const validation of checkEditProfileReq) { //integrated validation
+                const errors = await validation.run(req);
+                if (!errors.isEmpty()) {
+                    return res.status(400).json({
+                        message: errors.array()[0].msg, 
+                        path: errors.array()[0].path
+                    });
+                }
+            }
+
 			try{
 				const { username, email, address } = req.body;
 				const updateData = { username, email, address };

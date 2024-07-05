@@ -22,6 +22,9 @@ const petAgeMsg = "Invalid Age!"
 const petSizeRegex = /^Small$|^Medium$|^Large$|^Giant$/g 
 const petSizeMsg = "Invalid Size!"
 
+const mongoidRegex = /^[\da-f]{24}$/g
+const mongoidMsg = "Not a valid ID"
+
 const checkAddUserReq = [
 	check('username', usernameMsg).matches(usernameRegex).notEmpty(),
 	check('password', passwordMsg).matches(passwordRegex).notEmpty(),
@@ -38,8 +41,8 @@ const checkResetPasswordTokenReq = [
 ]
 
 const checkEditProfileReq = [ //untested, to test and integrate
-	check('username', usernameMsg).matches(usernameRegex),
-	check('email', "Email is required").isEmail(),
+	check('username', usernameMsg).matches(usernameRegex).notEmpty(),
+	check('email', "Email is required").notEmpty().isEmail().isLength({ min: 1, max: 100 }),
 	check('address').isLength({ min: 1, max: 100 })
 ]
 
@@ -50,4 +53,9 @@ const checkEditPetReq = [ //partially tested...
 	check('petDetails.petSize', petSizeMsg).matches(petSizeRegex).optional()
 ]
 
-module.exports = { checkAddUserReq, checkLoginReq, checkResetPasswordTokenReq, checkEditProfileReq, checkEditPetReq };
+const checkHasReviewReq = [
+	check('product_id', mongoidMsg).matches(mongoidRegex).notEmpty()
+]
+
+
+module.exports = { checkAddUserReq, checkLoginReq, checkResetPasswordTokenReq, checkEditProfileReq, checkEditPetReq, checkHasReviewReq };
