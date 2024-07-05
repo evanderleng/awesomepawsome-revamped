@@ -26,59 +26,23 @@ const RecommendProduct = ({ petIsRegistered , isLogin }) => {
   const imageURL = recommendedProduct.imageURL;
 
   useEffect(() => {
-    // Function to make the POST request
-    const makePostRequest = async () => {
+    const fetchRecommended = async () => {
       try {
-        // Make the GET request without any data payload
         const response = await axiosInstance.get(
-          "http://127.0.0.1:4000/api/product/getRecommended"
+          "/api/product/getRecommended"
         );
         
         console.log("Response from Recommend API: ", response);
         console.log("brand is", response.data.brand);
 
-        // set the recommendedProduct object
         setRecommendedProduct(response.data);
       } catch (err) {
-        // Handle the error
-        // setError(err.response ? err.response.data : 'Error: Network Error');
-        // setResponse(null);
         setPetIsRegistered(false);
         console.log("Error from Recommend API: ", err);
       }
     };
-
-    // Call the function
-    makePostRequest();
-  }, []); // Empty dependency array ensures this runs only on mount
-
-  /*brand
-
-createdAt
-
-description
-
-imageURL
-
-ingredients
-
-name
-
-petAge
-
-petSize
-
-price
-
-rating
-
-ratingCount
-
-updatedAt
-
-weight
-: 
-*/
+    if (isLogin){fetchRecommended();}
+  }, []); 
 
   if (petIsRegistered && isLogin) {
     return (
