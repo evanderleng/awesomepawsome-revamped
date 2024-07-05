@@ -37,7 +37,7 @@ const ReviewForm = ({ productId }) => {
     axiosInstance.post(url, { product_id: productId, rating, comment, csrf_token: csrfToken})
         .then(res => {
           // console.log(res.data);
-          console.log('Submitted Review!:', response.data);
+          console.log('Submitted Review!:', res.data);
           setCanReview(false); 
           alert(res.data.message);
         })
