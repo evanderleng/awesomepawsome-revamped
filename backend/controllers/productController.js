@@ -8,8 +8,8 @@ const { checkValid }  = require('../middleware/validators/validatorMiddleware.js
 
 const getProductById = async (req, res) => {
     try {
-        const { productId } = req.params;
-        let product = await Product.findById(productId);
+        const { product_id } = req.params;
+        let product = await Product.findOne( { _id: product_id } );
 
         if (product) {
             return res.status(200).json(product);
@@ -23,8 +23,7 @@ const getProductById = async (req, res) => {
 
 const getProduct = async (req, res) => {
     try {
-        const products = await Product.find(req.query); // NEED TO VALIDATE TODO
-
+        const products = await Product.find();
         if (products.length > 0) {
             return res.status(200).json(products);
         } else {

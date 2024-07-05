@@ -11,7 +11,7 @@ const {checkValid} = require('../middleware/validators/validatorMiddleware.js')
 
 const accountLimiter = rateLimit({
     windowMs:  1000 * 60 * 10, //10 minutes
-    limit: 1, 
+    limit: 20, 
     standardHeaders: true, 
     legacyHeaders: false,
     message: {message: "We have detected an unsual amount of login attempts for this account, and it has been temporarily locked. Please try again later."},
@@ -30,7 +30,7 @@ const accountLimiter = rateLimit({
 
 const ipLimiter = rateLimit({
     windowMs:  1000 * 60 * 60, // 1h
-    limit: 20, //20 failed attempts from same ip
+    limit: 30, //30 failed attempts from same ip
     standardHeaders: true, 
     legacyHeaders: false,
     message: {message: "We have detected an unsual amount of login attempts for this IP address. Please try again later."},
@@ -48,16 +48,12 @@ const ipLimiter = rateLimit({
 })
 
 
-// Reset Password - 2FA
+
+
 router.post("/send2faEmail_ResetPassword", checkEmailReq, checkValid, emailController.send2faEmail_ResetPassword)
 
-// Reset Password - Send Email
 router.post("/sendResetPasswordEmail", checkEmailReq, checkValid, emailController.sendResetPasswordEmail)
 
-// Reset Password - Confirmation Email
-// TODO
-
-// Login - 2FA
 router.route("/send2faEmail_Login").post(ipLimiter, accountLimiter, checkLoginReq, checkValid, emailController.send2faEmail_Login)
 
 module.exports = router;
