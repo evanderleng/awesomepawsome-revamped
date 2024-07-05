@@ -79,7 +79,14 @@ const OTPPopup = ({closePopUp, userEmail}) => {
 
         }
       } catch (error) {
-        console.error("Error:", error);
+        // console.error("Error:", error);
+        // alert("Error: ", error)
+
+        if (error.response.data.path){ //path exists, let user know which input is incorrect
+          alert(error.response.data.path+": "+error.response.data.message);
+        } else {
+          alert(error.response.data.message);
+        }
       }
     };
 

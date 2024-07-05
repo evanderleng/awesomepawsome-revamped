@@ -63,6 +63,8 @@ import axiosInstance from '../../../axiosConfig'
         })
         .catch(error => {
             console.error('Error saving pet details:', error);
+            alert("Error: ", error);
+            
         });
 };
 
