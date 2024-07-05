@@ -21,6 +21,9 @@ const petAgeMsg = "Invalid Age!"
 const petSizeRegex = /^Small$|^Medium$|^Large$|^Giant$/g 
 const petSizeMsg = "Invalid Size!"
 
+const mongoidRegex = /^[\da-f]{24}$/g
+const mongoidMsg = "Not a valid ID"
+
 const checkAddProductReq = [
 	check('brand',brandMsg).matches(brandRegex).notEmpty(),
 	check('name',nameMsg).matches(nameRegex).notEmpty(),
@@ -32,5 +35,9 @@ const checkAddProductReq = [
 	check('petSize', petSizeMsg).matches(petSizeRegex).notEmpty()
 ]
 
+const checkProdIdReq = [
+	check('product_id',mongoidMsg).matches(mongoidRegex).notEmpty(),
+]
 
-module.exports = {checkAddProductReq};
+
+module.exports = {checkAddProductReq, checkProdIdReq};
