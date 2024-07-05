@@ -47,6 +47,7 @@ pipeline {
                 CLOUDINARY_API_SECRET = credentials('cloudinary-api-secret')
             }
             steps {
+                sh 'docker compose down'
                 sh 'docker compose up --build -d'
             }
         }
