@@ -55,6 +55,7 @@ pipeline {
     post {
         always {
             cleanWs()
+            //Cleanup docker space
             sh 'docker image prune -f'
             sh 'docker builder prune -f'
         }
