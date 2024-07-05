@@ -7,13 +7,13 @@ const escape = require('escape-html');
 
 const getReview = async (req, res) => {
     try {
-        const productId = req.query.product_id;
-        console.log('Fetching reviews for product_id:', productId);
+        const product_id = req.query.product_id;
+        console.log('Fetching reviews for product_id:', product_id);
 
-        const reviews = await Review.aggregate([
+        const review = await Review.aggregate([
             { 
                 $match: {
-                    product_id: new mongoose.Types.ObjectId(productId)
+                    product_id: new mongoose.Types.ObjectId(product_id)
                 }
             },
             { 
@@ -26,8 +26,7 @@ const getReview = async (req, res) => {
             },
             { 
                 $project: {
-                    "product_id": { $toString: "$product_id" },
-                    "user_id": { $toString: "$user_id" },
+                    "product_id": 1,
                     "username": {"$first": "$user.username"},
                     "avatar": {"$first": "$user.avatar"},
                     "rating": 1,
@@ -38,20 +37,20 @@ const getReview = async (req, res) => {
             }
         ]);
 
-        console.log('Review query result:', reviews);
+        console.log('Review query result:', review);
 
-        if (reviews.length) {
-            reviews.forEach((item) => {
-                item.comment = escape(item.comment);
-                item.username = escape(item.username);
-                item.product_id = escape(item.product_id);
-                item.avatar = escape(item.avatar);
-                item.rating = escape(item.rating.toString());
-                item.createdAt = escape(item.createdAt.toString());
-                item.updatedAt = escape(item.updatedAt.toString());
-            });
+        if (review.length > 0) {
+            review.forEach((item) => {
+                item.product_id = escape(item.product_id)
+                item.username = escape(item.username)
+                item.avatar = escape(item.avatar)
+                item.rating = escape(item.rating)
+                item.comment = escape(item.comment)
+                item.createdAt = escape(item.createdAt)
+                item.updatedAt = escape(item.updatedAt)
+            })
 
-            return res.status(200).json(reviews);
+            return res.status(200).json(review);
         } else {
             return res.status(200).json({message: "No reviews yet..."});
         }
@@ -64,55 +63,47 @@ const getReview = async (req, res) => {
 
 const addReview = async (req, res) => {
     try {
-        const { product_id, order_id, rating, comment } = req.body;
-        console.log('Adding review for product_id:', product_id, 'order_id:', order_id);
+        const { product_id, rating, comment } = req.body;
 
-        // Validate input
-        if (!product_id || !order_id || !rating || !comment) {
-            return res.status(400).json({ message: "Missing required fields: product_id, order_id, rating, or comment" });
-        }
+        let hasProduct = false
+		let hasReview = true //assume worst
 
-        // Check if user has purchased the product in this specific order
-        const order = await Order.findOne({
-            _id: new mongoose.Types.ObjectId(order_id),
+		const order = await Order.find({
             user_id: req.user._id,
-            "order_list.product_id": new mongoose.Types.ObjectId(product_id)
+			'order_list.product_id': new mongoose.Types.ObjectId(product_id)
         });
-        
-        if (!order) {
-            return res.status(400).json({ message: "No matching order found for this product and user" });
-        }
 
-        // Check if a review already exists for this order
-        const existingReview = await Review.findOne({
-            order_id: new mongoose.Types.ObjectId(order_id)
+		if (order.length > 0){
+			hasProduct = true
+		} else {
+			hasProduct = false
+		}
+
+		const review = await Review.find({
+            user_id: req.user._id,
+			"product_id": new mongoose.Types.ObjectId(product_id)
         });
-        
-        if (existingReview) {
-            return res.status(400).json({ message: "A review already exists for this order." });
-        }
+		if (review.length > 0){
+			hasReview = true
+		} else {
+			hasReview = false
+		}
 
-        // Create new review
-        const review = await Review.create({
+        if (hasProduct == false){
+			return res.status(400).json({ message: "Please purchase the product before leaving a review" });
+		} else if (hasReview == true){
+			return res.status(400).json({ message: "Already left a review for this product." });
+		}
+
+        const newReview = await Review.create({
             product_id: new mongoose.Types.ObjectId(product_id),
             user_id: req.user._id,
-            order_id: new mongoose.Types.ObjectId(order_id),
             rating,
             comment
         });
 
-        console.log('New review created:', review);
-
-        if (review) {
-            const plainReview = review.toObject();
-            plainReview._id = plainReview._id.toString();
-            plainReview.product_id = plainReview.product_id.toString();
-            plainReview.user_id = plainReview.user_id.toString();
-            plainReview.order_id = plainReview.order_id.toString();
-
-            return res.status(201).json({ message: "Review successfully added!", review: plainReview });
-        } else {
-            return res.status(400).json({ message: "Failed to add review. Please try again later." });
+        if (newReview) {
+            return res.status(201).json({ message: "Review successfully added!" });
         }
     } catch (err) {
         console.error("Error adding review:", err);

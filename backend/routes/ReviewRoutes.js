@@ -8,11 +8,12 @@ const {checkValid} = require('../middleware/validators/validatorMiddleware.js')
 const reviewController = require("../controllers/reviewController.js");
 const {checkOrderReview } = require('../controllers/reviewController');
 const {checkProductReview } = require('../controllers/reviewController');
+const { checkCSRF } = require('../middleware/csrfMiddleware.js');
 
 
 
 router.route("/getReview").get(reviewController.getReview);
-router.route("/addReview").post(authMiddleware.auth, checkAddReviewReq, checkValid, reviewController.addReview);
+router.route("/addReview").post(authMiddleware.auth, checkCSRF, checkAddReviewReq, checkValid, reviewController.addReview);
 router.get('/checkReview/:orderId', checkOrderReview);
 router.get('/checkReview/:orderId/:productId', checkProductReview);
 

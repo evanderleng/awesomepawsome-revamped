@@ -6,7 +6,6 @@ import './Subscriptions.css';
 const Subscriptions = () => {
   const [orders, setOrders] = useState([]);
   const [productMap, setProductMap] = useState({});
-  const [reviewedProducts, setReviewedProducts] = useState({});
 
   useEffect(() => {
     fetchConfirmedOrders();
@@ -46,51 +45,11 @@ const Subscriptions = () => {
       setOrders(ordersData);
       setProductMap(productMap);
 
-      // Check which products have been reviewed
-      const reviewedProductsMap = {};
-      for (const order of ordersData) {
-        for (const item of order.order_list) {
-          const hasReview = await checkProductReview(order._id, item.product_id);
-          reviewedProductsMap[`${order._id}-${item.product_id}`] = hasReview;
-        }
-      }
-      setReviewedProducts(reviewedProductsMap); // Update reviewedProducts state
     } catch (error) {
       console.error('Error fetching orders:', error);
     }
   };
 
-  const checkProductReview = async (orderId, productId) => {
-    try {
-      const response = await axiosInstance.get(`/review/checkReview/${orderId}/${productId}`);
-      return response.data.hasReview;
-    } catch (error) {
-      console.error('Error checking review status:', error);
-      return false;
-    }
-  };
-
-  const handleSubmitReview = async (productId, orderId, reviewData) => {
-    try {
-      const response = await axiosInstance.post('/review/addReview', {
-        product_id: productId,
-        order_id: orderId,
-        ...reviewData
-      });
-      console.log('Review submitted successfully:', response.data);
-  
-      // Update reviewedProducts state
-      setReviewedProducts(prev => ({
-        ...prev,
-        [`${orderId}-${productId}`]: true
-      }));
-  
-      // Force a re-fetch of orders to ensure all data is up to date
-      fetchConfirmedOrders();
-    } catch (error) {
-      console.error('Error submitting review:', error.response?.data || error.message);
-    }
-  };
   return (
     <div className="subscriptions">
       <h2 className="title">Order History</h2>
@@ -111,15 +70,9 @@ const reviewKey = `${order._id}-${item.product_id}`;                return (
                       <p className="product-name">{productMap[item.product_id]?.name || item.product_id}</p>
                       <p className="product-quantity">Quantity: {item.quantity}</p>
                     </div>
-                    {!reviewedProducts[reviewKey] ? (
                       <ReviewForm
                         productId={item.product_id}
-                        orderId={order._id}
-                        onSubmit={(reviewData) => handleSubmitReview(item.product_id, order._id, reviewData)}
                       />
-                    ) : (
-                      <p className="review-submitted">Thank you for your review!</p>
-                    )}
                   </div>
                 );
               })}
