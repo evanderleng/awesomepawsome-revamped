@@ -13,11 +13,20 @@ const handleSubmit = (e) => {
     },
   })
       .then(res => {
-        console.log(res.data);
+        console.log(res.data.message);
+        
       })
-      .catch(err => console.log(err))
-};
+      .catch(err => {
+        console.log(err)
+        if (err.response.data.path){ //path exists, let user know which input is incorrect
+          alert(err.response.data.path+": "+err.response.data.message);
+        } else {
+          alert(err.response.data.message);
+        }
+      })
 
+  
+};
 
 const AdminAddProduct = () => {
   return (
