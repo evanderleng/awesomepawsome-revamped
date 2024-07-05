@@ -17,16 +17,15 @@ server {
     listen 443;
     server_name _;
 
-    root /var/www/awesomepawsome/dist;  # Ensure this directory exists and contains your site
-    index index.html index.htm;
-
     ssl_certificate /etc/letsencrypt/live/awesomepawsome.shop/fullchain.pem;
     ssl_certificate_key /etc/letsencrypt/live/awesomepawsome.shop/privkey.pem;
     include /etc/letsencrypt/options-ssl-nginx.conf;  # Security enhancements
     ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem;
 
     location / {
-        try_files $uri $uri/ =404;
+        root /var/www/awesomepawsome/dist;  # Ensure this directory exists and contains your site
+        index index.html index.htm;
+        try_files $uri /index.html$is_args$args =404;
     }
 
     location /api/ {
