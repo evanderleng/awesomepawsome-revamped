@@ -7,7 +7,7 @@ const PersonalDetails = ({ personalDetails, setPersonalDetails }) => {
 
   // Function to fetch user profile details
   const fetchProfile = () => {
-    const url = "http://127.0.0.1:4000/api/user/getProfile";
+    const url = "/api/user/getProfile";
     axiosInstance.get(url)
       .then(res => {
         console.log(res.data); // Log the data to see the structure
@@ -38,7 +38,7 @@ const PersonalDetails = ({ personalDetails, setPersonalDetails }) => {
     setEditMode(false);
     
     const formData = new FormData(e.target);
-    let url = "http://127.0.0.1:4000/api/user/editProfile";
+    let url = "/api/user/editProfile";
     axiosInstance.post(url, formData, {
       headers: {
         'content-type': 'multipart/form-data'
