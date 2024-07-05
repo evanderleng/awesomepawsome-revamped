@@ -4,6 +4,8 @@ const mongoSanitize = require("express-mongo-sanitize");
 const helmet = require("helmet");
 const cors = require("cors");
 const connDB = require("./db");
+const schedule = require('node-schedule');
+const fs = require('fs')
 
 const UserRouter = require("./routes/UserRoutes.js")
 const ProductRouter = require("./routes/ProductRoutes.js")
@@ -41,7 +43,10 @@ app.use(mongoSanitize());
 
 app.set('trust proxy', 1); // Trust first proxy, for NGINX
 
-
+const job = schedule.scheduleJob('1 */1 * * *', () => { // At minute 1 past every hour.
+  fs.rmSync('./tmp', { recursive: true, force: true });
+  console.log("Deleted tmp folder.")
+});
 
 
 
