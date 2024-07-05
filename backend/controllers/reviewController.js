@@ -1,6 +1,7 @@
 
 const Review = require("../models/Review")
 const Order = require("../models/Order")
+const Product = require("../models/Product")
 const mongoose = require('mongoose');
 const escape = require('escape-html');
 
@@ -103,11 +104,24 @@ const addReview = async (req, res) => {
         });
 
         if (newReview) {
+
+            const product = await Product.findOne({ //update prod rating
+                _id: new mongoose.Types.ObjectId(product_id)
+            });
+
+            const newRatingCount = parseFloat(product.ratingCount) + 1
+            const newRating = (((product.rating * product.ratingCount) + rating ) / newRatingCount)
+
+            const updateProduct = await Product.updateOne(
+                { _id: new mongoose.Types.ObjectId(product_id) },
+				{ $set: { rating: newRating, ratingCount: newRatingCount} }
+            );
+
             return res.status(201).json({ message: "Review successfully added!" });
         }
     } catch (err) {
         console.error("Error adding review:", err);
-        return res.status(500).json({ message: "Internal Server Error", error: err.message });
+        return res.status(500).json({ message: "Internal Server Error" });
     }
 };
 
