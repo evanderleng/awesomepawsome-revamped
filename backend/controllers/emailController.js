@@ -26,21 +26,28 @@ const sendResetPasswordEmail = async (req, res) => {
 
         const token = crypto.randomBytes(20).toString('hex'); // generate reset token here
         const tokenExpiry = Date.now() + 3600000; // 1 hour from now
-
-        user.resetPasswordToken = token;
-        user.resetPasswordExpires = tokenExpiry;
-        await user.save();
-
+        
+        try{
+            user.resetPasswordToken = token;
+            user.resetPasswordExpires = tokenExpiry;
+            await user.save();
+            console.log("added reset token for user")
+        }
+        catch (err){
+            console.log("Unable to update user")
+        }
+        
         const resetPasswordLink_dev = `http://localhost:5173/resetPasswordPage?token=${token}`  
         const resetPasswordLink_prod = `https://awesomepawsome.shop/resetPasswordPage?token=${token}` 
 
-        if (process.env.NODE_ENV == "development"){
-            const resetPasswordLink = resetPasswordLink_dev
+        let resetPasswordLink;
+
+        if (process.env.NODE_ENV === "development"){
+            resetPasswordLink = resetPasswordLink_dev;
         }
         else{
-            const resetPasswordLink = resetPasswordLink_prod
+            resetPasswordLink = resetPasswordLink_prod;
         }
-        console.log(`Reset Password Link: ${resetPasswordLink}`) // TODO to remove
 
         const emailContent = `
             <p>Dear ${user.username},</p>
@@ -94,7 +101,7 @@ const send2faEmail_ResetPassword = async (req, res) => {
                 subject: "Reset Password - 2FA Token",                      // Subject line
                 html: emailContent,                                         // html body
             }).then(info => {
-                return res.status(200).json({ message: "Successfully sent 2FA token!" });
+                return res.status(200).json({ message: "Successfully sent 2FA token!", otpToken: token });
             })
         }
         catch (err){
