@@ -27,6 +27,7 @@ const {
 
   // state for error message
   const [errorMsg, setErrorMsg] = useState("");
+  const [notification, setNotification] = useState("");
 
   const handleChange = (element, index) => {
     if (/^[0-9]$/.test(element.value)) {
@@ -66,7 +67,7 @@ const {
     )
     .then(res => {
 
-      alert(res.data.message);
+      setNotification(res.data.message);
 
       const receivedJWTToken = res.data.jwt_token;  // received JWT Token from response
       const receivedCSRFToken = res.data.csrf_token; // received csrf token from response
@@ -89,17 +90,22 @@ const {
     })
     .catch(err => {
       if (err.response.data.path){ //path exists, let user know which input is incorrect
-        alert(err.response.data.path+": "+err.response.data.message);
+        setNotification(err.response.data.path + ": " + err.response.data.message);
       } else {
-        alert(err.response.data.message);
+        setNotification(err.response.data.message);
       }
     })
+    setTimeout(() => {
+      setNotification("");
+    }, 3000)
+
 
   };
 
   return (
     <div className="backdrop">
       <div className="otp-container">
+      {notification && <div className="notification">{notification}</div>}
         <button className="close-button" onClick={closePopUp}>
           ✖
         </button>

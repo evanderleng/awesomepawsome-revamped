@@ -4,6 +4,7 @@ import axiosInstance from '../../../axiosConfig'
 
 const PersonalDetails = ({ personalDetails, setPersonalDetails }) => {
   const [editMode, setEditMode] = useState(false);
+  const [notification, setNotification] = useState("");
 
   // Function to fetch user profile details
   const fetchProfile = () => {
@@ -12,21 +13,26 @@ const PersonalDetails = ({ personalDetails, setPersonalDetails }) => {
       .then(res => {
         console.log(res.data); // Log the data to see the structure
         setPersonalDetails({
-          username: res.data.username, 
+          username: res.data.username,
           email: res.data.email,
           address: res.data.address,
-          avatar: res.data.avatar 
+          avatar: res.data.avatar
         });
       })
       // .catch(err => console.log(err));
       .catch(err => alert("Error: ", err));
 
-};
+  };
 
   // Fetch profile on component mount
   useEffect(() => {
     fetchProfile();
   }, []);
+
+  const resetProfile = (editMode) => {
+    fetchProfile()
+    setEditMode(editMode)
+  };
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -36,7 +42,7 @@ const PersonalDetails = ({ personalDetails, setPersonalDetails }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     setEditMode(false);
-    
+
     const formData = new FormData(e.target);
     let url = "http://127.0.0.1:4000/api/user/editProfile";
     axiosInstance.post(url, formData, {
@@ -44,25 +50,29 @@ const PersonalDetails = ({ personalDetails, setPersonalDetails }) => {
         'content-type': 'multipart/form-data'
       },
     })
-    .then(res => {
-      alert(res.data.message);
-      fetchProfile();
-    })
-    .catch(err => {
-      if (err.response.data.path){ //path exists, let user know which input is incorrect
-        alert(err.response.data.path+": "+err.response.data.message);
-      } else {
-        alert(err.response.data.message);
-      }
-      fetchProfile();
-    })
+      .then(res => {
+        setNotification(res.data.message);
+        fetchProfile();
+      })
+      .catch(err => {
+        if (err.response.data.path) { //path exists, let user know which input is incorrect
+          setNotification(err.response.data.path + ": " + err.response.data.message);
+        } else {
+          setNotification(err.response.data.message);
+        }
+        fetchProfile();
+      })
+    setTimeout(() => {
+      setNotification("");
+    }, 3000)
   };
 
-  return (
+  return ( 
     <div className="personal-details">
+    {notification && <div className="notification">{notification}</div>}
       <div className="title-container">
         <h2>Personal Details</h2>
-        <button className="edit-button" onClick={() => setEditMode(!editMode)}>
+        <button className="edit-button" onClick={() => resetProfile(!editMode) }>
           <FaPencilAlt /> Edit
         </button>
       </div>
@@ -91,7 +101,7 @@ const PersonalDetails = ({ personalDetails, setPersonalDetails }) => {
           <label>
             Address:
             <input
-              type="text" 
+              type="text"
               name="address"
               value={personalDetails.address}
               onChange={handleChange}
@@ -100,10 +110,10 @@ const PersonalDetails = ({ personalDetails, setPersonalDetails }) => {
           </label>
           <label>
             Avatar:
-            <input type="file" name='avatar'/>
+            <input type="file" name='avatar' />
           </label>
           <input type="hidden" name="csrf_token" value={sessionStorage.getItem("csrfToken")}></input>
-          <button type="submit">Save</button> 
+          <button type="submit">Save</button>
         </form>
       ) : (
         <div style={{ display: 'flex', alignItems: 'center' }}>
@@ -124,5 +134,5 @@ const PersonalDetails = ({ personalDetails, setPersonalDetails }) => {
     </div>
   );
 }
-  
+
 export default PersonalDetails;

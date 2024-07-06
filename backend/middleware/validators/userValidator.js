@@ -4,6 +4,8 @@ const { check, validationResult } = require('express-validator');
 const usernameRegex = /^[\w\d]{1,20}$/g //alphanumeric + underscore only, 1-20 characters
 const usernameMsg = "Username can only contain alphabets, digits and underscores and have a maximum of 20 characters"
 
+const emailMsg = "Email must be a valid email"
+
 const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*\W)(?!.* )[a-zA-Z\d\W]{8,40}$/g //8-40 character, must have 1 lower 1 upper 1 number 1 symbol no space
 const passwordMsg = "Password must be 8-40 characters and contain one uppercase, lowercase, digit and symbol"
 
@@ -31,7 +33,7 @@ const mongoidMsg = "Not a valid ID"
 const checkAddUserReq = [
 	check('username', usernameMsg).matches(usernameRegex).notEmpty(),
 	check('password', passwordMsg).matches(passwordRegex).notEmpty(),
-	check('email', "Email is required").notEmpty().isEmail().isLength({ min: 1, max: 100 })
+	check('email', emailMsg).notEmpty().isEmail().isLength({ min: 1, max: 100 })
 ]
 
 const checkLoginReq = [
@@ -52,7 +54,7 @@ const checkResetPasswordTokenReq = [
 
 const checkEditProfileReq = [ //untested, to test and integrate
 	check('username', usernameMsg).matches(usernameRegex).notEmpty(),
-	check('email', "Email is required").notEmpty().isEmail().isLength({ min: 1, max: 100 }),
+	check('email', emailMsg).notEmpty().isEmail().isLength({ min: 1, max: 100 }),
 	check('address').isLength({ min: 1, max: 100 })
 ]
 
