@@ -7,12 +7,12 @@ import axiosInstance from "../../../axiosConfig";
 import { Reorder } from "@mui/icons-material";
 import { StoreContext } from "../../context/StoreContext";
 
-const RecommendProduct = ({ petIsRegistered , isLogin }) => {
+const RecommendProduct = ({ petIsRegistered, isLogin }) => {
   // state to store recommended product object
   const [recommendedProduct, setRecommendedProduct] = useState([]);
 
   // Stored Context 
-  const{ setPetIsRegistered } = useContext(StoreContext);
+  const { setPetIsRegistered } = useContext(StoreContext);
 
   // properties of object to pass into state 
   const id = recommendedProduct._id;
@@ -27,22 +27,27 @@ const RecommendProduct = ({ petIsRegistered , isLogin }) => {
 
   useEffect(() => {
     const fetchRecommended = async () => {
-      try {
-        const response = await axiosInstance.get(
-          "/product/getRecommended"
-        );
-        
-        console.log("Response from Recommend API: ", response);
-        console.log("brand is", response.data.brand);
-
-        setRecommendedProduct(response.data);
-      } catch (err) {
+      axiosInstance.get("/product/getRecommended")
+      .then(res => {
+        setRecommendedProduct(res.data);
+        setPetIsRegistered(true);
+      })
+      .catch(err => {
         setPetIsRegistered(false);
-        console.log("Error from Recommend API: ", err);
-      }
+        if (err.response.data.path) { //path exists, let user know which input is incorrect
+          alert(err.response.data.path + ": " + err.response.data.message);
+        } else {
+          alert(err.response.data.message);
+        }
+      })
     };
-    if (isLogin){fetchRecommended();}
-  }, []); 
+    if (isLogin) { fetchRecommended(); }
+  }, []);
+
+
+
+
+
 
   if (petIsRegistered && isLogin) {
     return (
@@ -83,10 +88,10 @@ const RecommendProduct = ({ petIsRegistered , isLogin }) => {
     return (
       <>
         <div className="pet-not-registered-container">
-          <h3>Sorry, your pet is not registered yet!</h3>
+          <h3>Sorry, we do not have enough information about your pet!</h3>
           <p>
-            Do sign up your pet so we know what product to recommend based on
-            their age, breed size and weight as well!
+            Do let us know more about your pet so we know what product to recommend based on
+            their age, breed size and weight!
           </p>
           <button>
             <Link to="/profile">Register Your Pet Here!</Link>
