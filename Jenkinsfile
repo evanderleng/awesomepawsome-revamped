@@ -39,12 +39,15 @@ pipeline {
         // Rebuild container images and deploy servers
         stage('Deployment Phase') {
             environment {
-                JWT_TOKEN_SECRET = credentials('jwt-secret')
+                TOKEN_SECRET = credentials('jwt-secret')
                 PAYPAL_CLIENT_ID = credentials('paypal-client-id')
                 PAYPAL_CLIENT_SECRET = credentials('paypal-client-secret')
                 CLOUDINARY_CLOUD_NAME = credentials('cloudinary-cloud-name')
                 CLOUDINARY_API_KEY = credentials('cloudinary-api-key')
                 CLOUDINARY_API_SECRET = credentials('cloudinary-api-secret')
+                GMAIL_USER_EMAIL = credentials('smtp-user-email')
+                GMAIL_USER_PW = credentials('smtp-user-pw')
+                GMAIL_APP_PW = credentials('smtp-app-pw')
             }
             steps {
                 sh 'docker compose down'

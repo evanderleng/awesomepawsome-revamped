@@ -13,7 +13,7 @@ const Subscriptions = () => {
 
   const fetchProductDetails = async (productId) => {
     try {
-      const response = await axiosInstance.get(`/product/${productId}`);
+      const response = await axiosInstance.get(`/api/product/${productId}`);
       return response.data;
     } catch (error) {
       console.error('Error fetching product details:', error);
@@ -23,7 +23,7 @@ const Subscriptions = () => {
 
   const fetchConfirmedOrders = async () => {
     try {
-      const response = await axiosInstance.get('/order/getOrder');
+      const response = await axiosInstance.get('/api/order/getOrder');
       const ordersData = response.data || [];
 
       const productDetailsPromises = ordersData.flatMap(order =>

@@ -21,12 +21,16 @@ services:
   backend:
     container_name: ${BACKEND_HOST}
     environment:
-      - JWT_TOKEN_SECRET=${JWT_TOKEN_SECRET}
+      - DB_URI=mongodb://${DB_HOST}:${DB_PORT}/${DB_NAME}
+      - TOKEN_SECRET=${TOKEN_SECRET}
       - PAYPAL_CLIENT_ID=${PAYPAL_CLIENT_ID}
       - PAYPAL_CLIENT_SECRET=${PAYPAL_CLIENT_SECRET}
       - CLOUDINARY_CLOUD_NAME=${CLOUDINARY_CLOUD_NAME}
       - CLOUDINARY_API_KEY=${CLOUDINARY_API_KEY}
       - CLOUDINARY_API_SECRET=${CLOUDINARY_API_SECRET}
+      - GMAIL_USER_EMAIL=${GMAIL_USER_EMAIL}
+      - GMAIL_USER_PW=${GMAIL_USER_PW}
+      - GMAIL_APP_PW=${GMAIL_APP_PW}
     build:
       dockerfile: ./backend/Dockerfile
     expose:

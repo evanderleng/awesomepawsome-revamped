@@ -26,13 +26,13 @@ const Cart = () => {
     try {
       // check if cart exists before trying to fetch
       const hasCartResponse = await axiosInstance.get(
-        "http://127.0.0.1:4000/api/cart/hasCart",
+        "/api/cart/hasCart",
       );
 
       const hasCart = hasCartResponse.data.cart;
       if (hasCart) {
         const cartResponse = await axiosInstance.get(
-          "http://127.0.0.1:4000/api/cart/getCart",
+          "/api/cart/getCart",
         );
         console.log("Fetched cart data:", cartResponse.data); // Debug: log the fetched data
 
@@ -71,7 +71,7 @@ const Cart = () => {
       // Log the payload before sending
       console.log("Sending payload:", cartData);
 
-      const response = await axiosInstance.post("/cart/updateCart", cartData);
+      const response = await axiosInstance.post("api/cart/updateCart", cartData);
       console.log("Cart updated successfully:", response.data); // Debug: log the success response
       fetchCartData(); // Re-fetch cart data to reflect changes
     } catch (error) {
@@ -184,7 +184,7 @@ const Cart = () => {
   };
 
   const confirmOrder = async (orderID) => {
-    const url = `/order/${orderID}/confirm`;
+    const url = `/api/order/${orderID}/confirm`;
     const response = await axiosInstance.post(
       url,
       JSON.stringify({

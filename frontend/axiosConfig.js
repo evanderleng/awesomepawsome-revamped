@@ -3,7 +3,7 @@ import axios from 'axios';
 
 // Create an instance of axios with the base URL for your API
 const axiosInstance = axios.create({
-  baseURL: 'http://127.0.0.1:4000/api', // Set your API base URL
+  baseURL: '', // Set your API base URL
 });
 
 // Add a request interceptor to include the JWT token
