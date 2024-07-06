@@ -29,7 +29,7 @@ const RecommendProduct = ({ petIsRegistered , isLogin }) => {
     const fetchRecommended = async () => {
       try {
         const response = await axiosInstance.get(
-          "/api/product/getRecommended"
+          "/product/getRecommended"
         );
         
         console.log("Response from Recommend API: ", response);
