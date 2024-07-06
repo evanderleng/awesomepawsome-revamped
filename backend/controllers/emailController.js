@@ -101,7 +101,7 @@ const send2faEmail_ResetPassword = async (req, res) => {
                 subject: "Reset Password - 2FA Token",                      // Subject line
                 html: emailContent,                                         // html body
             }).then(info => {
-                return res.status(200).json({ message: "Successfully sent 2FA token!", otpToken: token });
+                return res.status(200).json({ message: "Successfully sent 2FA token!"});
             })
         }
         catch (err){
