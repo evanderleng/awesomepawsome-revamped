@@ -37,7 +37,8 @@ const App = () => {
     "/adminDashboard",
     "/resetPasswordPage",
     "/verifyEmailPage",
-  ].includes(location.pathname);
+  ].includes(location.pathname) 
+  && !/^\/product(\/.*)?$/.test(location.pathname);   // regex for product id searches
 
   // this will run this function for every component, so for all hidden inputs with the name csrfToken, it will set the value to be the csrf token
   // just need to add <input type="hidden" name="csrfToken"/> and it will auto assign the csrf value
