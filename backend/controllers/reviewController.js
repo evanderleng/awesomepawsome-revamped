@@ -125,44 +125,5 @@ const addReview = async (req, res) => {
     }
 };
 
-const checkOrderReview = async (req, res) => {
-    try {
-        const orderId = req.params.orderId;
 
-        if (!orderId) {
-            return res.status(400).json({ message: "Order ID is required" });
-        }
-
-        const review = await Review.findOne({
-            order_id: new mongoose.Types.ObjectId(orderId)
-        });
-
-        return res.status(200).json({ hasReview: !!review });
-    } catch (err) {
-        console.error("Error checking order review:", err);
-        return res.status(500).json({ message: "Internal Server Error", error: err.message });
-    }
-};
-
-const checkProductReview = async (req, res) => {
-    try {
-        const orderId = req.params.orderId;
-        const productId = req.params.productId;
-
-        if (!orderId || !productId) {
-            return res.status(400).json({ message: "Order ID and Product ID are required" });
-        }
-
-        const review = await Review.findOne({
-            order_id: new mongoose.Types.ObjectId(orderId),
-            product_id: new mongoose.Types.ObjectId(productId)
-        });
-
-        return res.status(200).json({ hasReview: !!review });
-    } catch (err) {
-        console.error("Error checking product review:", err);
-        return res.status(500).json({ message: "Internal Server Error", error: err.message });
-    }
-};
-
-module.exports = { getReview, addReview, checkOrderReview, checkProductReview};
+module.exports = { getReview, addReview }
