@@ -28,7 +28,7 @@ describe('Email Validation Test', () => {
 
         const errors = validationResult(req);
         expect(errors.isEmpty()).toBe(false);
-        expect(errors.array()[0].msg).toEqual('Email is required');
+        expect(errors.array()[0].msg).toEqual("Email must be a valid email");
     });
 
     it('should fail validation for an invalid email format', async () => {
@@ -38,7 +38,7 @@ describe('Email Validation Test', () => {
 
         const errors = validationResult(req);
         expect(errors.isEmpty()).toBe(false);
-        expect(errors.array()[0].msg).toEqual('Email is required');
+        expect(errors.array()[0].msg).toEqual("Email must be a valid email");
     });
 
     it('should fail validation for a non-string email input', async () => {
@@ -48,6 +48,6 @@ describe('Email Validation Test', () => {
 
         const errors = validationResult(req);
         expect(errors.isEmpty()).toBe(false);
-        expect(errors.array()[0].msg).toEqual('Email is required');
+        expect(errors.array()[0].msg).toEqual("Email must be a valid email");
     });
 });
