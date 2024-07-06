@@ -272,27 +272,4 @@
   "petAge": "Puppy",
   "petSize": "Large",
   "weight": 300
-},
-{
-  "_id": {
-    "$oid": "6687b9abf88b5a640c38bce5"
-  },
-  "brand": "Test Product",
-  "name": "Test Name",
-  "weight": 12,
-  "price": 12,
-  "rating": 0,
-  "ratingCount": 0,
-  "description": "Test Description",
-  "ingredients": "Test Ingredients",
-  "petSize": "Medium",
-  "petAge": "Puppy",
-  "imageURL": "https://res.cloudinary.com/dg7xhtwnl/image/upload/v1720170923/products/Test%20Name.jpg",
-  "createdAt": {
-    "$date": "2024-07-05T09:15:23.821Z"
-  },
-  "updatedAt": {
-    "$date": "2024-07-05T09:15:23.821Z"
-  },
-  "__v": 0
 }]
