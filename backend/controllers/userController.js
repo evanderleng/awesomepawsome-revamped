@@ -288,15 +288,14 @@ const resetPassword = async (req, res) => {
 		await user.save();
 		try {
 			await sendPasswordResetConfirmationEmail(user);
-      // return res.status(200).json({ message: 'Password has been reset successfully.'})
-			return res.status(200).json({ message: 'Password has been reset successfully.', newPassword: newPassword }); //TODO for debugging, remove later
+    		return res.status(200).json({ message: 'Password has been reset successfully.'})
 		}
 		catch (err) {
 			return res.status(400).json({ message: 'Unable to send confirmation email' })
 		}
 	}
 	catch (err) {
-		console.error(err); //TODO for debugging, remove later
+		// console.error(err); 
 		return res.status(500).json({ message: "Internal Error" })
 	}
 }
