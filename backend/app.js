@@ -2,6 +2,9 @@ const express = require("express");
 const dotenv = require("dotenv");
 const mongoSanitize = require("express-mongo-sanitize");
 const helmet = require("helmet");
+const morgan = require("morgan");
+const rfs = require('rotating-file-stream');
+const path = require('path');
 const cors = require("cors");
 const connDB = require("./db");
 const schedule = require('node-schedule');
@@ -40,6 +43,15 @@ if (process.env.NODE_ENV == "development") {
 
 app.use(express.json());
 app.use(mongoSanitize());
+
+var accessLogStream = rfs.createStream('access.log', {
+  size: "10M", // rotate every 10 MegaBytes written
+  interval: '1d', // rotate daily
+  path: path.join(__dirname, 'log'),
+  compress: "gzip" // compress rotated files
+})
+app.use(morgan('combined', { stream: accessLogStream }))
+
 
 app.set('trust proxy', 1); // Trust first proxy, for NGINX
 
