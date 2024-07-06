@@ -40,45 +40,40 @@ const IndividualProduct = ({
             (item) => item.product_id === id
           );
           setInCart(productInCart);
-        } 
+        }
       } catch (error) {
         console.error("Error fetching cart data:", error); // Debug: log the error
       }
     };
-    if (isLogin){fetchCartData();}
+    if (isLogin) { fetchCartData(); }
   }, [id]);
 
   const addToCart = async (event) => {
     event.preventDefault(); // Prevent the default form submission
-    try {
-      const csrfToken = sessionStorage.getItem("csrfToken"); // Retrieve the token from sessionStorage
 
-      const cartData = {
-          product_id: id,
-          quantity: "1",
-          csrf_token: csrfToken // Include the CSRF token in the request body
-      };
+    const csrfToken = sessionStorage.getItem("csrfToken"); // Retrieve the token from sessionStorage
 
-      const response = await axiosInstance.post(
-        "/cart/updateCart",
-        cartData,
-      );
-      console.log("Cart updated successfully:", response.data);
+    const cartData = {
+      product_id: id,
+      quantity: "1",
+      csrf_token: csrfToken // Include the CSRF token in the request body
+    };
 
-      // Show notification
-      setNotification("Item added to cart successfully!");
-      setInCart(true);
-
-      // Hide notification after 3 seconds
-      setTimeout(() => {
-        setNotification("");
-      }, 3000);
-    } catch (error) {
-      console.error(
-        "Error updating cart:",
-        error.response ? error.response.data : error.message
-      );
-    }
+    axiosInstance.post("/cart/updateCart", cartData)
+      .then(res => {
+        setNotification(res.data.message);
+        setInCart(true);
+      })
+      .catch(err => {
+        if (err.response.data.path) { //path exists, let user know which input is incorrect
+          setNotification(err.response.data.path + ": " + err.response.data.message);
+        } else {
+          setNotification(err.response.data.message);
+        }
+      })
+    setTimeout(() => {
+      setNotification("");
+    }, 3000)
   };
 
   return (
