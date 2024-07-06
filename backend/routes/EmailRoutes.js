@@ -11,7 +11,7 @@ const {checkValid} = require('../middleware/validators/validatorMiddleware.js')
 
 const accountLimiter = rateLimit({
     windowMs:  1000 * 60 * 10, //10 minutes
-    limit: 20, 
+    limit: 3, 
     standardHeaders: true, 
     legacyHeaders: false,
     message: {message: "We have detected an unsual amount of login attempts for this account, and it has been temporarily locked. Please try again later."},
@@ -30,7 +30,7 @@ const accountLimiter = rateLimit({
 
 const ipLimiter = rateLimit({
     windowMs:  1000 * 60 * 60, // 1h
-    limit: 30, //30 failed attempts from same ip
+    limit: 10, //10 failed attempts from same ip
     standardHeaders: true, 
     legacyHeaders: false,
     message: {message: "We have detected an unsual amount of login attempts for this IP address. Please try again later."},
