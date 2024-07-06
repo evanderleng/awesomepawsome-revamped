@@ -86,26 +86,28 @@ const {
 
       localStorage.setItem("isAdmin", res.data.admin ? true : false);
 
+      setTimeout(() => {
+        setNotification("");
+      }, 3000)
       //navigate('/');  // navigate to homepage if you're somewhere else
     })
     .catch(err => {
       if (err.response.data.path){ //path exists, let user know which input is incorrect
-        setNotification(err.response.data.path + ": " + err.response.data.message);
+        setErrorMsg(err.response.data.path + ": " + err.response.data.message);
       } else {
-        setNotification(err.response.data.message);
+        setErrorMsg(err.response.data.message);
       }
+      setTimeout(() => {
+        setErrorMsg("");
+      }, 3000)
     })
-    setTimeout(() => {
-      setNotification("");
-    }, 3000)
-
-
+    
   };
 
   return (
     <div className="backdrop">
+    {notification && <div className="notification">{notification}</div>}
       <div className="otp-container">
-      {notification && <div className="notification">{notification}</div>}
         <button className="close-button" onClick={closePopUp}>
           ✖
         </button>
@@ -134,6 +136,12 @@ const {
             Submit
           </button>
         </form>
+        {errorMsg && (
+        <div className="error-popup">
+          <p>{errorMsg}</p>
+          <button onClick={() => setErrorMsg("")}>Close</button>
+        </div>
+      )}
       </div>
     </div>
   );

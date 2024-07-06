@@ -53,18 +53,18 @@ const PersonalDetails = ({ personalDetails, setPersonalDetails }) => {
       .then(res => {
         setNotification(res.data.message);
         fetchProfile();
+        setTimeout(() => {
+          setNotification("");
+        }, 3000)
       })
       .catch(err => {
         if (err.response.data.path) { //path exists, let user know which input is incorrect
-          setNotification(err.response.data.path + ": " + err.response.data.message);
+          alert(err.response.data.path + ": " + err.response.data.message);
         } else {
-          setNotification(err.response.data.message);
+          alert(err.response.data.message);
         }
         fetchProfile();
       })
-    setTimeout(() => {
-      setNotification("");
-    }, 3000)
   };
 
   return ( 
