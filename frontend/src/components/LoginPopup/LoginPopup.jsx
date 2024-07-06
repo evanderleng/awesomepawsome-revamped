@@ -70,9 +70,9 @@ const LoginPopup = ({ setShowLogin }) => {
     })
     .catch(err => {
       if (err.response.data.path){ //path exists, let user know which input is incorrect
-        alert(err.response.data.path+": "+err.response.data.message);
+        setErrorMsg(err.response.data.path+": "+err.response.data.message);
       } else {
-        alert(err.response.data.message);
+        setErrorMsg(err.response.data.message);
       }
     })
   };
@@ -101,11 +101,15 @@ const LoginPopup = ({ setShowLogin }) => {
     })
     .catch(err => {
       if (err.response.data.path){ //path exists, let user know which input is incorrect
-        alert(err.response.data.path+": "+err.response.data.message);
+        setErrorMsg(err.response.data.path+": "+err.response.data.message);
       } else {
-        alert(err.response.data.message);
+        setErrorMsg(err.response.data.message);
       }
       setShowLoadingIcon(false);
+
+      setTimeout(() => {
+        setErrorMsg("");
+      }, 3000)
     })
     
   };
