@@ -29,7 +29,6 @@ const RecommendProduct = ({ petIsRegistered, isLogin }) => {
     const fetchRecommended = async () => {
       axiosInstance.get("api/product/getRecommended")
       .then(res => {
-        console.log(res.data)
         setRecommendedProduct(res.data);
         setPetIsRegistered(true);
       })
