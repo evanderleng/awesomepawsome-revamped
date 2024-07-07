@@ -50,7 +50,7 @@ const getBook = async (req, res) => {
 
             return res.status(200).json(book);
         } else {
-            return res.status(200).json({message: "No comments"});
+            return res.status(200).json(book);
         }
     } catch (err) {
         console.log(err)
