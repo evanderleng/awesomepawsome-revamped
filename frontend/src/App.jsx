@@ -29,30 +29,33 @@ const App = () => {
   const isErrorPage = ![
     "/",
     "/cart",
-    "/productPage",
-    "/individualProductPage",
+    "/products",
+    "/product",
     "/recommendMePage",
     "/profile",
     "/payment",
     "/adminDashboard",
     "/resetPasswordPage",
     "/verifyEmailPage",
-  ].includes(location.pathname);
+  ].includes(location.pathname) 
+  && !/^\/product(\/.*)?$/.test(location.pathname);   // regex for product id searches
 
   // this will run this function for every component, so for all hidden inputs with the name csrfToken, it will set the value to be the csrf token
   // just need to add <input type="hidden" name="csrfToken"/> and it will auto assign the csrf value
   useEffect(() => {
     const addCsrfTokenToForms = () => {
-      const csrfToken = sessionStorage.getItem("csrfToken");
-      const csrfInputs = document.querySelectorAll('input[name="csrfToken"]');
+      try{
+        const csrfToken = sessionStorage.getItem("csrfToken");
+        const csrfInputs = document.querySelectorAll('input[name="csrfToken"]');
 
-      // check if csrfToken exists and csrfInputs were found
-      if (csrfToken && csrfInputs.length > 0) {
-        csrfInputs.forEach((csrfInput) => {
-          csrfInput.value = csrfToken;
-        });
-        console.log("CSRF Token set to input fields:", csrfToken);
-      } else {
+        // check if csrfToken exists and csrfInputs were found
+        if (csrfToken && csrfInputs.length > 0) {
+          csrfInputs.forEach((csrfInput) => {
+            csrfInput.value = csrfToken;
+          });
+          console.log("CSRF Token set to input fields:", csrfToken);
+        } 
+      }catch {
         console.error("CSRF Token or input fields not found.");
       }
     };
@@ -77,12 +80,12 @@ const App = () => {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/cart" element={<Cart />} />
-          <Route path="/productPage" element={<ProductPage />} />
+          <Route path="/products" element={<ProductPage />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/payment" element={<Payment />} />
 
           <Route
-            path="/individualProductPage"
+            path="/product/:product_id"
             element={<IndividualProductPage />}
           />
           <Route path="/recommendMePage" element={<RecommendMePage />} />

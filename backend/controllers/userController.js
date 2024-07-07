@@ -49,7 +49,7 @@ const addUser = async (req, res) => {
 		});
 		return res.status(201).json({ message: "Successfully added!" })
 	} catch (err) {
-		return res.status(500).json({ message: err.message });
+		return res.status(500).json({ message: "Failed" });
 	}
 }
 
@@ -63,7 +63,7 @@ const login = async (req, res) => {
 		let user = await User.findOne({ username });
 
 		if (!user) {
-			return res.status(404).json({ message: "User does not exist" });
+			return res.status(404).json({ message: "Invalid Credentials" });
 		}
 		if (!bcrypt.compareSync(password, user.password)) {
 			return res.status(401).json({ message: "Invalid Credentials" });
@@ -112,13 +112,8 @@ const getProfile = async (req, res) => {
 		);
 
 		if (!user) {
-			return res.status(404).json({ message: "User not found." });
+			return res.status(404).json({ message: "Error" });
 		}
-
-		// Log the user profile data
-		//console.log('Fetched user profile:', user);
-
-		// If you need to escape certain fields for security reasons
 
 		user.username = escape(user.username);
 		user.email = escape(user.email);
@@ -132,14 +127,10 @@ const getProfile = async (req, res) => {
 			user.petDetails.petAge = escape(user.petDetails.petAge);
 			user.petDetails.petSize = escape(user.petDetails.petSize);
 		}
-
-		// Consider handling other fields if needed
-		// For example, you could escape pet details or handle them conditionally
-
 		return res.status(200).json(user);
 	} catch (err) {
-		console.error("Error fetching user profile:", err.message);
-		return res.status(500).json({ message: err.message });
+		//console.error("Error fetching user profile:", err.message);
+		return res.status(500).json({ message: "Error" });
 	}
 };
 
@@ -148,9 +139,9 @@ const editPet = async (req, res) => {
 		let { petName, petBreed, petAge, petSize } = req.body.petDetails;
 
 		if (petName) {petName = escape(petName);} else {petName = ""}
-		if (petBreed) {petBreed = escape(petBreed);}
-		if (petAge) {petAge = escape(petAge);}
-		if (petSize) {petSize = escape(petSize);}
+		if (petBreed) {petBreed = escape(petBreed);} else {petBreed = ""}
+		if (petAge) {petAge = escape(petAge);} else {petAge = ""}
+		if (petSize) {petSize = escape(petSize);} else {petSize = ""}
 
 		const updateUser = await User.updateOne(
 			{ _id: req.user._id },
@@ -160,14 +151,11 @@ const editPet = async (req, res) => {
 		if (updateUser) {
 			return res.status(200).json({ message: "Edit Success" });
 		} else {
-			// User found but no data modified
 			return res.status(500).json({ message: "Edit Failed" });
 		}
 	} catch (dbError) {
 		console.error("Database error during pet update:", dbError);
-		return res
-			.status(500)
-			.json({ message: "Database error: " + dbError.message });
+		return res.status(500).json({ message: "Error" });
 	}
 };
 
@@ -233,7 +221,7 @@ const editProfile = async (req, res) => {
 				const updateData = { username, email, address };
 
 				if (req.file) {
-					const cloudImgUrl = await uploadAvatar(req.file, req.user.username);
+					const cloudImgUrl = await uploadAvatar(req.file, req.user.username); //hehehe
 					updateData.avatar = cloudImgUrl;
 				}
 

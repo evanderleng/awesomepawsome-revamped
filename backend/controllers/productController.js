@@ -5,6 +5,7 @@ const { uploadToLocal, uploadProduct } = require("../middleware/imageMiddleware.
 const { checkCSRF } = require('../middleware/csrfMiddleware.js');
 const { checkAddProductReq }  = require('../middleware/validators/productValidator.js');
 const { checkValid }  = require('../middleware/validators/validatorMiddleware.js');
+const escape = require('escape-html');
 
 const getProductById = async (req, res) => {
     try {
@@ -12,6 +13,19 @@ const getProductById = async (req, res) => {
         let product = await Product.findOne( { _id: product_id } );
 
         if (product) {
+            product._id = escape(product._id)
+            product.name = escape(product.name)
+            product.brand = escape(product.brand)
+            product.price = escape(product.price)
+            product.weight = escape(product.weight)
+            product.rating = escape(product.rating)
+            product.ratingCount = escape(product.ratingCount)
+            product.ingredients = escape(product.ingredients)
+            product.description = escape(product.description)
+            product.petSize = escape(product.petSize)
+            product.petAge = escape(product.petAge)
+            product.imageURL = escape(product.imageURL)
+
             return res.status(200).json(product);
         } else {
             return res.status(404).json({ message: "Product not found" });
@@ -23,8 +37,25 @@ const getProductById = async (req, res) => {
 
 const getProduct = async (req, res) => {
     try {
-        const products = await Product.find();
+        let products = await Product.find();
         if (products.length > 0) {
+
+            products.forEach((item) => {
+                item._id = escape(item._id)
+                item.name = escape(item.name)
+                item.brand = escape(item.brand)
+                item.price = escape(item.price)
+                item.weight = escape(item.weight)
+                item.rating = escape(item.rating)
+                item.ratingCount = escape(item.ratingCount)
+                item.ingredients = escape(item.ingredients)
+                item.description = escape(item.description)
+                item.petSize = escape(item.petSize)
+                item.petAge = escape(item.petAge)
+                item.imageURL = escape(item.imageURL)
+            })
+
+
             return res.status(200).json(products);
         } else {
             return res.status(404).json({ message: "No products found" });
@@ -40,11 +71,24 @@ const getRecommended = async (req, res) => {
 
         const user = await User.findOne({ _id: user_id });
 
-        const product = await Product.findOne({
+        let product = await Product.findOne({
             $or: [{ petSize: user.petDetails.petSize }, { petAge: user.petDetails.petAge }]
         });
 
         if (product) {
+            product._id = escape(product._id)
+            product.name = escape(product.name)
+            product.brand = escape(product.brand)
+            product.price = escape(product.price)
+            product.weight = escape(product.weight)
+            product.rating = escape(product.rating)
+            product.ratingCount = escape(product.ratingCount)
+            product.ingredients = escape(product.ingredients)
+            product.description = escape(product.description)
+            product.petSize = escape(product.petSize)
+            product.petAge = escape(product.petAge)
+            product.imageURL = escape(product.imageURL)
+
             return res.status(200).json(product);
         } else {
             return res.status(404).json({ message: "No recommended products found" });

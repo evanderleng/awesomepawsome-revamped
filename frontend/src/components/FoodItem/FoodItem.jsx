@@ -26,7 +26,7 @@ const FoodItem = ({id, brand, name, weight, price, description, ingredients, pet
                 </div>
                 <p className='food-item-price'>${typeof price === 'number' ? price.toFixed(2) : '0.00'}</p>
                 <button className='button'>
-                    <Link to="/individualProductPage" state={{id, brand, name, weight, price, averageRating, ratingCount, description, ingredients, petSize, imageURL}}>
+                    <Link to={`/product/${id}`} state={{id, brand, name, weight, price, averageRating, ratingCount, description, ingredients, petSize, imageURL}}>
                         More Info
                     </Link>
                 </button>

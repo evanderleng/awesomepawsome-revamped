@@ -12,5 +12,8 @@ const checkAddReviewReq = [
 	check('product_id', mongoidMsg).matches(mongoidRegex).notEmpty()
 ]
 
+const checkGetReviewReq = [
+	check('product_id', mongoidMsg).matches(mongoidRegex).notEmpty()
+]
 
-module.exports = {checkAddReviewReq};
+module.exports = {checkAddReviewReq, checkGetReviewReq};

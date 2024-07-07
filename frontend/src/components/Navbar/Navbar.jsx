@@ -25,7 +25,7 @@ const Navbar = ({ setShowLogin }) => {
     switch (path) {
       case "/":
         return "home";
-      case "/productPage":
+      case "/products":
         return "product";
       case "/recommendMePage":
         return "recommend me";
@@ -77,7 +77,7 @@ const Navbar = ({ setShowLogin }) => {
           onClick={() => setMenu("product")}
           className={menu === "product" ? "active" : ""}
         >
-          <Link to="/productPage">product</Link>
+          <Link to="/products">product</Link>
         </li>
 
         {/* if user is admin, recommend me page will not display, only for users and guests */}
