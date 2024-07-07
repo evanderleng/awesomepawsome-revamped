@@ -34,11 +34,6 @@ const RecommendProduct = ({ petIsRegistered, isLogin }) => {
         })
         .catch(err => {
           setPetIsRegistered(false);
-          if (err.response.data.path) { //path exists, let user know which input is incorrect
-            alert(err.response.data.path + ": " + err.response.data.message);
-          } else {
-            alert(err.response.data.message);
-          }
         })
     };
     if (isLogin) { fetchRecommended(); }
