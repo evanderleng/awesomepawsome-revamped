@@ -29,6 +29,8 @@ const Navbar = ({ setShowLogin }) => {
         return "product";
       case "/recommendMePage":
         return "recommend me";
+      case "/guestBook":
+        return "guest book";
       case "/profile":
         return "profile";
       case "/adminDashboard":
@@ -102,6 +104,13 @@ const Navbar = ({ setShowLogin }) => {
             </li>
           )
         ) : null}
+
+        <li
+          onClick={() => setMenu("guest book")}
+          className={menu === "guest book" ? "active" : ""}
+        >
+          <Link to="/guestBook">guest book</Link>
+        </li>
 
         {/* if userIsAdmin state is true, display the dashboard button, else remove it */}
         {userIsAdmin ? (

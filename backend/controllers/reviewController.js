@@ -6,6 +6,7 @@ const mongoose = require('mongoose');
 const escape = require('escape-html');
 
 
+
 const getReview = async (req, res) => {
     try {
         const product_id = req.query.product_id;
@@ -121,4 +122,4 @@ const addReview = async (req, res) => {
 };
 
 
-module.exports = { getReview, addReview }
+module.exports = { getReview, addReview}

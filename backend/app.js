@@ -15,7 +15,7 @@ const ProductRouter = require("./routes/ProductRoutes.js")
 const OrderRouter = require("./routes/OrderRoutes.js")
 const ReviewRouter = require("./routes/ReviewRoutes.js")
 const CartRouter = require("./routes/CartRoutes.js")
-
+const BookRouter = require("./routes/BookRoutes.js")
 const EmailRouter = require("./routes/EmailRoutes.js")
 
 dotenv.config()
@@ -75,6 +75,7 @@ app.use("/api/order", OrderRouter);
 app.use("/api/review", ReviewRouter);
 app.use("/api/cart", CartRouter);
 app.use("/api/email", EmailRouter);
+app.use("/api/book", BookRouter);
 
 // Server Listening Port
 app.listen(4000, () => {

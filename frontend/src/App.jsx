@@ -8,6 +8,7 @@ import LoginPopup from "./components/LoginPopup/LoginPopup";
 import ProductPage from "./pages/ProductPage/ProductPage";
 import Profile from "./pages/Profile/Profile";
 import Payment from "./pages/Payment/Payment";
+import GuestBook from "./pages/GuestBook/GuestBook";
 import IndividualProductPage from "./pages/IndividualProductPage/IndividualProductPage";
 import RecommendMePage from "./pages/RecommendMePage/RecommendMePage";
 import Error404 from "./pages/Error404/Error404";
@@ -32,6 +33,7 @@ const App = () => {
     "/products",
     "/product",
     "/recommendMePage",
+    "/guestBook",
     "/profile",
     "/payment",
     "/adminDashboard",
@@ -82,6 +84,7 @@ const App = () => {
           <Route path="/cart" element={<Cart />} />
           <Route path="/products" element={<ProductPage />} />
           <Route path="/profile" element={<Profile />} />
+          <Route path="/guestBook" element={<GuestBook />} />
           <Route path="/payment" element={<Payment />} />
 
           <Route
