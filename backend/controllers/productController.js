@@ -37,7 +37,7 @@ const getProductById = async (req, res) => {
 
 const getProduct = async (req, res) => {
     try {
-        const products = await Product.find();
+        let products = await Product.find();
         if (products.length > 0) {
 
             products.forEach((item) => {
