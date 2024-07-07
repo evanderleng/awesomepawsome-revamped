@@ -111,7 +111,7 @@ const confirmOrder = async (req, res) => {
       message: "Order success!",
     });
   } catch (err) {
-    return res.status(500).json({ message: err.message });
+    return res.status(500).json({ message: "Internal Error" });
   }
 };
 
@@ -121,14 +121,12 @@ const getOrder = async (req, res) => {
   try {
     
     const userID = req.user._id;
-    console.log('Fetching orders for user:', userID);  // Add logging
 
     const orders = await Order.find({ user_id: userID });
-    console.log('Fetched orders:', orders);  // Add logging
 
     return res.status(200).json(orders);
   } catch (err) {
-    return res.status(500).json({ message: err.message });
+    return res.status(500).json({ message: "Internal Error" });
   }
 };
 

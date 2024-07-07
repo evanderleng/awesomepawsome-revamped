@@ -12,7 +12,6 @@ const checkValid = async (req, res, next) => {
 				path: errors.array()[0].path
 			} );
 		} else {
-			console.log("passed regex validation")
 			next()
 		}
 	} catch (err){
