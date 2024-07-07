@@ -41,7 +41,7 @@ const GuestBookForm = ({ }) => {
               required
             ></textarea>
           </div>
-          <button type="submit" onClick={handleSubmit} className="submit-button">Submit Review</button>
+          <button type="submit" onClick={handleSubmit} className="submit-button">Submit Message</button>
         </form>
         :
         <div><p>Please log in to write in the guest book</p></div>

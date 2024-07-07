@@ -1,6 +1,8 @@
 import React, { useContext, useEffect, useState } from 'react'
 import './GuestBookDisplay.css';
 import axiosInstance from "../../../axiosConfig";
+import RefreshIcon from '@mui/icons-material/Refresh';
+import Button from "@mui/material/Button";
 import { StoreContext } from '../../context/StoreContext'
 
 const GuestBookDisplay = () => {
@@ -18,6 +20,7 @@ const GuestBookDisplay = () => {
     console.log(messages)
   }
 
+
   useEffect(() => {
     fetchMessages()
   }, []);
@@ -25,7 +28,17 @@ const GuestBookDisplay = () => {
   return (
 
     <div className="guest-book-display-container">
-      <button hidden onClick={fetchMessages()}></button>
+      <Button 
+      sx={{
+        width: '5px',
+        height: '50px'
+      }}
+        size='small'
+        variant="contained"
+        color="primary"
+        startIcon={<RefreshIcon />}
+        onClick={fetchMessages}
+      ></Button>
       {messages.slice(0).reverse().map((message, index) => (
         <div key={index} className={`message ${message.username === 'user' ? 'user-message' : 'other-message'}`}>
           <div className="profile-picture">

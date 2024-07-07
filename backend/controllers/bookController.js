@@ -27,8 +27,7 @@ const getBook = async (req, res) => {
             },
             { 
                 $project: {
-                    "_id": 1,
-                    "user_id": 1,
+                    "_id": 0,
                     "username": {"$first": "$user.username"},
                     "avatar": {"$first": "$user.avatar"},
                     "message": 1,
@@ -40,8 +39,6 @@ const getBook = async (req, res) => {
 
         if (book.length > 0) {
             book.forEach((item) => {
-                item._id = escape(item._id)
-                item.user_id = escape(item.user_id)
                 item.username = escape(item.username)
                 item.avatar = escape(item.avatar)
                 item.message = escape(item.message)
