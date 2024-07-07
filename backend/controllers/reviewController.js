@@ -9,7 +9,6 @@ const escape = require('escape-html');
 const getReview = async (req, res) => {
     try {
         const product_id = req.query.product_id;
-        console.log('Fetching reviews for product_id:', product_id);
 
         const review = await Review.aggregate([
             { 
@@ -38,8 +37,6 @@ const getReview = async (req, res) => {
             }
         ]);
 
-        console.log('Review query result:', review);
-
         if (review.length > 0) {
             review.forEach((item) => {
                 item.product_id = escape(item.product_id)
@@ -56,8 +53,7 @@ const getReview = async (req, res) => {
             return res.status(200).json({message: "No reviews yet..."});
         }
     } catch (err) {
-        console.error('Error in getReview:', err);
-        return res.status(500).json({message: err.message});
+        return res.status(500).json({message: "Internal Error"});
     }
 };
 
@@ -120,7 +116,6 @@ const addReview = async (req, res) => {
             return res.status(201).json({ message: "Review successfully added!" });
         }
     } catch (err) {
-        console.error("Error adding review:", err);
         return res.status(500).json({ message: "Internal Server Error" });
     }
 };

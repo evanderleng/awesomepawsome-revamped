@@ -75,7 +75,7 @@ const {
       Cookies.set("authToken", receivedJWTToken, {
         path: "/",
         secure: true,
-        sameSite: "Strict",
+        sameSite: "strict",
       });
 
       sessionStorage.setItem('csrfToken', receivedCSRFToken);
