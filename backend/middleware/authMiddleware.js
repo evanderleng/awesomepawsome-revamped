@@ -11,7 +11,6 @@ const auth = async (req, res, next) => {
             next()
             
         } catch (err){
-            console.log(err.message)
             return res.status(401).json({message: "Unauthorised"})
         }
     } else { //no token found
@@ -21,13 +20,11 @@ const auth = async (req, res, next) => {
 
 
 const authAdmin = async (req, res, next) => {
-    if (req.headers.authorization){ //to add regex (global regex js page?)
+    if (req.headers.authorization && req.headers.authorization.startsWith("Bearer")){ 
         try{
             const token = req.headers.authorization.split(' ')[1]
 
             const user = jwt.verify(token, process.env.TOKEN_SECRET)
-
-            console.log(user._id)
 
             let dbuser = await User.findOne({ _id: user._id });
             if (dbuser.admin){
@@ -37,7 +34,6 @@ const authAdmin = async (req, res, next) => {
                 return res.status(401).json({message: "Unauthorised"})
             }
         } catch (err){
-            console.log(err.message)
             return res.status(401).json({message: "Unauthorised"})
         }
     } else { //no token found

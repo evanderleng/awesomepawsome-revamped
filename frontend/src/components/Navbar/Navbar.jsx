@@ -56,7 +56,7 @@ const Navbar = ({ setShowLogin }) => {
     useContext(StoreContext);
 
   useEffect(() => {
-    console.log("userIsAdmin updated:", userIsAdmin);
+    // console.log("userIsAdmin updated:", userIsAdmin);
     // Perform actions based on userIsAdmin change
   }, [userIsAdmin]); // Include userIsAdmin in dependency array
 

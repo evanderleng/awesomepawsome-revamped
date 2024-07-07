@@ -27,12 +27,6 @@ const IndividualProductPage = () => {
   // variable to store array of reviews after requesting API
   const [reviews, setReviews] = useState([]);
 
-  // debugging purpose
-  console.log("id brought over: ", id);
-  console.log("name brought over: ", name);
-  console.log("price brought over: ", price);
-  console.log("description brought over: ", description);
-
   // API Call to get list of reviews for specific product
   useEffect(() => {
     const url = `/api/review/getReview/?product_id=${id}`;

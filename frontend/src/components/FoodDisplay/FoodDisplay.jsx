@@ -11,20 +11,15 @@ const FoodDisplay = ({petSize, searchQuery}) => {
       // set state for list of products after obtaining them from API Request
   const [products, setProducts] = useState([]);
 
-  console.log("Food Searched: ", searchQuery)
-
   useEffect(() => {
     const fetchProducts = async () => {
     try {
     const response = await fetch('/api/product/getProduct');
-    console.log("Response: ", response);
     if (!response.ok) {
     throw new Error("Network response was not ok.");
     }
         // parse the JSON data from the response
         const data = await response.json();
-
-        console.log("Data Fetched: ", data);
         
         // save the data into the state "products" to use 
         setProducts(data);

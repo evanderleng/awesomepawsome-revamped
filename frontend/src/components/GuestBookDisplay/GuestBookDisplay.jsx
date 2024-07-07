@@ -17,7 +17,6 @@ const GuestBookDisplay = () => {
       .then((response) => setMessages(response.data))
 
       .catch((error) => console.error("Error fetching books:" + error));
-    console.log(messages)
   }
 
 
