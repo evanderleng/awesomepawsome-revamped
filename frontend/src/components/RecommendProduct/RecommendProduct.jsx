@@ -27,7 +27,7 @@ const RecommendProduct = ({ petIsRegistered, isLogin }) => {
 
   useEffect(() => {
     const fetchRecommended = async () => {
-      axiosInstance.get("/product/getRecommended")
+      axiosInstance.get("api/product/getRecommended")
       .then(res => {
         setRecommendedProduct(res.data);
         setPetIsRegistered(true);
@@ -43,10 +43,6 @@ const RecommendProduct = ({ petIsRegistered, isLogin }) => {
     };
     if (isLogin) { fetchRecommended(); }
   }, []);
-
- // test
-
-
 
 
   if (petIsRegistered && isLogin) {
@@ -66,7 +62,7 @@ const RecommendProduct = ({ petIsRegistered, isLogin }) => {
         </div>
         <button className="button">
           <Link
-            to="/individualProductPage"
+            to="/product/:id"
             state={{
               id,
               brand,
