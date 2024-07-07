@@ -11,7 +11,7 @@ const hasCart = async (req, res) => { //checks if user has any item in cart
         }
         return res.status(200).json({cart: false})
     } catch (err) {
-        return res.status(500).json({message: err.message});
+        return res.status(500).json({message: "Internal Error"});
     }
 }
 
@@ -63,8 +63,7 @@ const getCart = async (req, res) => {
             return res.status(200).json({message: "cart is empty"})
         }
     } catch (err) {
-        console.log(err)
-        return res.status(500).json({message: err.message});
+        return res.status(500).json({message: "Internal Error"});
     }
 }
 
@@ -110,7 +109,7 @@ const updateCart = async (req, res) => { //inputs: {prod_id, new_qty} ONE item t
         }
         return res.status(200).json({message: "Cart updated!"})
     } catch (err) {
-        return res.status(500).json({message: err.message});
+        return res.status(500).json({message:"Internal Error"});
     }
 }
 

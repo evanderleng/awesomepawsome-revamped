@@ -55,7 +55,7 @@ const checkResetPasswordTokenReq = [
 const checkEditProfileReq = [ //untested, to test and integrate
 	check('username', usernameMsg).matches(usernameRegex).notEmpty(),
 	check('email', emailMsg).notEmpty().isEmail().isLength({ min: 1, max: 100 }),
-	check('address').isLength({ min: 1, max: 100 })
+	check('address').isLength({ min: 0, max: 100 })
 ]
 
 const checkEditPetReq = [

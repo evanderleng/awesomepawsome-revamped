@@ -154,8 +154,7 @@ const editPet = async (req, res) => {
 		} else {
 			return res.status(500).json({ message: "Edit Failed" });
 		}
-	} catch (dbError) {
-		console.error("Database error during pet update:", dbError);
+	} catch (err) {
 		return res.status(500).json({ message: "Error" });
 	}
 };
@@ -203,7 +202,7 @@ const editProfile = async (req, res) => {
 	const upload = await uploadToLocal.single('avatar');
 	upload(req, res, async function (err) {
 		if (err) {
-			return res.status(500).json({ message: err.message });
+			return res.status(500).json({ message: "Internal Error"});
 		}
 		checkCSRF(req, res, async function (err) {
 
