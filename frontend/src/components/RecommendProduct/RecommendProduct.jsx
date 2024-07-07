@@ -28,18 +28,18 @@ const RecommendProduct = ({ petIsRegistered, isLogin }) => {
   useEffect(() => {
     const fetchRecommended = async () => {
       axiosInstance.get("api/product/getRecommended")
-      .then(res => {
-        setRecommendedProduct(res.data);
-        setPetIsRegistered(true);
-      })
-      .catch(err => {
-        setPetIsRegistered(false);
-        if (err.response.data.path) { //path exists, let user know which input is incorrect
-          alert(err.response.data.path + ": " + err.response.data.message);
-        } else {
-          alert(err.response.data.message);
-        }
-      })
+        .then(res => {
+          setRecommendedProduct(res.data);
+          setPetIsRegistered(true);
+        })
+        .catch(err => {
+          setPetIsRegistered(false);
+          if (err.response.data.path) { //path exists, let user know which input is incorrect
+            alert(err.response.data.path + ": " + err.response.data.message);
+          } else {
+            alert(err.response.data.message);
+          }
+        })
     };
     if (isLogin) { fetchRecommended(); }
   }, []);
@@ -60,24 +60,24 @@ const RecommendProduct = ({ petIsRegistered, isLogin }) => {
         <div className="product-image">
           <img src={recommendedProduct.imageURL} alt="" />
         </div>
-        <button className="button">
-          <Link
-            to="/product/:id"
-            state={{
-              id,
-              brand,
-              name,
-              weight,
-              price,
-              description,
-              ingredients,
-              petSize,
-              imageURL,
-            }}
-          >
+        <Link
+          to={`/product/${id}`}
+          state={{
+            id,
+            brand,
+            name,
+            weight,
+            price,
+            description,
+            ingredients,
+            petSize,
+            imageURL,
+          }}
+        >
+          <button className="button">
             More Info
-          </Link>
-        </button>
+          </button>
+        </Link>
       </div>
     );
   } else if (!petIsRegistered && isLogin) {
@@ -89,9 +89,11 @@ const RecommendProduct = ({ petIsRegistered, isLogin }) => {
             Do let us know more about your pet so we know what product to recommend based on
             their age, breed size and weight!
           </p>
-          <button>
-            <Link to="/profile">Register Your Pet Here!</Link>
-          </button>
+          <Link to="/profile">
+            <button>
+              Register Your Pet Here!
+            </button>
+          </Link>
         </div>
       </>
     );

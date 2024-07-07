@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import AverageStarRating from './AverageStarRating';
 import useAverageRating from './UseAverageRating';
 
-const FoodItem = ({id, brand, name, weight, price, description, ingredients, petSize, imageURL}) => {
+const FoodItem = ({ id, brand, name, weight, price, description, ingredients, petSize, imageURL }) => {
     const { averageRating, ratingCount, error } = useAverageRating(id);
 
     return (
@@ -25,11 +25,12 @@ const FoodItem = ({id, brand, name, weight, price, description, ingredients, pet
                     )}
                 </div>
                 <p className='food-item-price'>${typeof price === 'number' ? price.toFixed(2) : '0.00'}</p>
-                <button className='button'>
-                    <Link to={`/product/${id}`} state={{id, brand, name, weight, price, averageRating, ratingCount, description, ingredients, petSize, imageURL}}>
+
+                <Link to={`/product/${id}`} state={{ id, brand, name, weight, price, averageRating, ratingCount, description, ingredients, petSize, imageURL }}>
+                    <button className='button'>
                         More Info
-                    </Link>
-                </button>
+                    </button>
+                </Link>
             </div>
         </div>
     );
