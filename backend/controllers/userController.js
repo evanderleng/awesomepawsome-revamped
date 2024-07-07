@@ -44,6 +44,7 @@ const addUser = async (req, res) => {
 			password: hash,
 			email,
 			admin: false,
+			address: "",
 			avatar: "https://res.cloudinary.com/dg7xhtwnl/image/upload/v1719492487/avatars/default.jpg",
 			totpSecret: speakeasy.generateSecret().base32
 		});
