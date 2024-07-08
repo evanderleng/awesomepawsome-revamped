@@ -24,6 +24,20 @@ const GuestBookDisplay = () => {
     fetchMessages()
   }, []);
 
+  const formatDate = (createdAt) => {
+    const date = new Date(createdAt);
+    const formattedDate = date.toLocaleString('en-US', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+      hour: 'numeric',
+      minute: 'numeric',
+      second: 'numeric',
+      hour12: true
+    });
+    return formattedDate
+  }
+
   return (
 
     <div className="guest-book-display-container">
@@ -46,7 +60,7 @@ const GuestBookDisplay = () => {
           <div className="message-content">
             <div className="message-info">
               <span className="username">{message.username}</span>
-              <span className="time-sent">{message.createdAt}</span>
+              <span className="time-sent">{formatDate(message.createdAt)}</span>
             </div>
             <div className="message-text">
               {message.message}
