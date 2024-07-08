@@ -28,15 +28,17 @@ connDB();
 const app = express();
 
 if (process.env.NODE_ENV == "development") {
-  app.use(cors({
-    origin: 'http://127.0.0.1:5173',
-    credentials: true
-  }));
+  app.use(helmet({
+    contentSecurityPolicy: { useDefaults: true },
+    accessControlAllowOrigin: 'http://127.0.0.1:5173',
+    accessControlAllowCredentials: true
+  }))
   console.log("development mode detected. CORS enabled, use http://127.0.0.1:5173 to access");
 } else {
   app.use(helmet({
-    accessControlAllowOrigin: 'awesome-pawsome-frontend', //untested
-    accessControlAllowCredentials: true //untested
+    contentSecurityPolicy: { useDefaults: true },
+    accessControlAllowOrigin: 'awesome-pawsome-frontend', 
+    accessControlAllowCredentials: true 
   }))
   console.log("production mode detected. CORS enabled.");
 }
