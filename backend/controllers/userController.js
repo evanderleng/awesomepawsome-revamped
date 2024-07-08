@@ -4,6 +4,7 @@ const Order = require('../models/Order.js');
 const Review = require('../models/Review.js');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const mongoSanitize = require('express-mongo-sanitize');
 const cookie = require('cookie');
 const escape = require('escape-html');
 const multer = require('multer');
@@ -219,6 +220,8 @@ const editProfile = async (req, res) => {
 			try{
 				const { username, email, address } = req.body;
 				const updateData = { username, email, address };
+
+				mongoSanitize.sanitize(updateData);
 
 				if (req.file) {
 					const cloudImgUrl = await uploadAvatar(req.file, req.user.username); //hehehe

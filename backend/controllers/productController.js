@@ -6,6 +6,7 @@ const { checkCSRF } = require('../middleware/csrfMiddleware.js');
 const { checkAddProductReq }  = require('../middleware/validators/productValidator.js');
 const { checkValid }  = require('../middleware/validators/validatorMiddleware.js');
 const escape = require('escape-html');
+const mongoSanitize = require('express-mongo-sanitize');
 
 const getProductById = async (req, res) => {
     try {
@@ -125,6 +126,8 @@ const addProduct = async (req, res) => {
             }
 
             try {
+                mongoSanitize.sanitize(req.body);
+
                 const { brand, name, weight, price, description, ingredients, petSize, petAge } = req.body;
 
                 let checkProduct = await Product.findOne({ name });
