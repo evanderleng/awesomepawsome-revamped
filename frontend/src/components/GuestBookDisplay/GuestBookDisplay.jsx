@@ -6,19 +6,23 @@ import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore';
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 import Button from "@mui/material/Button";
 import { StoreContext } from '../../context/StoreContext'
+import LoadingIcon from "../LoadingIcon/LoadingIcon";
 
 const GuestBookDisplay = () => {
 
   const [messages, setMessages] = useState([]);
   const [page, setPage] = useState(1);
+  const [showLoadingIcon, setShowLoadingIcon] = useState(true);
 
   const fetchMessages = () => {
 
+    setShowLoadingIcon(true);
     axiosInstance({
       method: "get",
       url: `/api/book/${page}`
     })
       .then((response) => setMessages(response.data))
+      .then(() => setShowLoadingIcon(false))
       .catch((error) => console.error("Error fetching books:" + error));
   }
 
@@ -111,6 +115,9 @@ const GuestBookDisplay = () => {
           </div>
         </div>
       ))}
+
+      {showLoadingIcon && <LoadingIcon/>}
+
     </div>
   )
 }
