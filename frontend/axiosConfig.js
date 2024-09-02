@@ -32,6 +32,5 @@ axiosInstance.interceptors.request.use(
 
 axiosInstance.defaults.withCredentials = true;
 
-axios.defaults.baseURL = 'https://ap-backend-rosy.vercel.app';
 
 export default axiosInstance;
