@@ -17,11 +17,9 @@ import AdminDashboard from "./pages/AdminDashboard/AdminDashboard";
 import { StoreContext } from "./context/StoreContext";
 import ResetPasswordPage from "./pages/ResetPasswordPage/ResetPasswordPage";
 import VerifyEmailPage from "./pages/VerifyEmailPage/VerifyEmailPage";
-import axios from 'axios';
 
 const App = () => {
 
-  axios.defaults.baseURL = 'https://ap-backend-rosy.vercel.app';
   const [showLogin, setShowLogin] = useState(false);
 
   const location = useLocation(); // Get the current location
