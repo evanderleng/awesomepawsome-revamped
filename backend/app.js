@@ -30,20 +30,20 @@ dotenv.config();
 connDB();
 const app = express();
 
-if (process.env.NODE_ENV == "development") {
+// if (process.env.NODE_ENV == "development") {
   app.use(cors({
     credentials: true,
-    //origin: 'http://127.0.0.1:5173'
+    origin: 'https://awesomepawsome.shop'
   }));
-  console.log("development mode detected. CORS enabled, use http://127.0.0.1:5173 to access");
-} else {
-  app.use(helmet({
-    contentSecurityPolicy: { useDefaults: true },
-    accessControlAllowOrigin: 'awesomepawsome.shop', 
-    accessControlAllowCredentials: true 
-  }))
-  console.log("production mode detected. CORS enabled.");
-}
+//   console.log("development mode detected. CORS enabled, use http://127.0.0.1:5173 to access");
+// } else {
+//   app.use(helmet({
+//     contentSecurityPolicy: { useDefaults: true },
+//     accessControlAllowOrigin: '*', 
+//     accessControlAllowCredentials: true 
+//   }))
+//   console.log("production mode detected. CORS enabled.");
+// }
 
 app.use(express.json());
 app.use(mongoSanitize());
