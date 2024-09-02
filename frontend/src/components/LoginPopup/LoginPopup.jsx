@@ -62,7 +62,8 @@ const LoginPopup = ({ setShowLogin }) => {
     
 
     axios.post("/api/user/addUser", 
-      { username: name, password, email}
+      { username: name, password, email},
+      { baseURL: 'https://ap-backend-rosy.vercel.app' }
     )
     .then(res => {
       setShowLogin(false);
@@ -93,7 +94,8 @@ const LoginPopup = ({ setShowLogin }) => {
     setPassword(password);
 
     axios.post("/api/email/send2faEmail_Login", 
-      { username: name, password}
+      { username: name, password},
+      { baseURL: 'https://ap-backend-rosy.vercel.app' }
     )
     .then(response => {
       setShowLoadingIcon(false);
