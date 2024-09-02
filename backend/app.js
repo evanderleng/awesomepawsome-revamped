@@ -41,7 +41,7 @@ if (process.env.NODE_ENV == "development") {
 } else {
   app.use(helmet({
     contentSecurityPolicy: { useDefaults: true },
-    //accessControlAllowOrigin: 'awesome-pawsome-frontend', 
+    accessControlAllowOrigin: 'awesomepawsome-revamped-git-main-evanderlengs-projects.vercel.app', 
     accessControlAllowCredentials: true 
   }))
   console.log("production mode detected. CORS enabled.");

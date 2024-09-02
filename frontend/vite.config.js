@@ -8,7 +8,7 @@ export default defineConfig({
     proxy: {
       "/api": {
         // target: "http://awesome-pawsome-backend:4000",
-        target: "http://127.0.0.1:4000",
+        target: "ap-backend-rosy.vercel.app",
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/api/, "/api"),
       },
