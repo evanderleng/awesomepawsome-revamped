@@ -7,6 +7,7 @@ import Cookies from 'js-cookie';
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import LoginOTPPopup from "../LoginOTPPopUp/LoginOTPPopup";
 import LoadingIcon from "../LoadingIcon/LoadingIcon";
+import axiosInstance from "../../../axiosConfig";
 
 
 
@@ -61,9 +62,8 @@ const LoginPopup = ({ setShowLogin }) => {
     const password = formData.get("password");
     
 
-    axios.post("/api/user/addUser", 
-      { username: name, password, email},
-      { baseURL: 'https://ap-backend-rosy.vercel.app' }
+    axiosInstance.post("/api/user/addUser", 
+      { username: name, password, email}
     )
     .then(res => {
       setShowLogin(false);
@@ -93,9 +93,8 @@ const LoginPopup = ({ setShowLogin }) => {
     setUsername(name);
     setPassword(password);
 
-    axios.post("/api/email/send2faEmail_Login", 
-      { username: name, password},
-      { baseURL: 'https://ap-backend-rosy.vercel.app' }
+    axiosInstance.post("/api/email/send2faEmail_Login", 
+      { username: name, password}
     )
     .then(response => {
       setShowLoadingIcon(false);

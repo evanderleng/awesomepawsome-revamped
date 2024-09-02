@@ -3,7 +3,7 @@ import "./LoginOTPPopup.css";
 import { useNavigate } from "react-router-dom";
 import { StoreContext } from "../../context/StoreContext";
 import Cookies from 'js-cookie';
-import axios from "axios";
+import axiosInstance from "../../../axiosConfig";
 
 
 const LoginOTPPopup = ({closePopUp, username, password, setShowLogin}) => {
@@ -58,7 +58,7 @@ const {
     const otpSubmit = otp.join("");
     console.log("otp submitted is ", otpSubmit);
 
-    axios.post("/api/user/login", 
+    axiosInstance.post("/api/user/login", 
       { 
         username,
         password,
