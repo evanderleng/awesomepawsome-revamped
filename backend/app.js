@@ -23,11 +23,9 @@ const CartRouter = require("./routes/CartRoutes.js")
 const BookRouter = require("./routes/BookRoutes.js")
 const EmailRouter = require("./routes/EmailRoutes.js")
 
-dotenv.config()
-connDB()
-const { checktmp } = require("./middleware/imageMiddleware.js");
+//const { checktmp } = require("./middleware/imageMiddleware.js");
 
-checktmp(); //check tmp folder exists
+//checktmp(); //check tmp folder exists
 dotenv.config();
 connDB();
 const app = express();
@@ -61,10 +59,12 @@ app.use(morgan('combined', { stream: accessLogStream }))
 
 app.set('trust proxy', 1); // Trust first proxy, for NGINX
 
-const job = schedule.scheduleJob('*/15 * * * *', () => { // At every 15th minute
-  fse.emptyDirSync("./tmp");
-  console.log("Deleted tmp folder contents.")
-});
+// const job = schedule.scheduleJob('*/15 * * * *', () => { // At every 15th minute
+//   fse.emptyDirSync("./tmp");
+//   console.log("Deleted tmp folder contents.")
+// });
+
+
 
 
 // app.post('/webhook', async (req, res) => {
