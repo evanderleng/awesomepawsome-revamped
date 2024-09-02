@@ -1,4 +1,5 @@
 const Cart = require('../models/Cart.js');
+const Product = require('../models/Product.js');
 const mongoose = require('mongoose');
 const escape = require('escape-html');
 
@@ -72,8 +73,12 @@ const updateCart = async (req, res) => { //inputs: {prod_id, new_qty} ONE item t
     try{
         const {quantity, product_id} = req.body
         
-        let cart = await Cart.findOne({ user_id: req.user._id });
+        const product = await Product.findOne({ _id: product_id });
+        if (!product) {
+            return res.status(500).json({message:"Invalid Product"})
+        }
 
+        let cart = await Cart.findOne({ user_id: req.user._id });
         if (cart == undefined) { //add new document to cart collection if none
             cart = await Cart.create({
                 user_id: req.user._id, cart_list: [{product_id, quantity}]
