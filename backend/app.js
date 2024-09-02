@@ -48,16 +48,16 @@ if (process.env.NODE_ENV == "development") {
 app.use(express.json());
 app.use(mongoSanitize());
 
-var accessLogStream = rfs.createStream('access.log', {
-  size: "10M", // rotate every 10 MegaBytes written
-  interval: '1d', // rotate daily
-  path: path.join(__dirname, 'log'),
-  compress: "gzip" // compress rotated files
-})
-app.use(morgan('combined', { stream: accessLogStream }))
+// var accessLogStream = rfs.createStream('access.log', {
+//   size: "10M", // rotate every 10 MegaBytes written
+//   interval: '1d', // rotate daily
+//   path: path.join(__dirname, 'log'),
+//   compress: "gzip" // compress rotated files
+// })
+// app.use(morgan('combined', { stream: accessLogStream }))
 
 
-app.set('trust proxy', 1); // Trust first proxy, for NGINX
+// app.set('trust proxy', 1); // Trust first proxy, for NGINX
 
 // const job = schedule.scheduleJob('*/15 * * * *', () => { // At every 15th minute
 //   fse.emptyDirSync("./tmp");
