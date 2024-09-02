@@ -6,6 +6,13 @@
   padding: 10px;
 }
 
+.guest-book-navigation{
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  padding: 10px;
+}
+
 .message {
   display: flex;
   gap: 10px;

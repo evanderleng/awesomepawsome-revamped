@@ -1,4 +1,3 @@
-
 const Review = require("../models/Review")
 const Order = require("../models/Order")
 const Product = require("../models/Product")
@@ -10,13 +9,20 @@ const escape = require('escape-html');
 
 const getBook = async (req, res) => {
     try {
+
+        let { page } = req.params;
+        page = page - 1 //undo zero indexing
+
+        const itemsPerPage = 10
+
         const book = await Book.aggregate([
             { 
                 $sort: {
                     "createdAt": -1 
                 }
             },
-            { $limit: 9 },
+            { $skip: itemsPerPage * page },
+            { $limit: itemsPerPage },
             { 
                 $lookup: {
                     from: "users",
