@@ -14,13 +14,11 @@ const GuestBookDisplay = () => {
 
   const fetchMessages = () => {
 
-    console.log("fetching...: "+page)
     axiosInstance({
       method: "get",
       url: `/api/book/${page}`
     })
       .then((response) => setMessages(response.data))
-
       .catch((error) => console.error("Error fetching books:" + error));
   }
 
