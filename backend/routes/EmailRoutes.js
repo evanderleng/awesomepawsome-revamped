@@ -10,39 +10,39 @@ const {checkEmailReq} = require('../middleware/validators/emailValidator.js')
 const {checkLoginReq} = require('../middleware/validators/userValidator.js')
 const {checkValid} = require('../middleware/validators/validatorMiddleware.js')
 
-const accountLimiter = rateLimit({
-    windowMs:  1000 * 60 * 10, //10 minutes
-    limit: 3, 
-    standardHeaders: true, 
-    legacyHeaders: false,
-    message: {message: "We have detected an unsual amount of login attempts for this account, and it has been temporarily locked. Please try again later."},
-    keyGenerator: function(req) {
-      return req.body.username
-    },
-    store: new MongoStore({
-        uri: process.env.DB_URI,
-        expireTimeMs: 1000 * 60 * 10, //10 minutes
-        errorHandler: console.error.bind(null, 'rate-limit-mongo')
-    }),
-    skipSuccessfulRequests: true
-})
+// const accountLimiter = rateLimit({
+//     windowMs:  1000 * 60 * 10, //10 minutes
+//     limit: 3, 
+//     standardHeaders: true, 
+//     legacyHeaders: false,
+//     message: {message: "We have detected an unsual amount of login attempts for this account, and it has been temporarily locked. Please try again later."},
+//     keyGenerator: function(req) {
+//       return req.body.username
+//     },
+//     store: new MongoStore({
+//         uri: process.env.DB_URI,
+//         expireTimeMs: 1000 * 60 * 10, //10 minutes
+//         errorHandler: console.error.bind(null, 'rate-limit-mongo')
+//     }),
+//     skipSuccessfulRequests: true
+// })
 
-const ipLimiter = rateLimit({
-    windowMs:  1000 * 60 * 60, // 1h
-    limit: 10, //10 failed attempts from same ip
-    standardHeaders: true, 
-    legacyHeaders: false,
-    message: {message: "We have detected an unsual amount of login attempts for this IP address. Please try again later."},
-    keyGenerator: function(req) {
-      return req.ip
-    },
-    store: new MongoStore({
-        uri: process.env.DB_URI,
-        expireTimeMs: 1000 * 60 * 60, // 1h
-        errorHandler: console.error.bind(null, 'rate-limit-mongo')
-    }),
-    skipSuccessfulRequests: true
-})
+// const ipLimiter = rateLimit({
+//     windowMs:  1000 * 60 * 60, // 1h
+//     limit: 10, //10 failed attempts from same ip
+//     standardHeaders: true, 
+//     legacyHeaders: false,
+//     message: {message: "We have detected an unsual amount of login attempts for this IP address. Please try again later."},
+//     keyGenerator: function(req) {
+//       return req.ip
+//     },
+//     store: new MongoStore({
+//         uri: process.env.DB_URI,
+//         expireTimeMs: 1000 * 60 * 60, // 1h
+//         errorHandler: console.error.bind(null, 'rate-limit-mongo')
+//     }),
+//     skipSuccessfulRequests: true
+// })
 
 
 
@@ -51,6 +51,7 @@ router.post("/send2faEmail_ResetPassword", checkEmailReq, checkValid, emailContr
 
 router.post("/sendResetPasswordEmail", checkEmailReq, checkValid, emailController.sendResetPasswordEmail)
 
-router.route("/send2faEmail_Login").post(ipLimiter, accountLimiter, checkLoginReq, checkValid, userController.login)
+router.route("/send2faEmail_Login").post(checkLoginReq, checkValid, userController.login)
+// router.route("/send2faEmail_Login").post(ipLimiter, accountLimiter, checkLoginReq, checkValid, userController.login)
 
 module.exports = router;
