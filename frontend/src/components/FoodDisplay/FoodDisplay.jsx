@@ -3,6 +3,7 @@ import  './FoodDisplay.css'
 import { StoreContext } from '../../context/StoreContext'
 import FoodItem from '../FoodItem/FoodItem'
 import axiosInstance from "../../../axiosConfig";
+import LoadingIcon from "../LoadingIcon/LoadingIcon";
 
 const FoodDisplay = ({petSize, searchQuery}) => {
 
@@ -11,6 +12,7 @@ const FoodDisplay = ({petSize, searchQuery}) => {
 
       // set state for list of products after obtaining them from API Request
   const [products, setProducts] = useState([]);
+  const [showLoadingIcon, setShowLoadingIcon] = useState(true);
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -23,7 +25,9 @@ const FoodDisplay = ({petSize, searchQuery}) => {
           .then(res => {
             setProducts(res.data);
           })
+          .then(() => setShowLoadingIcon(false))
           .catch(err => {
+            setShowLoadingIcon(false);
             if (err.response.data.path){ //path exists, let user know which input is incorrect
               setErrorMsg(err.response.data.path+": "+err.response.data.message);
             } else {
@@ -74,6 +78,7 @@ const FoodDisplay = ({petSize, searchQuery}) => {
           <p>No matching products found</p>
         )}
       </div>
+      {showLoadingIcon && <LoadingIcon/>}
     </div>
   )
 }
