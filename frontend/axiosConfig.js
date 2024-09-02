@@ -3,7 +3,7 @@ import axios from 'axios';
 
 // Create an instance of axios with the base URL for your API
 const axiosInstance = axios.create({
-  baseURL: '', // Set your API base URL
+  baseURL: 'https://ap-backend-rosy.vercel.app', // Set your API base URL
 });
 
 // Add a request interceptor to include the JWT token
