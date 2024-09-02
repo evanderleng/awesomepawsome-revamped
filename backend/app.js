@@ -99,10 +99,10 @@ const job = schedule.scheduleJob('*/15 * * * *', () => { // At every 15th minute
 
 
 // logging purposes, delete before submission
-app.use((req, res, next) => {
-  console.log("Received request body:", req.body);
-  next();
-});
+// app.use((req, res, next) => {
+//   console.log("Received request body:", req.body);
+//   next();
+// });
 
 app.use("/api/user", UserRouter);
 app.use("/api/product", ProductRouter);

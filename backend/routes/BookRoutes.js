@@ -10,7 +10,7 @@ const bookController = require("../controllers/bookController.js");
 
 
 
-router.route("/getBook").get(bookController.getBook);
+router.route("/:page").get(bookController.getBook);
 router.route("/addBook").post(authMiddleware.auth, checkCSRF, checkAddBookReq, checkValid, bookController.addBook);
 
 

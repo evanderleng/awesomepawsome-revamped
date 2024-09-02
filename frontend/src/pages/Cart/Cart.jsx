@@ -293,10 +293,11 @@ const Cart = () => {
             deliveryCharge={deliveryCharge}
             grandTotal={grandTotal}
           /> */}
-        </div>
 
 
           <CheckoutForm key={key} order={items}></CheckoutForm>
+
+        </div>
       </div>
     </div>
   );
