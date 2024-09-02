@@ -59,7 +59,7 @@ const IndividualProduct = ({
       csrf_token: csrfToken // Include the CSRF token in the request body
     };
 
-    axiosInstance.post("/cart/updateCart", cartData)
+    axiosInstance.post("/api/cart/updateCart", cartData)
       .then(res => {
         setNotification(res.data.message);
         setInCart(true);

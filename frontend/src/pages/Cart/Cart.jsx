@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axiosInstance from "../../../axiosConfig";
 import CartItem from "../../components/CartItem/CartItem";
 import CartSummary from "../../components/CartSummary/CartSummary";
+import CheckoutForm from "../../components/CheckoutForm/CheckoutForm";
 import cartEmptyImg from "../../assets/cart-empty.png";
 import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
 import "./Cart.css";
@@ -17,9 +18,15 @@ const initialOptions = {
 
 const Cart = () => {
   const [items, setItems] = useState([]);
+  
+  const [isReady, setIsReady] = useState();
+  let [key, setKey] = useState(1);
+
 
   useEffect(() => {
+    setIsReady(false)
     fetchCartData();
+
   }, []);
 
   const fetchCartData = async () => {
@@ -74,6 +81,7 @@ const Cart = () => {
       const response = await axiosInstance.post("api/cart/updateCart", cartData);
       console.log("Cart updated successfully:", response.data); // Debug: log the success response
       fetchCartData(); // Re-fetch cart data to reflect changes
+      setKey(prev => prev + 1);
     } catch (error) {
       console.error(
         "Error updating cart:",
@@ -90,6 +98,7 @@ const Cart = () => {
         item.id === id ? { ...item, quantity: newQuantity } : item,
       ),
     );
+
   };
 
   const removeItem = (id) => {
@@ -200,6 +209,10 @@ const Cart = () => {
     return response;
   };
 
+  
+
+
+
   // Note: This error handler is a catch-all. Errors at this point aren't expected to be handled beyond showing a generic error message or page.
   // per https://developer.paypal.com/sdk/js/reference/
   const onError = (err) => {
@@ -224,6 +237,8 @@ const Cart = () => {
     });
     return JSON.stringify(orderList);
   };
+
+
 
   const toggleSelection = (id) => {
     setItems(
@@ -258,6 +273,7 @@ const Cart = () => {
     <div className="cart">
       <h1>Shopping Cart</h1>
       <div className="cart-content">
+
         <div className="cart-items">
           {items.map((item) => (
             <CartItem
@@ -266,29 +282,21 @@ const Cart = () => {
               updateQuantity={(newQuantity) =>
                 updateQuantity(item.id, newQuantity)
               }
-              toggleSelection={() => toggleSelection(item.id)}
+              // toggleSelection={() => toggleSelection(item.id)}
               removeItem={() => removeItem(item.id)}
             />
           ))}
         </div>
         <div className="checkout">
-          <CartSummary
+          {/* <CartSummary
             subtotal={subtotal}
             deliveryCharge={deliveryCharge}
             grandTotal={grandTotal}
-          />
-          <PayPalScriptProvider options={initialOptions}>
-            <PayPalButtons
-              createOrder={createOrder}
-              onApprove={onApprove}
-              onError={onError}
-              onCancel={onCancel}
-              style={{ layout: "vertical" }}
-              disabled={subtotal <= 0} // Disable the button when subtotal is 0
-              forceReRender={(grandTotal, items)}
-            />
-          </PayPalScriptProvider>
+          /> */}
         </div>
+
+
+          <CheckoutForm key={key} order={items}></CheckoutForm>
       </div>
     </div>
   );

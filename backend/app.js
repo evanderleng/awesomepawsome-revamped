@@ -10,9 +10,14 @@ const connDB = require("./db");
 const schedule = require('node-schedule');
 const fse = require('fs-extra');
 
+const stripe = require('stripe')('sk_test_51PaLw5DC0HCHwtvp6ObvOpKNrqUrjOeh0UGaLuJ4VsLhGk8ItD6iUfofj0dB4bpP9iYD4UNF8sccJmiGLZ6bdUkE00smefRBiH');
+const YOUR_WEBHOOK_SECRET = 'your_stripe_webhook_secret'; // Replace with your webhook secret from Stripe
+
+
 const UserRouter = require("./routes/UserRoutes.js")
 const ProductRouter = require("./routes/ProductRoutes.js")
 const OrderRouter = require("./routes/OrderRoutes.js")
+const Order2Router = require("./routes/Order2Routes.js")
 const ReviewRouter = require("./routes/ReviewRoutes.js")
 const CartRouter = require("./routes/CartRoutes.js")
 const BookRouter = require("./routes/BookRoutes.js")
@@ -28,11 +33,10 @@ connDB();
 const app = express();
 
 if (process.env.NODE_ENV == "development") {
-  app.use(helmet({
-    contentSecurityPolicy: { useDefaults: true },
-    accessControlAllowOrigin: 'http://127.0.0.1:5173',
-    accessControlAllowCredentials: true
-  }))
+  app.use(cors({
+    credentials: true,
+    //origin: 'http://127.0.0.1:5173'
+  }));
   console.log("development mode detected. CORS enabled, use http://127.0.0.1:5173 to access");
 } else {
   app.use(helmet({
@@ -63,6 +67,35 @@ const job = schedule.scheduleJob('*/15 * * * *', () => { // At every 15th minute
 });
 
 
+// app.post('/webhook', async (req, res) => {
+//   const sig = req.headers['stripe-signature'];
+//   let event;
+//   try {
+//     event = stripe.webhooks.constructEvent(req.body, sig, YOUR_WEBHOOK_SECRET);
+//   } catch (err) {
+//     console.error('Webhook Error:', err.message);
+//     return res.status(400).send(`Webhook Error: ${err.message}`);
+//   }
+
+//   if (event.type === 'checkout.session.completed') {
+//     const session = event.data.object;
+//     const paymentIntent = session.payment_intent;
+
+//     try {
+//       await executeDatabaseFunction(event); // Implement this function to handle your database operation
+//       console.log('Database function executed successfully.');
+//     } catch (error) {
+//       console.error('Error executing database function:', error.message);
+//     }
+//   }
+//   res.json({ received: true });
+// });
+
+// const executeDatabaseFunction = async (paymentIntentId) => {
+//   console.log('Executing database function for payment intent:', paymentIntentId);
+// };
+
+
 
 
 // logging purposes, delete before submission
@@ -74,6 +107,7 @@ app.use((req, res, next) => {
 app.use("/api/user", UserRouter);
 app.use("/api/product", ProductRouter);
 app.use("/api/order", OrderRouter);
+app.use("/api/order2", Order2Router);
 app.use("/api/review", ReviewRouter);
 app.use("/api/cart", CartRouter);
 app.use("/api/email", EmailRouter);

@@ -5,7 +5,7 @@ function CartItem({ item, updateQuantity, toggleSelection, removeItem }) {
   return (
     <div className='cart-item'>
       <div className="item-checkbox">
-        <input type="checkbox" checked={item.selected} onChange={toggleSelection} />
+        {/* <input type="checkbox" checked={item.selected} onChange={toggleSelection} /> */}
       </div>
       <div className="item-content">
         <img src={item.image} alt={item.title} className='item-image' />

@@ -7,7 +7,7 @@
   "scripts": {
     "test": "jest",
     "start": "npm install && node app",
-    "dev": "npm install && NODE_ENV=development nodemon app",
+    "dev": "NODE_ENV=development nodemon app",
     "windows_dev": "npm install && SET NODE_ENV=development && nodemon app"
   },
   "keywords": [],
@@ -34,7 +34,8 @@
     "path": "^0.12.7",
     "rate-limit-mongo": "^2.3.2",
     "rotating-file-stream": "^3.2.3",
-    "speakeasy": "^2.0.0"
+    "speakeasy": "^2.0.0",
+    "stripe": "^16.2.0"
   },
   "devDependencies": {
     "cors": "^2.8.5",

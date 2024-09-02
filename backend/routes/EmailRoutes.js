@@ -4,6 +4,7 @@ const { rateLimit } = require("express-rate-limit");
 const MongoStore = require('rate-limit-mongo');
 
 const emailController = require("../controllers/emailController.js")
+const userController = require("../controllers/userController.js")
 
 const {checkEmailReq} = require('../middleware/validators/emailValidator.js')
 const {checkLoginReq} = require('../middleware/validators/userValidator.js')
@@ -20,8 +21,6 @@ const accountLimiter = rateLimit({
     },
     store: new MongoStore({
         uri: process.env.DB_URI,
-        user: process.env.DB_USERNAME,
-        password: process.env.DB_PASSWORD,
         expireTimeMs: 1000 * 60 * 10, //10 minutes
         errorHandler: console.error.bind(null, 'rate-limit-mongo')
     }),
@@ -39,8 +38,6 @@ const ipLimiter = rateLimit({
     },
     store: new MongoStore({
         uri: process.env.DB_URI,
-        user: process.env.DB_USERNAME,
-        password: process.env.DB_PASSWORD,
         expireTimeMs: 1000 * 60 * 60, // 1h
         errorHandler: console.error.bind(null, 'rate-limit-mongo')
     }),
@@ -54,6 +51,6 @@ router.post("/send2faEmail_ResetPassword", checkEmailReq, checkValid, emailContr
 
 router.post("/sendResetPasswordEmail", checkEmailReq, checkValid, emailController.sendResetPasswordEmail)
 
-router.route("/send2faEmail_Login").post(ipLimiter, accountLimiter, checkLoginReq, checkValid, emailController.send2faEmail_Login)
+router.route("/send2faEmail_Login").post(ipLimiter, accountLimiter, checkLoginReq, checkValid, userController.login)
 
 module.exports = router;
