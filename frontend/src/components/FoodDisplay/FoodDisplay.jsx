@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import  './FoodDisplay.css'
 import { StoreContext } from '../../context/StoreContext'
 import FoodItem from '../FoodItem/FoodItem'
+import axiosInstance from "../../../axiosConfig";
 
 const FoodDisplay = ({petSize, searchQuery}) => {
 
@@ -13,17 +14,22 @@ const FoodDisplay = ({petSize, searchQuery}) => {
 
   useEffect(() => {
     const fetchProducts = async () => {
-    try {
-    const response = await fetch('/api/product/getProduct');
-    if (!response.ok) {
-    throw new Error("Network response was not ok.");
-    }
-        // parse the JSON data from the response
-        const data = await response.json();
-        
-        // save the data into the state "products" to use 
-        setProducts(data);
-    
+      try {
+
+        axiosInstance({
+          method: "get",
+          url: '/api/product/getProduct'
+        })
+          .then(res => {
+            setProducts(res.data);
+          })
+          .catch(err => {
+            if (err.response.data.path){ //path exists, let user know which input is incorrect
+              setErrorMsg(err.response.data.path+": "+err.response.data.message);
+            } else {
+              setErrorMsg(err.response.data.message);
+            }
+          })
       } catch (error) {
         console.error("Error fetching products:", error);
       }
