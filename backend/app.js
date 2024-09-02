@@ -41,7 +41,7 @@ if (process.env.NODE_ENV == "development") {
 } else {
   app.use(helmet({
     contentSecurityPolicy: { useDefaults: true },
-    accessControlAllowOrigin: 'awesome-pawsome-frontend', 
+    //accessControlAllowOrigin: 'awesome-pawsome-frontend', 
     accessControlAllowCredentials: true 
   }))
   console.log("production mode detected. CORS enabled.");
