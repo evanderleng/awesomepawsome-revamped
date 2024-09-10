@@ -28,6 +28,8 @@ const LoginPopup = ({ setShowLogin }) => {
 
   // state to display loading icon
   const [showLoadingIcon, setShowLoadingIcon] = useState(false);
+
+  const [notification, setNotification] = useState("");
     
 
   // function to close popup setShowOTPPop to false, pass into component
@@ -93,12 +95,36 @@ const LoginPopup = ({ setShowLogin }) => {
     setUsername(name);
     setPassword(password);
 
-    axiosInstance.post("/api/email/send2faEmail_Login", 
+    axiosInstance.post("/api/user/login", 
       { username: name, password}
     )
-    .then(response => {
+    .then(res => {
+
+      console.log
       setShowLoadingIcon(false);
-      setShowOTPPopup(true);
+
+      alert(res.data.message);
+
+      const receivedJWTToken = res.data.jwt_token;  // received JWT Token from response
+      const receivedCSRFToken = res.data.csrf_token; // received csrf token from response
+      
+      Cookies.set("authToken", receivedJWTToken, {
+        path: "/",
+        secure: true,
+        sameSite: "strict",
+      });
+
+      sessionStorage.setItem('csrfToken', receivedCSRFToken);
+
+      setIsLogin(true);
+      setShowLogin(false);
+      setUserIsAdmin(res.data.admin); // set state to show if it is admin or not
+
+      localStorage.setItem("isAdmin", res.data.admin ? true : false);
+
+      setTimeout(() => {
+        setNotification("");
+      }, 3000)
     })
     .catch(err => {
       if (err.response.data.path){ //path exists, let user know which input is incorrect
@@ -181,14 +207,6 @@ const LoginPopup = ({ setShowLogin }) => {
             <span onClick={() => setCurrState("Login")}>Login Here</span>
           </p>
         )}
-
-        <div className="forget-password">
-          <p>
-            Forget your password?{" "}
-            <span onClick={() => setShowLogin(false)}><Link to='/verifyEmailPage'>Reset Password</Link></span>
-          </p>
-        </div>
-
       </form>
 
       {errorMsg && (
@@ -198,9 +216,7 @@ const LoginPopup = ({ setShowLogin }) => {
         </div>
       )}
 
-
-      {/* call OTP PopUp depending on state */}
-      {showOTPPopup && <LoginOTPPopup setShowLogin={setShowLogin} closePopUp={closePopUp} username={username} password={password}/>}
+      {notification && <div className="notification">{notification}</div>}
 
       {/* loading icon pop up depending on state */}
       {showLoadingIcon && <LoadingIcon/>}
