@@ -99,8 +99,6 @@ const LoginPopup = ({ setShowLogin }) => {
       { username: name, password}
     )
     .then(res => {
-
-      console.log
       setShowLoadingIcon(false);
 
       alert(res.data.message);
