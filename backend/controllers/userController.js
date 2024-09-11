@@ -248,10 +248,8 @@ const editProfile = async (req, res) => {
 				}
 			} catch (err) {
 				if (err instanceof multer.MulterError){
-					console.log(err)
 					return res.status(500).json({ message: "Only png, jpg, jpeg are accepted. Filesize limited to 3MB"});
 				} else {
-					console.log(err)
 					return res.status(500).json({ message: "Only png, jpg, jpeg are accepted. Filesize limited to 3MB"});
 				}
 			}
