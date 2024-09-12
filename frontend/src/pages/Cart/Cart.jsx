@@ -4,23 +4,20 @@ import CartItem from "../../components/CartItem/CartItem";
 import CartSummary from "../../components/CartSummary/CartSummary";
 import CheckoutForm from "../../components/CheckoutForm/CheckoutForm";
 import cartEmptyImg from "../../assets/cart-empty.png";
-import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
 import "./Cart.css";
 
-const initialOptions = {
-  "client-id":
-    "AYizNfu94uieg5xAIH6fYRDLw23aVEOaIs53oazYt93CUb5QKes36pTavNtMpCm2QpHHl74FpXx2bnJB",
-  currency: "SGD",
-  "enable-funding": "paylater,venmo,card",
-  "disable-funding": "",
-  "data-sdk-integration-source": "developer-studio",
-};
 
 const Cart = () => {
   const [items, setItems] = useState([]);
   
   const [isReady, setIsReady] = useState();
   let [key, setKey] = useState(1);
+
+  const [success, setSuccess] = useState(false);
+
+  const notifySuccess = async (completed) => {
+    setSuccess(completed)
+  }
 
 
   useEffect(() => {
@@ -107,121 +104,6 @@ const Cart = () => {
     setItems((prevItems) => prevItems.filter((item) => item.id !== id));
   };
 
-  const createOrder = async () => {
-    try {
-      const response = await fetch("/api/order/create", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        // use the "body" param to optionally pass additional order information
-        // like product ids and quantities
-        body: JSON.stringify({
-          cart: {
-            orderList: `${getOrderList()}`,
-            total: grandTotal,
-          },
-        }),
-      });
-
-      const orderData = await response.json();
-
-      if (orderData.id) {
-        return orderData.id;
-      } else {
-        const errorDetail = orderData?.details?.[0];
-        const errorMessage = errorDetail
-          ? `${errorDetail.issue} ${errorDetail.description} (${orderData.debug_id})`
-          : JSON.stringify(orderData);
-
-        throw new Error(errorMessage);
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  const onApprove = async (data, actions) => {
-    try {
-      // Capture order to receive payout
-      const response = await fetch(`/api/order/${data.orderID}/capture`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-
-      const captureData = await response.json();
-      // Three cases to handle:
-      //   (1) Recoverable INSTRUMENT_DECLINED -> call actions.restart()
-      //   (2) Other non-recoverable errors -> Show a failure message
-      //   (3) Successful transaction -> Show confirmation or thank you message
-
-      const errorDetail = captureData?.details?.[0];
-
-      if (errorDetail?.issue === "INSTRUMENT_DECLINED") {
-        // (1) Recoverable INSTRUMENT_DECLINED -> call actions.restart()
-        // recoverable state, per https://developer.paypal.com/docs/checkout/standard/customize/handle-funding-failures/
-        return actions.restart();
-      } else if (errorDetail) {
-        // (2) Other non-recoverable errors -> Show a failure message
-        throw new Error(`${errorDetail.description} (${captureData.debug_id})`);
-      } else {
-        // (3) Successful transaction -> Confirm order, create entry in DB, clear cart and redirect
-        const transaction = captureData.purchase_units[0].payments.captures[0];
-        console.log(
-          "Capture result",
-          captureData,
-          JSON.stringify(captureData, null, 2),
-        );
-
-        const confirmResponse = await confirmOrder(captureData.id);
-        console.log(confirmResponse);
-
-        const orderList = confirmResponse.data.order_list;
-
-        if (confirmResponse.status == 201) {
-          // clear cart here and redirect
-          clearCart(orderList);
-        } else {
-          throw new Error(confirmResponse.statusText);
-        }
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  const confirmOrder = async (orderID) => {
-    const url = `/api/order/${orderID}/confirm`;
-    const response = await axiosInstance.post(
-      url,
-      JSON.stringify({
-        orderList: `${getOrderList()}`,
-      }),
-      {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      },
-    );
-
-    return response;
-  };
-
-  
-
-
-
-  // Note: This error handler is a catch-all. Errors at this point aren't expected to be handled beyond showing a generic error message or page.
-  // per https://developer.paypal.com/sdk/js/reference/
-  const onError = (err) => {
-    console.error(err);
-  };
-
-  const onCancel = () => {
-    console.log("Order cancelled");
-  };
 
   const clearCart = (orderList) => {
     console.log(orderList);
@@ -288,15 +170,9 @@ const Cart = () => {
           ))}
         </div>
         <div className="checkout">
-          {/* <CartSummary
-            subtotal={subtotal}
-            deliveryCharge={deliveryCharge}
-            grandTotal={grandTotal}
-          /> */}
-
 
           <CheckoutForm key={key} order={items}></CheckoutForm>
-
+          
         </div>
       </div>
     </div>

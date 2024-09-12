@@ -53,7 +53,6 @@ const uploadProduct = async (file, image_name) => {
 const uploadAvatar = async (file, image_name) => {
     try {
         const cloudinary = cloudinary_func();
-        console.log("img: "+file+" : "+image_name)
         const upload = await cloudinary.v2.uploader.upload(file.path, {folder:'avatars', resource_type: 'image', public_id: image_name, overwrite: true, height:500, width:500, crop:'thumb'});
         return upload.secure_url;
     } catch (error) {

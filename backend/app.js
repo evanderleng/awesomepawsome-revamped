@@ -10,7 +10,7 @@ const connDB = require("./db");
 const schedule = require('node-schedule');
 const fse = require('fs-extra');
 
-const stripe = require('stripe')('sk_test_51PaLw5DC0HCHwtvp6ObvOpKNrqUrjOeh0UGaLuJ4VsLhGk8ItD6iUfofj0dB4bpP9iYD4UNF8sccJmiGLZ6bdUkE00smefRBiH');
+const stripe = require('stripe')(process.env.STRIPE_SECRET);
 const YOUR_WEBHOOK_SECRET = 'your_stripe_webhook_secret'; // Replace with your webhook secret from Stripe
 
 
@@ -30,11 +30,18 @@ dotenv.config();
 connDB();
 const app = express();
 
+if (process.env.NODE_ENV == "development") {
+	console.log("dev mode detected!");
+} else {
+	console.log("prod mode detected! We are live!");
+}
+
+
 // if (process.env.NODE_ENV == "development") {
-  app.use(cors({
-    credentials: true,
-    origin: 'https://awesomepawsome.shop'
-  }));
+app.use(cors({
+	credentials: true,
+	origin: '*'
+}));
 //   console.log("development mode detected. CORS enabled, use http://127.0.0.1:5173 to access");
 // } else {
 //   app.use(helmet({
@@ -45,51 +52,47 @@ const app = express();
 //   console.log("production mode detected. CORS enabled.");
 // }
 
-app.use(express.json());
-app.use(mongoSanitize());
-
-// var accessLogStream = rfs.createStream('access.log', {
-//   size: "10M", // rotate every 10 MegaBytes written
-//   interval: '1d', // rotate daily
-//   path: path.join(__dirname, 'log'),
-//   compress: "gzip" // compress rotated files
-// })
-// app.use(morgan('combined', { stream: accessLogStream }))
 
 
-// app.set('trust proxy', 1); // Trust first proxy, for NGINX
+const { fulfillCheckout } = require("./controllers/order2Controller.js")
+// This is your Stripe CLI webhook secret for testing your endpoint locally.
+const endpointSecret = "whsec_11fb8ef9e04dec7aad4561ac956a3a713db28c2e8e0a4a4d134d3abead33f648";
 
-// const job = schedule.scheduleJob('*/15 * * * *', () => { // At every 15th minute
-//   fse.emptyDirSync("./tmp");
-//   console.log("Deleted tmp folder contents.")
-// });
+app.post('/webhook', express.raw({ type: 'application/json' }), (request, response) => {
+	response.send()
+	try {
+		const sig = request.headers['stripe-signature'];
+		let event;
 
+		try {
+			event = stripe.webhooks.constructEvent(request.body, sig, endpointSecret);
+		} catch (err) {
+			console.log(err)
+			response.status(400).send(`Webhook Error: ${err.message}`);
+			return;
+		}
 
+		// Handle the event
+		switch (event.type) {
+			case 'payment_intent.succeeded':
+				const paymentIntentSucceeded = event.data.object;
+				// console.log("payment triggered!")
+				break;
 
+			case 'checkout.session.completed':
+			case 'checkout.session.async_payment_succeeded':
+				fulfillCheckout(event.data.object.id);
+				break;
+			default:
+				// console.log(`Unhandled event type ${event.type}`);
+		}
 
-// app.post('/webhook', async (req, res) => {
-//   const sig = req.headers['stripe-signature'];
-//   let event;
-//   try {
-//     event = stripe.webhooks.constructEvent(req.body, sig, YOUR_WEBHOOK_SECRET);
-//   } catch (err) {
-//     console.error('Webhook Error:', err.message);
-//     return res.status(400).send(`Webhook Error: ${err.message}`);
-//   }
-
-//   if (event.type === 'checkout.session.completed') {
-//     const session = event.data.object;
-//     const paymentIntent = session.payment_intent;
-
-//     try {
-//       await executeDatabaseFunction(event); // Implement this function to handle your database operation
-//       console.log('Database function executed successfully.');
-//     } catch (error) {
-//       console.error('Error executing database function:', error.message);
-//     }
-//   }
-//   res.json({ received: true });
-// });
+		// Return a 200 response to acknowledge receipt of the event
+		response.send();
+	} catch (err) {
+		console.log(err)
+	}
+});
 
 // const executeDatabaseFunction = async (paymentIntentId) => {
 //   console.log('Executing database function for payment intent:', paymentIntentId);
@@ -97,6 +100,8 @@ app.use(mongoSanitize());
 
 
 
+app.use(express.json());
+app.use(mongoSanitize());
 
 // logging purposes, delete before submission
 // app.use((req, res, next) => {
@@ -115,5 +120,5 @@ app.use("/api/book", BookRouter);
 
 // Server Listening Port
 app.listen(4000, () => {
-  console.log("Server started on port 4000");
+	console.log("Server started on port 4000");
 });
