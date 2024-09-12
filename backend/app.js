@@ -11,7 +11,6 @@ const schedule = require('node-schedule');
 const fse = require('fs-extra');
 
 const stripe = require('stripe')(process.env.STRIPE_SECRET);
-const YOUR_WEBHOOK_SECRET = 'your_stripe_webhook_secret'; // Replace with your webhook secret from Stripe
 
 
 const UserRouter = require("./routes/UserRoutes.js")
@@ -40,7 +39,7 @@ if (process.env.NODE_ENV == "development") {
 // if (process.env.NODE_ENV == "development") {
 app.use(cors({
 	credentials: true,
-	origin: '*'
+	origin: 'https://awesomepawsome.shop'
 }));
 //   console.log("development mode detected. CORS enabled, use http://127.0.0.1:5173 to access");
 // } else {
@@ -56,7 +55,7 @@ app.use(cors({
 
 const { fulfillCheckout } = require("./controllers/order2Controller.js")
 // This is your Stripe CLI webhook secret for testing your endpoint locally.
-const endpointSecret = "whsec_11fb8ef9e04dec7aad4561ac956a3a713db28c2e8e0a4a4d134d3abead33f648";
+const endpointSecret = process.env.WEBHOOK_SECRET;
 
 app.post('/webhook', express.raw({ type: 'application/json' }), (request, response) => {
 	response.send()
@@ -93,10 +92,6 @@ app.post('/webhook', express.raw({ type: 'application/json' }), (request, respon
 		console.log(err)
 	}
 });
-
-// const executeDatabaseFunction = async (paymentIntentId) => {
-//   console.log('Executing database function for payment intent:', paymentIntentId);
-// };
 
 
 
