@@ -19,7 +19,7 @@ import {
 // recreating the `Stripe` object on every render.
 // This is your test secret API key.
 // const stripePromise = loadStripe(import.meta.env.STRIPE_SECRET);
-const stripePromise = loadStripe("pk_test_51PaLw5DC0HCHwtvpkqL3kqfqbjawIg3ZFGby0Q7lzhbqRO5lzCVlx8qHBAYYXpheDZC1gEZMOvbQm6AN1m75OK0k004NujNdQV")
+const stripePromise = loadStripe("pk_test_51PaLw5DC0HCHwtvpiczlynmAWelkBibgTMosTYYk32a7EbMPWLs75Jaf1GmD5RihL77pFtrcshi0DaaNc585i80R00nWCYRAra")
 
 const CheckoutForm = (order) => {
     const navigate = useNavigate();
