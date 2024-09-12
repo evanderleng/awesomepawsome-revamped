@@ -60,7 +60,7 @@ const { fulfillCheckout } = require("./controllers/order2Controller.js")
 const endpointSecret = process.env.WEBHOOK_SECRET;
 
 app.post('/webhook', express.raw({ type: 'application/json' }), (request, response) => {
-	response.send()
+	// response.send()
 	try {
 		const sig = request.headers['stripe-signature'];
 		let event;
