@@ -31,16 +31,18 @@ const app = express();
 
 if (process.env.NODE_ENV == "development") {
 	console.log("dev mode detected!");
+	app.use(cors({
+		credentials: true,
+		origin: 'http://127.0.0.1:5173'
+	}));
 } else {
 	console.log("prod mode detected! We are live!");
+	app.use(cors({
+		credentials: true,
+		origin: 'https://awesomepawsome.shop'
+	}));
 }
 
-
-// if (process.env.NODE_ENV == "development") {
-app.use(cors({
-	credentials: true,
-	origin: 'https://awesomepawsome.shop'
-}));
 //   console.log("development mode detected. CORS enabled, use http://127.0.0.1:5173 to access");
 // } else {
 //   app.use(helmet({
