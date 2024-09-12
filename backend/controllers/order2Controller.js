@@ -4,19 +4,27 @@
 const stripe = require('stripe')(process.env.STRIPE_SECRET);
 
 const Product = require("../models/Product");
+const Order = require("../models/Order");
+const Cart = require("../models/Cart");
+const mongoose = require('mongoose');
+const { getProductById } = require('./productController');
 
-const YOUR_DOMAIN = 'http://127.0.0.1:4000';
 
-
-const generateLineItem = async ({id, quantity}) => {
+const generateLineItem = async ({ id, quantity }) => {
 	try {
-        const product = await Product.findOne( {_id: id} );
-		const lineItem = {price_data: {currency: 'sgd','recurring':{"interval": "month"}, product_data: {description: JSON.stringify(product._id), name: product.name, images: [product.imageURL]} ,unit_amount: product.price*100 }, quantity: quantity}
-		console.log("lineitem created")
-		console.log(lineItem)
+		const product = await Product.findOne({ _id: id }); //uhh maybe check if it exists
+		const lineItem = {
+			price_data: {
+				currency: 'sgd',
+				'recurring': { "interval": "month" },
+				product_data: { description: product.description, name: product.name, images: [product.imageURL], metadata: {product_id: JSON.stringify(product._id)} },
+				unit_amount: product.price * 100
+			},
+			quantity: quantity
+		}
 		return lineItem
 
-	}catch (err){
+	} catch (err) {
 		console.log(err)
 		return 'fail'
 	}
@@ -26,11 +34,11 @@ const createCheckoutSession = async (req, res) => {
 	let { order } = req.body
 
 	order = await Promise.all(
-		order.map(item => generateLineItem( {id: item.id, quantity: item.quantity} ) )
+		order.map(item => generateLineItem({ id: item.id, quantity: item.quantity }))
 	);
 	// console.log(req.user._id)
 	const session = await stripe.checkout.sessions.create({
-		// client_reference_id: req.user._id,
+		client_reference_id: req.user._id,
 		ui_mode: 'embedded',
 		line_items: order,
 		mode: 'subscription',
@@ -51,4 +59,44 @@ const sessionStatus = async (req, res) => {
 };
 
 
-module.exports = { createCheckoutSession, sessionStatus};
+async function fulfillCheckout(sessionId) {
+	console.log('Fulfilling Checkout Session ' + sessionId);
+
+	// TODO: Make this function safe to run multiple times,
+	// even concurrently, with the same session ID
+
+	// TODO: Make sure fulfillment hasn't already been
+	// peformed for this Checkout Session
+
+	// Retrieve the Checkout Session from the API with line_items expanded
+	const checkoutSession = await stripe.checkout.sessions.retrieve(sessionId, { expand: ['line_items'], });
+
+	const product = await stripe.products.retrieve(checkoutSession.line_items.data[0].price.product);
+
+	lineItemArray = checkoutSession.line_items.data;
+
+	let order_list = []
+	for (item of lineItemArray){
+		prodbuffer = await stripe.products.retrieve(item.price.product)
+		order_list.push( { "product_id": new mongoose.Types.ObjectId(JSON.parse(prodbuffer.metadata.product_id)), "quantity": item.quantity })
+	}
+
+
+	// Check the Checkout Session's payment_status property
+	// to determine if fulfillment should be peformed
+	if (checkoutSession.payment_status !== 'unpaid') {
+		let order = await Order.create({
+			user_id: checkoutSession.client_reference_id,
+			order_list: order_list
+		});
+
+		let cart = await Cart.deleteOne(
+			{ "user_id": checkoutSession.client_reference_id }
+		)
+	}
+}
+
+
+
+
+module.exports = { createCheckoutSession, sessionStatus, fulfillCheckout };
