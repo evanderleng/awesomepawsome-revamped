@@ -16,6 +16,17 @@
     margin-right: 20px;
 }
 
+.checkout {
+  flex: 3;
+  margin-right: 20px;
+}
+
+@media (max-width: 1000px) {
+  .cart-content{
+    display:block;
+  }
+}
+
 .cart-summary {
     flex: 1;
     background-color: #f8f8f8;
@@ -25,9 +36,6 @@
     min-width: 300px;
     align-self: flex-start;
 }
-
-
-
 
 .empty-cart {
     text-align: center;
