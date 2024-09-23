@@ -16,11 +16,6 @@
     margin-right: 20px;
 }
 
-.checkout {
-  flex: 3;
-  margin-right: 20px;
-}
-
 @media (max-width: 1000px) {
   .cart-content{
     display:block;
